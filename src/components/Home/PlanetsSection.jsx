@@ -1028,19 +1028,19 @@ const PlanetsSection = () => {
   ))}
 </div> */}
 
-<div className="flex gap-2 sm:gap-4 md:gap-6 lg:gap-8 py-4 px-2 sm:px-4 md:px-8 w-fit">
+<div className="flex gap-4 sm:gap-5 md:gap-6 lg:gap-7 py-4 px-4 sm:px-6 md:px-8 lg:px-12 w-fit">
   {extendedPlanets.map((planet, index) => (
     <div
       key={index}
       className="snap-start shrink-0 flex flex-col items-center 
-        min-w-[25%] xs:min-w-[25%] sm:min-w-[25%] md:min-w-[30%] xl:min-w-[19%] 2xl:min-w-[17%]"
+        min-w-[240px] sm:min-w-[260px] md:min-w-[280px] lg:min-w-[300px]"
     >
       <img
         src={planet.src}
         alt={planet.name}
-        className="w-[100px] h-[100px] xs:w-[120px] xs:h-[120px] sm:w-[150px] sm:h-[150px] md:w-[200px] md:h-[200px] object-contain"
+        className="w-[140px] h-[140px] sm:w-[160px] sm:h-[160px] md:w-[180px] md:h-[180px] lg:w-[200px] lg:h-[200px] object-contain"
       />
-      <h4 className="text-xs xs:text-sm sm:text-base md:text-lg font-bold text-[#2D7351] mt-3 uppercase text-center">
+      <h4 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-[#2D7351] mt-3 uppercase text-center">
         {planet.name}
       </h4>
     </div>

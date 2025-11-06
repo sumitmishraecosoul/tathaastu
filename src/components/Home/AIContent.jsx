@@ -860,23 +860,23 @@ const AIContentSection = () => {
   <div
     ref={scrollRef}
     onScroll={handleScroll}
-    className="flex gap-3 sm:gap-4 md:gap-6 scroll-smooth overflow-x-auto scrollbar-hide py-6"
+    className="flex gap-3 sm:gap-4 md:gap-5 lg:gap-6 scroll-smooth overflow-x-auto scrollbar-hide py-6"
     style={{ scrollSnapType: "x mandatory" }}
   >
     {cloned.map((item, index) => (
       <div
         key={index}
         className="carousel-card snap-start shrink-0 text-center flex flex-col items-center 
-        w-[85%] sm:w-[220px] md:w-[240px] lg:w-[240px] xl:w-[260px]"
+        w-[85%] sm:w-[200px] md:w-[220px] lg:w-[240px] xl:w-[260px]"
       >
-        <div className="w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] md:w-[140px] md:h-[140px] rounded-full overflow-hidden flex items-center justify-center mb-3">
+        <div className="w-[140px] h-[140px] sm:w-[160px] sm:h-[160px] md:w-[180px] md:h-[180px] lg:w-[200px] lg:h-[200px] rounded-full overflow-hidden flex items-center justify-center mb-4">
           <img
             src={item.image}
             alt={item.title}
             className="w-full h-full object-contain"
           />
         </div>
-        <h4 className="text-xs sm:text-sm md:text-base font-bold text-[#2D7351] whitespace-pre-line leading-snug">
+        <h4 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-[#2D7351] whitespace-pre-line leading-snug">
           {item.title}
         </h4>
       </div>

@@ -233,28 +233,38 @@
 
 import React, { useRef, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import Tarot from "../../assets/TarotReading.svg";
-import Numerology from "../../assets/Numerology.svg";
+import Tarot from "../../assets/service1.svg";
+import Numerology from "../../assets/service2.svg";
 
 const services = [
   {
-    title: "NUMEROLOGY",
-    subtitle: "BIRTH CHARTS, PREDICTIONS",
+    title: "Vaastu Shastra",
+    subtitle: "300+ homes & Offices energized | Covers vaastu for home and office and remedy suggestions | Ideal for new constructions, renovations & space healing",
     image: Numerology,
   },
   {
-    title: "TAROT READING",
-    subtitle: "BIRTH CHARTS, PREDICTIONS",
+    title: "Astrology",
+    subtitle: "Prepared 200+ Personalised Chart | Find insights into marriage, love life, career, health, or personal growth | Analyse Dasha analysis, transit readings & remedies",
     image: Tarot,
   },
   {
-    title: "PALMISTRY",
-    subtitle: "BIRTH CHARTS, PREDICTIONS",
+    title: "Tarot Reading",
+    subtitle: "500+ clients guided | Accurate and intuitive tarot readings, both in-person and online | Specialized spreads: Love, Finance, Yes/No, Chakra",
+    image: Tarot,
+  },
+  {
+    title: "Numerology",
+    subtitle: "200+ Numerology Calculated | Create Numerology Charts",
     image: Numerology,
   },
   {
-    title: "ASTROLOGY",
-    subtitle: "BIRTH CHARTS, PREDICTIONS",
+    title: "Aura Scanning & Cleaning",
+    subtitle: "500+ aura cleaning performed | Scan and cleanse your energy field using crystal, sound & chakra methods",
+    image: Numerology,
+  },
+  {
+    title: "Spiritual Growth & Healing",
+    subtitle: "100+ Customers Mentored for Spiritual Growth & Healing | Provide one on one guidance, digital meditations & group healing circles",
     image: Tarot,
   },
 ];
@@ -363,8 +373,8 @@ const ServicesCarousel = () => {
     <div className="relative font-sans py-16 w-full">
   {/* Title and Button */}
   <div className=" mx-auto px-6 flex flex-wrap gap-4 justify-between items-center mb-10">
-    <h2 className="text-2xl sm:text-3xl font-bold tracking-wide text-[#2D7351]">
-      WHAT ARE THE <span className="text-[#C5445D]">SERVICES</span> THAT WE ARE OFFERING TO YOU.
+    <h2 className="text-2xl sm:text-3xl font-bold tracking-wide text-[#2D7351] ml-4 sm:ml-6">
+      Our Services
     </h2>
     <button className="bg-[#C5445D] text-white px-6 py-2 rounded-full shadow-md font-semibold hover:bg-[#a6344f] transition-all">
       KNOW MORE
@@ -407,12 +417,12 @@ const ServicesCarousel = () => {
               alt={item.title}
               className="w-full h-[200px] sm:h-[250px] md:h-[280px] lg:h-[300px] object-cover"
             />
-            {/* <div className="p-4 text-center">
+            <div className="p-4 text-center">
               <h4 className="text-base sm:text-lg md:text-xl font-bold text-[#2D7351]">
                 {item.title}
               </h4>
               <p className="text-sm text-[#2D7351] mt-1">{item.subtitle}</p>
-            </div> */}
+            </div>
           </div>
         ))}
       </div>

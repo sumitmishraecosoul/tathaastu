@@ -68,19 +68,25 @@ const VisionMissionSection = () => {
         {/* Right: Text Content */}
         <div className="w-full md:w-1/2 mt-10 md:mt-0 md:pl-12 pt-12 text-center md:text-left flex flex-col items-center justify-between">
           
-          <p className="text-gray-700 leading-relaxed text-sm md:text-base mb-8 max-w-[500px]">
-            LOREM IPSUM IS SIMPLY DUMMY TEXT OF THE PRINTING AND TYPESETTING INDUSTRY. LOREM IPSUM HAS BEEN
-            THE INDUSTRY'S STANDARD DUMMY TEXT EVER SINCE THE 1500S, WHEN AN UNKNOWN PRINTER TOOK A GALLEY
-            OF TYPE AND SCRAMBLED IT TO MAKE A TYPE SPECIMEN BOOK.
-            LOREM IPSUM IS SIMPLY DUMMY TEXT OF THE PRINTING AND TYPESETTING INDUSTRY. LOREM IPSUM HAS BEEN
-            THE INDUSTRY'S STANDARD DUMMY TEXT EVER SINCE THE 1500S, WHEN AN UNKNOWN PRINTER TOOK A GALLEY
-            OF TYPE AND SCRAMBLED IT TO MAKE A TYPE SPECIMEN BOOK.
-          </p>
+          <div className="text-gray-700 leading-relaxed text-sm md:text-base mb-8 max-w-[500px] space-y-4">
+            <p>
+              At Tathasstu, we believe that every soul comes with a divine blueprint (A cosmic map that guides your life's journey).
+            </p>
+            <p>
+              We are more than just an astrology platform. We are a spiritual companion on your journey to clarity, healing, and self-awareness.
+            </p>
+            <p>
+              Our mission is simple: Help you connect with India's best professional astrologers who can provide real, accurate, and personalized guidance to help you navigate life's challenges with clarity and confidence.
+            </p>
+            <p>
+              If you have any questions about marriage, love life, career, health, or personal growth, our expert astrologers are available to you 24/7 via call, chat, reports, or query-based consultations.
+            </p>
+          </div>
           {/* <button className="bg-[#C5445D] max-w-1/2 text-white px-24 py-2  rounded-full shadow-md font-semibold hover:bg-[#a6344f] transition-all">
             CONTACT US  
           </button> */}
           <button className="bg-[#C5445D] max-w-1/2 text-white px-24 py-2 flex items-center gap-2 rounded-full shadow-md font-semibold hover:bg-[#a6344f] transition-all">
-  CONTACT US
+  Book A Call
   <ArrowRight size={20} />
 </button>
 
