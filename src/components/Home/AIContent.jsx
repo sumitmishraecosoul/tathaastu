@@ -812,22 +812,21 @@ const AIContentSection = () => {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        {/* Arrows */}
-        <button
-          onClick={() => scroll("left")}
-          className="absolute left-1 sm:left-4 top-1/2 -translate-y-1/2 z-10 bg-white w-8 h-8 sm:w-10 sm:h-10 rounded-full shadow-md flex items-center justify-center hover:scale-110 transition-transform"
-        >
-          <ChevronLeft className="text-[#C5445D]" />
-        </button>
-        <button
-          onClick={() => scroll("right")}
-          className="absolute right-1 sm:right-4 top-1/2 -translate-y-1/2 z-10 bg-white w-8 h-8 sm:w-10 sm:h-10 rounded-full shadow-md flex items-center justify-center hover:scale-110 transition-transform"
-        >
-          <ChevronRight className="text-[#C5445D]" />
-        </button>
-
         {/* Scrollable Carousel */}
-        <div className="overflow-hidden px-2 sm:px-6 md:px-12 lg:px-20 xl:px-24">
+        <div className="overflow-hidden px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 relative">
+          {/* Arrows - positioned inside carousel container */}
+          <button
+            onClick={() => scroll("left")}
+            className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 bg-[#C5445D] text-white w-10 h-10 sm:w-12 sm:h-12 rounded-full shadow-md flex items-center justify-center hover:scale-110 transition-transform"
+          >
+            <ChevronLeft className="text-white" size={20} />
+          </button>
+          <button
+            onClick={() => scroll("right")}
+            className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 bg-[#C5445D] text-white w-10 h-10 sm:w-12 sm:h-12 rounded-full shadow-md flex items-center justify-center hover:scale-110 transition-transform"
+          >
+            <ChevronRight className="text-white" size={20} />
+          </button>
           {/* <div
             ref={scrollRef}
             onScroll={handleScroll}
@@ -855,34 +854,30 @@ const AIContentSection = () => {
           </div> */}
 
           <div
-  className="overflow-hidden px-2 sm:px-4 md:px-8 lg:px-16 xl:px-24"
->
-  <div
-    ref={scrollRef}
-    onScroll={handleScroll}
-    className="flex gap-3 sm:gap-4 md:gap-5 lg:gap-6 scroll-smooth overflow-x-auto scrollbar-hide py-6"
-    style={{ scrollSnapType: "x mandatory" }}
-  >
-    {cloned.map((item, index) => (
-      <div
-        key={index}
-        className="carousel-card snap-start shrink-0 text-center flex flex-col items-center 
-        w-[85%] sm:w-[200px] md:w-[220px] lg:w-[240px] xl:w-[260px]"
-      >
-        <div className="w-[140px] h-[140px] sm:w-[160px] sm:h-[160px] md:w-[180px] md:h-[180px] lg:w-[200px] lg:h-[200px] rounded-full overflow-hidden flex items-center justify-center mb-4">
-          <img
-            src={item.image}
-            alt={item.title}
-            className="w-full h-full object-contain"
-          />
-        </div>
-        <h4 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-[#2D7351] whitespace-pre-line leading-snug">
-          {item.title}
-        </h4>
-      </div>
-    ))}
-  </div>
-</div>
+            ref={scrollRef}
+            onScroll={handleScroll}
+            className="flex gap-4 sm:gap-5 md:gap-6 lg:gap-7 scroll-smooth overflow-x-auto scrollbar-hide py-6 px-8 sm:px-10 md:px-12 lg:px-14 xl:px-16"
+            style={{ scrollSnapType: "x mandatory" }}
+          >
+            {cloned.map((item, index) => (
+              <div
+                key={index}
+                className="carousel-card snap-start shrink-0 text-center flex flex-col items-center 
+                w-[85%] sm:w-[250px] md:w-[280px] lg:w-[300px] xl:w-[320px]"
+              >
+                <div className="w-[140px] h-[140px] sm:w-[160px] sm:h-[160px] md:w-[180px] md:h-[180px] lg:w-[200px] lg:h-[200px] rounded-full overflow-hidden flex items-center justify-center mb-4">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+                <h4 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-[#2D7351] whitespace-pre-line leading-snug">
+                  {item.title}
+                </h4>
+              </div>
+            ))}
+          </div>
 
         </div>
       </div>
