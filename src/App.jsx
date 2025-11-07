@@ -7,6 +7,7 @@ import Blog from './pages/Blog';
 import Courses from './pages/Courses';
 import Login from './pages/Login';
 import ConsultationBooking from './pages/ConsultationBooking';
+import WhatsAppFloatingButton from './components/WhatsAppFloatingButton';
 import './styles/global.css';
 
 
@@ -23,6 +24,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/consultation-booking" element={<ConsultationBooking />} />
         </Routes>
+        <WhatsAppFloatingButton />
       </div>
     </Router>
   );
