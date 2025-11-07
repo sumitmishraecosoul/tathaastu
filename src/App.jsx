@@ -6,6 +6,7 @@ import Contact from './pages/Contact';
 import Blog from './pages/Blog';
 import Courses from './pages/Courses';
 import Login from './pages/Login';
+import ConsultationBooking from './pages/ConsultationBooking';
 import './styles/global.css';
 
 
@@ -20,6 +21,7 @@ function App() {
           <Route path="/blog" element={<Blog />} />
           <Route path="/courses" element={<Courses />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/consultation-booking" element={<ConsultationBooking />} />
         </Routes>
       </div>
     </Router>

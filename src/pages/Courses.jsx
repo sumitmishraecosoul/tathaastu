@@ -139,15 +139,17 @@ export default function Courses() {
       </div>
       
       {/* NAVIGATION */}
-      <nav className="flex justify-between items-center bg-[#F5D6B4] px-4 md:px-6 py-3 shadow">
+      <nav className="grid grid-cols-3 items-center bg-[#F5D6B4] px-4 md:px-6 py-3 shadow">
         <div className="flex items-center">
           <SliderOpener />
         </div>
-        <img src={tathaastuLogo} alt="Tathaastu Logo" className="h-12" />
-                 <div className="space-x-2 md:space-x-4">
-           <button className="text-sm font-semibold text-[#073349] hover:text-[#D44459] transition-colors">CONTACT US</button>
-           <Link to="/login" className="bg-[#D44459] text-white px-4 py-2 rounded-lg hover:bg-[#B83A4A] transition-colors inline-block">SIGN IN</Link>
-         </div>
+        <div className="flex justify-center">
+          <img src={tathaastuLogo} alt="Tathaastu Logo" className="h-16 md:h-20" />
+        </div>
+        <div className="flex justify-end space-x-2 md:space-x-4">
+          <button className="text-sm font-semibold text-[#073349] hover:text-[#D44459] transition-colors">CONTACT US</button>
+          <Link to="/login" className="bg-[#D44459] text-white px-4 py-2 rounded-lg hover:bg-[#B83A4A] transition-colors inline-block">SIGN IN</Link>
+        </div>
       </nav>
 
                            {/* HERO SECTION */}

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import tathaastuLogo from '../assets/tathaastu_logo.png';
 import SliderOpener from '../components/Home/SliderOpener';
 import Footer from '../layout/Footer';
@@ -6,6 +7,11 @@ import PricingBanner from "../assets/pricing_banner.svg";
 import Seperator from '../components/Home/SeperatorComponent';
 
 export default function Pricing() {
+  const navigate = useNavigate();
+
+  const handleGetStarted = (plan) => {
+    navigate('/consultation-booking', { state: { plan } });
+  };
   const pricingPlans = [
     {
       name: "REGULAR",
@@ -74,12 +80,14 @@ export default function Pricing() {
       </div>
       
       {/* NAVIGATION */}
-      <nav className="flex justify-between items-center bg-[#F5D6B4] px-4 md:px-6 py-3 shadow">
+      <nav className="grid grid-cols-3 items-center bg-[#F5D6B4] px-4 md:px-6 py-3 shadow">
         <div className="flex items-center">
           <SliderOpener />
         </div>
-        <img src={tathaastuLogo} alt="Tathaastu Logo" className="h-12" />
-        <div className="space-x-2 md:space-x-4">
+        <div className="flex justify-center">
+          <img src={tathaastuLogo} alt="Tathaastu Logo" className="h-16 md:h-20" />
+        </div>
+        <div className="flex justify-end space-x-2 md:space-x-4">
           <button className="text-sm font-semibold text-[#073349] hover:text-[#D44459] transition-colors">CONTACT US</button>
           <button className="bg-[#D44459] text-white px-4 py-2 rounded-lg hover:bg-[#B83A4A] transition-colors">SIGN IN</button>
         </div>
@@ -120,11 +128,11 @@ export default function Pricing() {
             {pricingPlans.map((plan, index) => (
               <div
                 key={index}
-                className="relative rounded-2xl overflow-hidden shadow-xl transition-transform duration-300 hover:scale-105 w-full"
+                className="relative rounded-2xl overflow-hidden shadow-xl transition-transform duration-300 hover:scale-105 w-full h-[600px] flex flex-col"
               >
                 {/* Golden-orange border and background */}
-                <div className="bg-gradient-to-b from-[#EAA83E] to-[#D4942A] p-1">
-                  <div className="bg-white rounded-xl p-6">
+                <div className="bg-gradient-to-b from-[#EAA83E] to-[#D4942A] p-1 h-full flex flex-col">
+                  <div className="bg-white rounded-xl p-6 flex flex-col h-full">
                     {/* Plan Name */}
                     <h3 className="text-xl font-bold mb-4 text-[#073349] text-center">
                       {plan.name}
@@ -140,8 +148,8 @@ export default function Pricing() {
                       </div>
                     </div>
 
-                    {/* Features List */}
-                    <ul className="space-y-3 mb-8">
+                    {/* Features List - Scrollable */}
+                    <ul className="space-y-3 mb-8 flex-1 overflow-y-auto pr-2" style={{ scrollbarWidth: 'thin', scrollbarColor: '#D44459 #f3f4f6' }}>
                       {plan.features.map((feature, featureIndex) => (
                         <li key={featureIndex} className="flex items-start">
                           <span className="mr-3 mt-1 text-[#D44459] text-lg">•</span>
@@ -153,7 +161,10 @@ export default function Pricing() {
                     </ul>
 
                     {/* CTA Button */}
-                    <button className="w-full bg-[#D44459] text-white py-3 px-6 rounded-lg font-semibold text-lg transition-all duration-300 hover:bg-[#B83A4A] shadow-lg">
+                    <button 
+                      onClick={() => handleGetStarted(plan)}
+                      className="w-full bg-[#D44459] text-white py-3 px-6 rounded-lg font-semibold text-lg transition-all duration-300 hover:bg-[#B83A4A] shadow-lg mt-auto"
+                    >
                       {plan.buttonText}
                     </button>
                   </div>

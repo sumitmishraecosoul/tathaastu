@@ -20,16 +20,11 @@ export default function SliderOpener() {
 
   const navigationItems = [
     { name: "Home", path: "/" },
-    { name: "Pricing", path: "/pricing" },
-    { name: "Blog", path: "/blog" },
-    { name: "Courses", path: "/courses" },
-    { name: "Contact Us", path: "/contact" },
-    { name: "Horoscope", path: "/#horoscope" },
-    { name: "Astrologers", path: "/#astrologers" },
     { name: "Services", path: "/#services" },
-    { name: "About Us", path: "/#about" },
-    { name: "FAQs", path: "/#faqs" },
-    { name: "Classes", path: "/#classes" }
+    { name: "Courses", path: "/courses" },
+    { name: "Blog", path: "/blog" },
+    { name: "Pricing", path: "/pricing" },
+    { name: "Contact us", path: "/contact" }
   ];
 
   return (
@@ -85,23 +80,6 @@ export default function SliderOpener() {
           </ul>
         </nav>
 
-        {/* Bottom Section */}
-        <div className="absolute bottom-0 left-0 right-0 p-6 border-t border-[#073349] border-opacity-20">
-          <div className="space-y-4">
-            {/* Sign In Button */}
-            <button className="w-full bg-[#D44459] text-white py-3 px-6 rounded-lg font-semibold hover:bg-[#B83A4A] transition-colors duration-300">
-              SIGN IN
-            </button>
-            
-            {/* Contact Button */}
-            <button 
-              onClick={() => handleNavigation('/contact')}
-              className="w-full bg-transparent text-[#073349] py-3 px-6 rounded-lg font-semibold border border-[#073349] hover:bg-[#073349] hover:text-white transition-all duration-300"
-            >
-              CONTACT US
-            </button>
-          </div>
-        </div>
       </div>
     </>
   );

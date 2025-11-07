@@ -975,88 +975,47 @@ const PlanetsSection = () => {
         </p>
       </div>
 
-      {/* Carousel with relative container for positioning */}
-      <div className="relative flex items-center">
-        {/* Left Arrow */}
-        <button
-          onClick={() => scroll("left")}
-          className="absolute left-0 z-10 bg-[#C5445D] text-white w-10 h-10 sm:w-12 sm:h-12 rounded-full shadow-md flex items-center justify-center text-xl top-1/2 -translate-y-1/2"
-        >
-          &#8249;
-        </button>
-
+      {/* Carousel Container */}
+      <div className="relative">
         {/* Scrollable Carousel */}
-        <div
-          ref={scrollRef}
-          onScroll={handleScroll}
-          className="scrollbar-hide overflow-x-auto scroll-smooth snap-x snap-mandatory w-full"
-        >
-          {/* <div className="flex gap-4 sm:gap-6 md:gap-8 py-4 px-4 sm:px-6 md:px-8 w-fit">
+        <div className="overflow-hidden px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 relative">
+          {/* Arrows - positioned inside carousel container */}
+          <button
+            onClick={() => scroll("left")}
+            className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 bg-[#C5445D] text-white w-10 h-10 sm:w-12 sm:h-12 rounded-full shadow-md flex items-center justify-center text-xl hover:scale-110 transition-transform"
+          >
+            &#8249;
+          </button>
+          <button
+            onClick={() => scroll("right")}
+            className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 bg-[#C5445D] text-white w-10 h-10 sm:w-12 sm:h-12 rounded-full shadow-md flex items-center justify-center text-xl hover:scale-110 transition-transform"
+          >
+            &#8250;
+          </button>
+          <div
+            ref={scrollRef}
+            onScroll={handleScroll}
+            className="flex gap-4 sm:gap-5 md:gap-6 lg:gap-7 scroll-smooth overflow-x-auto scrollbar-hide py-6 px-8 sm:px-10 md:px-12 lg:px-14 xl:px-16"
+            style={{ scrollSnapType: "x mandatory" }}
+          >
             {extendedPlanets.map((planet, index) => (
               <div
                 key={index}
                 className="snap-start shrink-0 flex flex-col items-center 
-                  min-w-[80%] sm:min-w-[50%] md:min-w-[23%] xl:min-w-[19%] 2xl:min-w-[17%]"
+                  min-w-[240px] sm:min-w-[260px] md:min-w-[280px] lg:min-w-[300px]"
               >
                 <img
                   src={planet.src}
                   alt={planet.name}
-                  className="w-[140px] h-[140px] sm:w-[160px] sm:h-[160px] md:w-[200px] md:h-[200px] object-contain"
+                  className="w-[140px] h-[140px] sm:w-[160px] sm:h-[160px] md:w-[180px] md:h-[180px] lg:w-[200px] lg:h-[200px] object-contain"
                 />
-                <h4 className="text-sm sm:text-base md:text-lg font-bold text-[#2D7351] mt-4 uppercase text-center">
+                <h4 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-[#2D7351] mt-3 uppercase text-center">
                   {planet.name}
                 </h4>
               </div>
             ))}
-          </div> */}
-          {/* <div className="flex gap-2 sm:gap-4 md:gap-6 lg:gap-8 py-4 px-2 sm:px-6 md:px-8 w-fit">
-  {extendedPlanets.map((planet, index) => (
-    <div
-      key={index}
-      className="snap-start shrink-0 flex flex-col items-center 
-        min-w-[65%] sm:min-w-[45%] md:min-w-[23%] xl:min-w-[19%] 2xl:min-w-[17%]"
-    >
-      <img
-        src={planet.src}
-        alt={planet.name}
-        className="w-[120px] h-[120px] sm:w-[150px] sm:h-[150px] md:w-[200px] md:h-[200px] object-contain"
-      />
-      <h4 className="text-xs sm:text-sm md:text-base font-bold text-[#2D7351] mt-3 uppercase text-center">
-        {planet.name}
-      </h4>
-    </div>
-  ))}
-</div> */}
-
-<div className="flex gap-4 sm:gap-5 md:gap-6 lg:gap-7 py-4 px-4 sm:px-6 md:px-8 lg:px-12 w-fit">
-  {extendedPlanets.map((planet, index) => (
-    <div
-      key={index}
-      className="snap-start shrink-0 flex flex-col items-center 
-        min-w-[240px] sm:min-w-[260px] md:min-w-[280px] lg:min-w-[300px]"
-    >
-      <img
-        src={planet.src}
-        alt={planet.name}
-        className="w-[140px] h-[140px] sm:w-[160px] sm:h-[160px] md:w-[180px] md:h-[180px] lg:w-[200px] lg:h-[200px] object-contain"
-      />
-      <h4 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-[#2D7351] mt-3 uppercase text-center">
-        {planet.name}
-      </h4>
-    </div>
-  ))}
-</div>
-
-
+          </div>
         </div>
-
-        {/* Right Arrow */}
-        <button
-          onClick={() => scroll("right")}
-          className="absolute right-0 z-10 bg-[#C5445D] text-white w-10 h-10 sm:w-12 sm:h-12 rounded-full shadow-md flex items-center justify-center text-xl top-1/2 -translate-y-1/2"
-        >
-          &#8250;
-        </button>
       </div>
     </div>
   );

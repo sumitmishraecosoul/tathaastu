@@ -52,8 +52,6 @@ const AstrologyHome = () => {
         className="relative h-[600px] bg-cover bg-center flex items-center"
        style={{ backgroundImage: `url(${Banner})` }}
       >
-        <div className="absolute inset-0 bg-black/50"></div>
-
         <div className="relative z-10 flex flex-col md:flex-row items-center justify-between px-10 md:px-20 w-full">
           {/* Left Content */}
           <div className="text-white max-w-xl space-y-4">
