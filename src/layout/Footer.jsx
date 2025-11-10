@@ -1,10 +1,15 @@
 import React from 'react';
+import { ArrowUp } from 'lucide-react';
 import tathaastuLogo from '../assets/tathaastu_logo.png';
 import FacebookIcon from '../assets/Facebook.svg';
 import YoutubeIcon from '../assets/Youtube.svg';
 import InstagramIcon from '../assets/Instagram.svg';
 
 export default function Footer() {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <footer className="bg-[#FFF1E5] text-[#073349] w-full">
       {/* Social Media Icons Section */}
@@ -20,78 +25,90 @@ export default function Footer() {
       <div className="border-t border-[#073349] mx-6 md:mx-16"></div>
 
       {/* Main Footer Content */}
-      <div className="max-w-[1440px] mx-auto px-6 md:px-16 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 items-start">
-          
-          {/* Logo and Description */}
-          <div className="lg:col-span-1 space-y-4">
-            <div className="flex items-center space-x-2">
-              <img src={tathaastuLogo} alt="Tathaastu Logo" className="h-12" />
-            </div>
-            <p className="text-xs leading-5 text-[#073349] font-inter">
-              LOREM IPSUM IS SIMPLY DUMMY TEXT OF THE PRINTING AND TYPESETTING INDUSTRY. 
-              LOREM IPSUM HAS BEEN THE INDUSTRY'S STANDARD DUMMY TEXT EVER SINCE THE 1500S, 
-              WHEN AN UNKNOWN PRINTER TOOK A GALLEY OF TYPE AND SCRAMBLED IT TO MAKE A TYPE SPECIMEN BOOK. 
-              LOREM IPSUM HAS BEEN THE INDUSTRY'S STANDARD DUMMY TEXT EVER SINCE THE 1500S, 
-              WHEN AN UNKNOWN PRINTER TOOK A GALLEY OF TYPE AND SCRAMBLED IT TO MAKE A TYPE SPECIMEN BOOK.
+      <div className="max-w-[1440px] mx-auto px-6 md:px-16 py-10 space-y-10">
+        <div className="flex items-center justify-center lg:justify-start">
+          <img src={tathaastuLogo} alt="Tathaastu Logo" className="h-14" />
+        </div>
+
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-[minmax(0,260px)_minmax(0,250px)_minmax(0,180px)_minmax(0,250px)_minmax(0,180px)] items-start">
+          <div className="space-y-4 text-sm text-[#325d72] leading-relaxed font-semibold">
+            <h3 className="text-[#D44459] font-semibold text-base uppercase tracking-wide">About Tathasstu</h3>
+            <p>
+              At Tathasstu, we help you align your life with the rhythm of the universe. From astrology and healing to spiritual courses and remedies, we’re your trusted guide on the journey to self-awareness and divine balance. Discover the wisdom within — and unlock your destiny with Tathasstu.
             </p>
           </div>
 
-          {/* Horoscope Links */}
-          <div className="space-y-3">
-            <h3 className="text-[#D44459] font-semibold text-sm uppercase">HOROSCOPE - IMPORTANT LINKS</h3>
-            <div className="grid grid-cols-2 gap-x-8 gap-y-1">
-              <a href="#" className="text-sm text-[#073349] hover:text-[#D44459] transition-colors">Market</a>
-              <a href="#" className="text-sm text-[#073349] hover:text-[#D44459] transition-colors">Panchang</a>
-              <a href="#" className="text-sm text-[#073349] hover:text-[#D44459] transition-colors">Free kundlu</a>
-              <a href="#" className="text-sm text-[#073349] hover:text-[#D44459] transition-colors">Free links</a>
-              <a href="#" className="text-sm text-[#073349] hover:text-[#D44459] transition-colors">Remedies</a>
-              <a href="#" className="text-sm text-[#073349] hover:text-[#D44459] transition-colors">Puja Services</a>
+          {/* Our Services */}
+          <div className="space-y-4">
+            <h3 className="text-[#D44459] font-semibold text-base uppercase tracking-wide">Our Services</h3>
+            <div className="grid grid-cols-2 gap-x-6 gap-y-3 text-sm text-[#073349] leading-6">
+              <a href="#" className="hover:text-[#D44459] transition-colors whitespace-normal">Vaastu for Home</a>
+              <a href="#" className="hover:text-[#D44459] transition-colors whitespace-normal">Vaastu for Offices</a>
+              <a href="#" className="hover:text-[#D44459] transition-colors whitespace-normal">Vaastu for Factories</a>
+              <a href="#" className="hover:text-[#D44459] transition-colors whitespace-normal">Astrology - Kundli Reading</a>
+              <a href="#" className="hover:text-[#D44459] transition-colors whitespace-normal">Vedic Astrology</a>
+              <a href="#" className="hover:text-[#D44459] transition-colors whitespace-normal">Numerology</a>
+              <a href="#" className="hover:text-[#D44459] transition-colors whitespace-normal">Pooja Services</a>
+              <a href="#" className="hover:text-[#D44459] transition-colors whitespace-normal">Horoscope Matching</a>
+              <a href="#" className="hover:text-[#D44459] transition-colors whitespace-normal">Tarot Reading</a>
+              <a href="#" className="hover:text-[#D44459] transition-colors whitespace-normal">Crystal Healing</a>
+              <a href="#" className="hover:text-[#D44459] transition-colors whitespace-normal">Pet Healing</a>
+              <a href="#" className="hover:text-[#D44459] transition-colors whitespace-normal">Dowsing</a>
+              <a href="#" className="hover:text-[#D44459] transition-colors whitespace-normal">Aura Healing &amp; Scanning</a>
             </div>
           </div>
 
-          {/* Astrologers */}
-          <div className="space-y-3">
-            <h3 className="text-[#D44459] font-semibold text-sm uppercase">ASTROLOGERS</h3>
-            <div className="space-y-1">
-              <a href="#" className="text-sm text-[#073349] hover:text-[#D44459] transition-colors block">Astrologer's login</a>
-              <a href="#" className="text-sm text-[#073349] hover:text-[#D44459] transition-colors block">Astrologer's registration</a>
+          {/* Astrologers Platform */}
+          <div className="space-y-4">
+            <h3 className="text-[#D44459] font-semibold text-base uppercase tracking-wide">Astrologers Platform</h3>
+            <div className="space-y-3 text-sm text-[#073349] leading-6">
+              <a href="#" className="block hover:text-[#D44459] transition-colors whitespace-normal">Astrologer's Login</a>
+              <a href="#" className="block hover:text-[#D44459] transition-colors whitespace-normal">Astrologer's Registration</a>
+            </div>
+          </div>
+
+          {/* Tathasstu Courses */}
+          <div className="space-y-4">
+            <h3 className="text-[#D44459] font-semibold text-base uppercase tracking-wide">Tathasstu Courses</h3>
+            <div className="grid grid-cols-2 gap-x-6 gap-y-3 text-sm text-[#073349] leading-6">
+              <a href="#" className="hover:text-[#D44459] transition-colors whitespace-normal">Vaastu Course</a>
+              <a href="#" className="hover:text-[#D44459] transition-colors whitespace-normal">Astrology Course</a>
+              <a href="#" className="hover:text-[#D44459] transition-colors whitespace-normal">Tarot Card Course</a>
+              <a href="#" className="hover:text-[#D44459] transition-colors whitespace-normal">Numerology Course</a>
+              <a href="#" className="hover:text-[#D44459] transition-colors whitespace-normal">Become a Yoga Instructor Course</a>
+              <a href="#" className="hover:text-[#D44459] transition-colors whitespace-normal">Pet Healing Course</a>
+              <a href="#" className="hover:text-[#D44459] transition-colors whitespace-normal">Aura Scanning Course</a>
+              <a href="#" className="hover:text-[#D44459] transition-colors whitespace-normal">Crystal Scanning Course</a>
+              <a href="#" className="hover:text-[#D44459] transition-colors whitespace-normal">Dowsing Course</a>
             </div>
           </div>
 
           {/* Contact Us */}
-          <div className="space-y-3">
-            <h3 className="text-[#D44459] font-semibold text-sm uppercase">CONTACT US</h3>
-            <div className="space-y-1">
-              <a href="#" className="text-sm text-[#073349] hover:text-[#D44459] transition-colors block">FAQs</a>
-              <a href="#" className="text-sm text-[#073349] hover:text-[#D44459] transition-colors block">Classes</a>
-            </div>
-          </div>
-
-          {/* Login/Signup Section */}
           <div className="space-y-4">
-            <div className="flex flex-col space-y-3">
-              <input
-                type="email"
-                placeholder="EMAIL ADDRESS"
-                className="px-4 py-2 rounded-full border border-[#073349] outline-none text-sm placeholder:text-gray-400 bg-transparent"
-              />
-              <input
-                type="password"
-                placeholder="PASSWORD"
-                className="px-4 py-2 rounded-full border border-[#073349] outline-none text-sm placeholder:text-gray-400 bg-transparent"
-              />
-            </div>
-            <div className="flex justify-between items-center">
-              <button className="text-[#073349] font-semibold text-sm hover:text-[#D44459] transition-colors">
-                SIGN IN
-              </button>
-            </div>
-            <div className="text-xs text-[#073349]">
-              Forgot password? <a href="#" className="underline hover:text-[#D44459] transition-colors">Sign up</a>
+            <h3 className="text-[#D44459] font-semibold text-base uppercase tracking-wide">Contact Us</h3>
+            <div className="grid grid-cols-1 gap-3 text-sm text-[#073349] leading-6">
+              <a href="#" className="hover:text-[#D44459] transition-colors whitespace-normal">About Us</a>
+              <a href="#" className="hover:text-[#D44459] transition-colors whitespace-normal">Contact Us</a>
+              <a href="#" className="hover:text-[#D44459] transition-colors whitespace-normal">Classes</a>
+              <a href="#" className="hover:text-[#D44459] transition-colors whitespace-normal">FAQs</a>
+              <a href="#" className="hover:text-[#D44459] transition-colors whitespace-normal">Privacy Policy</a>
+              <a href="#" className="hover:text-[#D44459] transition-colors whitespace-normal">Terms &amp; Conditions</a>
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="border-t border-[#073349] mx-6 md:mx-16"></div>
+      <div className="py-6 flex justify-center">
+        <button
+          type="button"
+          onClick={scrollToTop}
+          className="flex items-center gap-2 px-6 py-3 bg-[#C5445D] text-white rounded-full shadow-md hover:bg-[#a6344f] transition-all duration-300"
+          aria-label="Back to top"
+        >
+          <ArrowUp size={20} />
+          <span className="text-sm font-semibold tracking-wide">Back to Top</span>
+        </button>
       </div>
     </footer>
   );

@@ -2,6 +2,7 @@ import React from "react";
 import AnkitImg from "../../assets/AnkitImg.svg";
 import MeeraImg from "../../assets/MeeraImg.svg";
 import NeerajImg from "../../assets/NeerajImg.svg";
+import RishikaImg from "../../assets/Srinita_testimonial.jpg";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function TestimonialsSection() {
@@ -24,6 +25,12 @@ export default function TestimonialsSection() {
       text: "We consulted Tathaastu for Vaastu when we were renovating our home. The expert’s remedies were simple yet powerful– & the shift in energy was real.",
       img: NeerajImg,
     },
+    {
+      name: "RISHIKA, 29",
+      role: "SOFTWARE ENGINEER, BENGALURU",
+      text: "I tried Tathaastu’s astrology consultation out of curiosity, and it turned out to be life-changing. The guidance I received helped me make sense of my career choices and relationships with such clarity—it felt deeply personal and accurate.",
+      img: RishikaImg,
+    },
   ];
 
   return (
@@ -36,18 +43,18 @@ export default function TestimonialsSection() {
         </h2>
       </div>
 
-      <div className="relative">
+      <div className="relative px-10 md:px-16 lg:px-24">
         {/* Left Arrow */}
-        <button className="absolute -left-4 top-1/2 transform -translate-y-1/2 z-10 bg-white p-2 rounded-full shadow-md">
+        <button className="absolute left-2 md:left-4 top-1/2 transform -translate-y-1/2 z-10 bg-white p-2 rounded-full shadow-md">
           <ChevronLeft className="text-[#e54787]" />
         </button>
 
         {/* Cards Container */}
-        <div className="flex flex-col lg:flex-row gap-8 justify-center items-center">
+        <div className="flex flex-col lg:flex-row gap-8 justify-center items-stretch">
           {testimonials.map((item, index) => (
             <div
               key={index}
-              className="bg-white rounded-[30px] shadow-md p-6 max-w-[350px] w-full flex flex-col items-center text-center"
+              className="bg-white rounded-[30px] shadow-md p-6 max-w-[350px] w-full flex flex-col items-center text-center h-[520px]"
             >
               <img
                 src={item.img}
@@ -63,13 +70,13 @@ export default function TestimonialsSection() {
               <p className="text-[#16876a] text-sm font-semibold mb-2">
                 {item.role}
               </p>
-              <p className="text-gray-700 text-sm">{item.text}</p>
+              <p className="text-gray-700 text-sm overflow-y-auto flex-1 w-full">{item.text}</p>
             </div>
           ))}
         </div>
 
         {/* Right Arrow */}
-        <button className="absolute -right-4 top-1/2 transform -translate-y-1/2 z-10 bg-white p-2 rounded-full shadow-md">
+        <button className="absolute right-2 md:right-4 top-1/2 transform -translate-y-1/2 z-10 bg-white p-2 rounded-full shadow-md">
           <ChevronRight className="text-[#e54787]" />
         </button>
       </div>

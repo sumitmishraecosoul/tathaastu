@@ -13,23 +13,19 @@ const WhatsAppFloatingButton = ({
       href={whatsappLink}
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed right-4 bottom-4 sm:right-6 sm:bottom-6 z-50 flex items-center gap-3 bg-[#25D366] text-white px-4 py-3 rounded-full shadow-xl hover:bg-[#1ebe5d] transition-transform hover:scale-105"
+      className="fixed right-4 bottom-4 sm:right-6 sm:bottom-6 z-50 h-14 w-14 sm:h-16 sm:w-16 rounded-full bg-[#25D366] shadow-[0_12px_30px_rgba(37,211,102,0.45)] flex items-center justify-center transition-transform hover:scale-110 focus:outline-none focus:ring-4 focus:ring-[#a8f0c7]/70"
+      aria-label="Chat on WhatsApp"
     >
-      <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 32 32"
-          className="h-5 w-5 text-[#25D366]"
-        >
-          <path
-            fill="currentColor"
-            d="M16.01 3.1c-7.1 0-12.9 5.8-12.9 12.9c0 2.3.6 4.5 1.7 6.5l-1.8 6.6l6.8-1.8c1.9 1 4.1 1.6 6.2 1.6h.1c7.1 0 12.9-5.8 12.9-12.9c0-3.4-1.3-6.7-3.8-9.1c-2.4-2.5-5.7-3.8-9.2-3.8zm7.3 20c-.3.8-1.7 1.5-2.4 1.6c-.6.1-1.3.1-2.1-.1c-.5-.1-1.1-.4-1.9-.7c-3.3-1.4-5.4-4.6-5.6-4.8c-.2-.3-1.3-1.7-1.3-3.3c0-1.6.8-2.4 1.2-2.8c.3-.3.7-.4 1-.4h.7c.2 0 .5-.1.7.5c.3.6 1.1 2.6 1.1 2.6c.1.2.1.4 0 .6c-.1.2-.2.3-.4.5l-.5.5c-.1.1-.3.3-.1.6c.1.3.5 1 1.3 1.6c.9.8 1.7 1.1 2 .1c.2-.3.4-.6.7-.8c.2-.2.3-.3.5-.2c.2.1 1.6.8 1.8.9c.3.1.4.2.5.3c.1.2.1 1.1-.2 1.9z"
-          />
-        </svg>
-      </span>
-      <span className="hidden sm:block text-sm font-semibold tracking-wide">
-        Chat with us
-      </span>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 32 32"
+        className="h-7 w-7 sm:h-8 sm:w-8 text-white"
+      >
+        <path
+          fill="currentColor"
+          d="M16.02 3C9.38 3 4 8.38 4 15.02c0 2.66.77 5.12 2.14 7.21L4 29l6.94-2.07C12.94 27.62 14.45 28 16 28 22.63 28 28 22.62 28 15.98S22.66 3 16.02 3zm6.3 18.21c-.26.73-1.52 1.4-2.1 1.49c-.56.09-1.27.13-2.05-.13c-.47-.15-1.07-.35-1.84-.69c-3.24-1.4-5.34-4.82-5.51-5.04c-.16-.23-1.32-1.76-1.32-3.36c0-1.6.81-2.37 1.1-2.69c.29-.32.63-.41.84-.41c.2 0 .42 0 .6.01c.19.01.45-.07.7.54c.26.63.88 2.17.96 2.33c.08.16.13.35.02.58c-.11.23-.17.37-.33.57c-.17.2-.35.45-.5.6c-.17.17-.35.36-.15.69c.2.32.89 1.47 1.91 2.39c1.32 1.17 2.43 1.53 2.78 1.7c.35.17.56.15.77-.09c.2-.23.87-1.02 1.11-1.37c.23-.35.47-.29.77-.17c.3.13 1.92.91 2.25 1.08c.33.17.55.25.63.39c.08.14.08.81-.18 1.54z"
+        />
+      </svg>
     </a>
   );
 };

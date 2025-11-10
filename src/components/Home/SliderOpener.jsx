@@ -20,7 +20,7 @@ export default function SliderOpener() {
 
   const navigationItems = [
     { name: "Home", path: "/" },
-    { name: "Services", path: "/#services" },
+    { name: "Services", path: "/services" },
     { name: "Courses", path: "/courses" },
     { name: "Blog", path: "/blog" },
     { name: "Pricing", path: "/pricing" },

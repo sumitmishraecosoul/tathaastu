@@ -4,7 +4,7 @@ export default function PricingPlans() {
   const plans = [
     {
       name: "REGULAR",
-      price: "$10",
+      price: "₹ 1,100",
       period: "PER MONTH",
       bgColor: "bg-[#EAA83E] text-white",
       textColor: "text-white",
@@ -20,7 +20,7 @@ export default function PricingPlans() {
     },
     {
       name: "WEEKLY",
-      price: "$25",
+      price: "₹ 2,100",
       period: "PER MONTH",
       bgColor: "bg-white",
       textColor: "text-[#000]",
@@ -36,7 +36,7 @@ export default function PricingPlans() {
     },
     {
       name: "MONTHLY",
-      price: "$45",
+      price: "₹ 3,100",
       period: "PER MONTH",
       bgColor: "bg-white",
       textColor: "text-[#000]",
@@ -54,7 +54,7 @@ export default function PricingPlans() {
     },
     {
       name: "YEARLY",
-      price: "$45",
+      price: "₹ 5,100",
       period: "PER MONTH",
       bgColor: "bg-white",
       textColor: "text-[#000]",

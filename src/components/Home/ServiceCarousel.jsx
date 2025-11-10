@@ -233,41 +233,10 @@
 
 import React, { useRef, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import Tarot from "../../assets/service1.svg";
-import Numerology from "../../assets/service2.svg";
+import { Link } from "react-router-dom";
+import servicesData from "../../data/servicesData";
 
-const services = [
-  {
-    title: "Vaastu Shastra",
-    subtitle: "300+ homes & Offices energized | Covers vaastu for home and office and remedy suggestions | Ideal for new constructions, renovations & space healing",
-    image: Numerology,
-  },
-  {
-    title: "Astrology",
-    subtitle: "Prepared 200+ Personalised Chart | Find insights into marriage, love life, career, health, or personal growth | Analyse Dasha analysis, transit readings & remedies",
-    image: Tarot,
-  },
-  {
-    title: "Tarot Reading",
-    subtitle: "500+ clients guided | Accurate and intuitive tarot readings, both in-person and online | Specialized spreads: Love, Finance, Yes/No, Chakra",
-    image: Tarot,
-  },
-  {
-    title: "Numerology",
-    subtitle: "200+ Numerology Calculated | Create Numerology Charts",
-    image: Numerology,
-  },
-  {
-    title: "Aura Scanning & Cleaning",
-    subtitle: "500+ aura cleaning performed | Scan and cleanse your energy field using crystal, sound & chakra methods",
-    image: Numerology,
-  },
-  {
-    title: "Spiritual Growth & Healing",
-    subtitle: "100+ Customers Mentored for Spiritual Growth & Healing | Provide one on one guidance, digital meditations & group healing circles",
-    image: Tarot,
-  },
-];
+const services = servicesData;
 
 const ServicesCarousel = () => {
   const scrollRef = useRef(null);
@@ -376,9 +345,12 @@ const ServicesCarousel = () => {
     <h2 className="text-2xl sm:text-3xl font-bold tracking-wide text-[#2D7351] ml-4 sm:ml-6">
       Our Services
     </h2>
-    <button className="bg-[#C5445D] text-white px-6 py-2 rounded-full shadow-md font-semibold hover:bg-[#a6344f] transition-all">
+    <Link
+      to="/services"
+      className="bg-[#C5445D] text-white px-6 py-2 rounded-full shadow-md font-semibold hover:bg-[#a6344f] transition-all"
+    >
       KNOW MORE
-    </button>
+    </Link>
   </div>
 
   {/* Carousel + Arrows wrapper */}
@@ -409,7 +381,7 @@ const ServicesCarousel = () => {
       >
         {cloned.map((item, index) => (
           <div
-            key={index}
+            key={`${item.id}-${index}`}
             className="carousel-card snap-start shrink-0 bg-white rounded-2xl overflow-hidden shadow-md w-[85%] sm:w-[65%] md:w-[50%] lg:w-[40%] xl:w-[30%] 2xl:w-[25%]"
           >
             <img
@@ -417,11 +389,13 @@ const ServicesCarousel = () => {
               alt={item.title}
               className="w-full h-[200px] sm:h-[250px] md:h-[280px] lg:h-[300px] object-cover"
             />
-            <div className="p-4 text-center">
-              <h4 className="text-base sm:text-lg md:text-xl font-bold text-[#2D7351]">
+            <div className="p-5 text-center space-y-3">
+              <h4 className="text-lg sm:text-xl font-bold text-[#073349] leading-snug">
                 {item.title}
               </h4>
-              <p className="text-sm text-[#2D7351] mt-1">{item.subtitle}</p>
+              <p className="text-sm sm:text-base text-[#325d72] leading-relaxed">
+                {item.description}
+              </p>
             </div>
           </div>
         ))}

@@ -15,7 +15,7 @@ export default function Pricing() {
   const pricingPlans = [
     {
       name: "REGULAR",
-      price: "$10",
+      price: "₹ 1,100",
       period: "PER MONTH",
       features: [
         "1 Astrology or Vaastu Consultation (30 mins)",
@@ -27,7 +27,7 @@ export default function Pricing() {
     },
     {
       name: "WEEKLY",
-      price: "$25",
+      price: "₹ 2,100",
       period: "PER MONTH",
       features: [
         "2 Consultations (Astrology or Vaastu or Aura Scan)",
@@ -40,7 +40,7 @@ export default function Pricing() {
     },
     {
       name: "MONTHLY",
-      price: "$45",
+      price: "₹ 3,100",
       period: "PER MONTH",
       features: [
         "4 Consultations (1/week) - Choice of Astrology, Vaastu, Aura or Tarot",
@@ -55,7 +55,7 @@ export default function Pricing() {
     },
     {
       name: "YEARLY",
-      price: "$45",
+      price: "₹ 5,100",
       period: "PER MONTH",
       features: [
         "12 Major Consultations (1/month + 4 Bonus Seasonal Consults)",
@@ -80,7 +80,7 @@ export default function Pricing() {
       </div>
       
       {/* NAVIGATION */}
-      <nav className="grid grid-cols-3 items-center bg-[#F5D6B4] px-4 md:px-6 py-3 shadow">
+      <nav className="grid grid-cols-3 items-center bg-[#F5D6B4] px-4 md:px-6 py-3">
         <div className="flex items-center">
           <SliderOpener />
         </div>
@@ -94,12 +94,12 @@ export default function Pricing() {
       </nav>
 
       {/* HERO SECTION WITH BANNER IMAGE */}
-      <section className="relative -mt-1">
+      <section className="relative -mt-[6px] leading-none">
         {/* Banner Image as Background */}
         <img 
           src={PricingBanner} 
           alt="Meditation and Spiritual Guidance" 
-          className="w-full h-[600px] object-cover object-top"
+          className="block w-full h-[600px] object-cover object-top"
         />
       </section>
       <Seperator />

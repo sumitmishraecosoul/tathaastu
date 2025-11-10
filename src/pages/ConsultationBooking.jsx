@@ -8,7 +8,7 @@ export default function ConsultationBooking() {
   const navigate = useNavigate();
   const plan = location.state?.plan || {
     name: "REGULAR",
-    price: "$10",
+    price: "₹ 1,100",
     period: "PER MONTH",
     features: [
       "1 Astrology or Vaastu Consultation (30 mins)",
@@ -39,9 +39,18 @@ export default function ConsultationBooking() {
     console.log('Form submitted:', formData);
   };
 
-  // Convert price to rupees (assuming $1 = ₹83)
-  const priceInRupees = parseFloat(plan.price.replace('$', '')) * 83;
-  const formattedPrice = `₹ ${priceInRupees.toLocaleString('en-IN')}.00`;
+  const parsePriceToNumber = (priceString) => {
+    if (!priceString) return 0;
+    const cleaned = priceString.replace(/[^\d.]/g, "");
+    const value = parseFloat(cleaned);
+    return Number.isFinite(value) ? value : 0;
+  };
+
+  const amountValue = parsePriceToNumber(plan.price);
+  const formattedPrice =
+    amountValue > 0
+      ? `₹ ${amountValue.toLocaleString("en-IN")}.00`
+      : "₹ 0.00";
 
   return (
     <div className="bg-gray-50 min-h-screen">
@@ -65,14 +74,6 @@ export default function ConsultationBooking() {
           
           {/* Left Section - Consultation Information */}
           <div className="space-y-6">
-            {/* Logo and Company Name */}
-            <div className="flex items-center gap-4 mb-8">
-              <div className="w-16 h-16 bg-yellow-200 rounded-full flex items-center justify-center">
-                <span className="text-2xl">⭐</span>
-              </div>
-              <h1 className="text-2xl font-bold text-[#073349]">TATHAASTU</h1>
-            </div>
-
             {/* Main Heading */}
             <div>
               <h2 className="text-3xl md:text-4xl font-bold text-[#073349] mb-2">
@@ -80,18 +81,28 @@ export default function ConsultationBooking() {
               </h2>
               <div className="w-20 h-1 bg-[#073349] mb-4"></div>
               <h3 className="text-xl md:text-2xl text-[#073349] font-normal">
-                {plan.name} Plan Consultation with Priyanka Ji
+                Urgent Telephonic Consultation with Tathasstu
               </h3>
             </div>
 
             {/* Consultation Process */}
-            <p className="text-base text-[#073349] leading-relaxed">
-              Our Team will connect with you shortly. Your consultation will be scheduled based on your selected plan.
-            </p>
+            <div className="space-y-3 text-base text-[#073349] leading-relaxed">
+              <p>
+                Experience instant clarity with a personal telephonic consultation from our expert Acharya.
+              </p>
+              <p>
+                Our team will connect with you shortly after booking.
+              </p>
+              <p>
+                Your session will be scheduled for 25-30 minutes of focused, personalized guidance.
+              </p>
+            </div>
 
             {/* Deliverables - Dynamic based on plan features */}
             <div>
-              <h4 className="text-lg font-semibold text-[#073349] mb-4">What You'll Get:</h4>
+              <h4 className="text-lg font-semibold text-[#073349] mb-4">
+                Along with the consultation, you'll receive:
+              </h4>
               <ul className="space-y-3 text-[#073349]">
                 {plan.features && plan.features.length > 0 ? (
                   plan.features.map((feature, index) => (

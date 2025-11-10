@@ -7,7 +7,9 @@ import Blog from './pages/Blog';
 import Courses from './pages/Courses';
 import Login from './pages/Login';
 import ConsultationBooking from './pages/ConsultationBooking';
+import Services from './pages/Services';
 import WhatsAppFloatingButton from './components/WhatsAppFloatingButton';
+import ConnectModalButton from './components/ConnectModalButton';
 import './styles/global.css';
 
 
@@ -19,12 +21,14 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/services" element={<Services />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/courses" element={<Courses />} />
           <Route path="/login" element={<Login />} />
           <Route path="/consultation-booking" element={<ConsultationBooking />} />
         </Routes>
         <WhatsAppFloatingButton />
+        <ConnectModalButton />
       </div>
     </Router>
   );
