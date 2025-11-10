@@ -1,4 +1,6 @@
 import React from "react";
+import { motion } from "framer-motion";
+import { fadeInVariant, fadeUpVariant, staggerContainer } from "../../utils/motionVariants";
 
 export default function PricingPlans() {
   const plans = [
@@ -77,7 +79,13 @@ export default function PricingPlans() {
     <section className="bg-white py-16 px-4 md:px-16 lg:px-32">
       <div className="max-w-7xl mx-auto">
         {/* Heading Section */}
-        <div className="text-center mb-10">
+        <motion.div
+          className="text-center mb-10"
+          variants={fadeInVariant}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "0px 0px -80px 0px" }}
+        >
           <h2 className="text-3xl md:text-4xl font-bold text-[#073349]">
             ELEVATE YOUR{" "}
             <span className="text-[#D44459]">SPIRITUAL JOURNEY</span>
@@ -85,13 +93,20 @@ export default function PricingPlans() {
           <p className="mt-2 text-gray-600 tracking-wide">
             PLANS DESIGNED FOR EVERY SEEKER FROM THE CURIOUS TO THE COMMITTED.
           </p>
-        </div>
+        </motion.div>
 
         {/* Pricing Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+        >
           {plans.map((plan, index) => (
-            <div
+            <motion.div
               key={index}
+              variants={fadeUpVariant}
               className={`flex flex-col justify-between rounded-t-3xl rounded-b-xl shadow-md p-6 ${plan.bgColor} ${plan.border} transition-transform hover:scale-105`}
             >
               {/* Plan Title */}
@@ -126,9 +141,9 @@ export default function PricingPlans() {
               >
                 GET STARTED NOW
               </button>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
