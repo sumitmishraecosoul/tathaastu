@@ -380,9 +380,10 @@ const ServicesCarousel = () => {
         style={{ scrollSnapType: "x mandatory" }}
       >
         {cloned.map((item, index) => (
-          <div
+          <Link
             key={`${item.id}-${index}`}
-            className="carousel-card snap-start shrink-0 bg-white rounded-2xl overflow-hidden shadow-md w-[85%] sm:w-[65%] md:w-[50%] lg:w-[40%] xl:w-[30%] 2xl:w-[25%]"
+            to={`/services/${item.slug || item.id}`}
+            className="carousel-card snap-start shrink-0 bg-white rounded-2xl overflow-hidden shadow-md w-[85%] sm:w-[65%] md:w-[50%] lg:w-[40%] xl:w-[30%] 2xl:w-[25%] transition-transform hover:-translate-y-2"
           >
             <img
               src={item.image}
@@ -397,7 +398,7 @@ const ServicesCarousel = () => {
                 {item.description}
               </p>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>
