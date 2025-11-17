@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-const enquiryOptions = [
+const DEFAULT_ENQUIRY_OPTIONS = [
   "Career & Business",
   "Relationship",
   "Education",
@@ -19,17 +19,28 @@ const enquiryOptions = [
   "Other",
 ];
 
+const API_BASE_URL =
+  import.meta.env.VITE_ADMIN_API_BASE_URL || "http://localhost:5000/api";
+
+const INITIAL_FORM_VALUES = {
+  firstName: "",
+  lastName: "",
+  phone: "",
+  email: "",
+  enquiryType: "",
+  interests: [],
+  message: "",
+};
+
 export default function ConnectModalButton() {
   const [isOpen, setIsOpen] = useState(false);
-  const [formValues, setFormValues] = useState({
-    firstName: "",
-    lastName: "",
-    phone: "",
-    email: "",
-    enquiryType: "",
-    interests: [],
-    message: "",
-  });
+  const [formValues, setFormValues] = useState(INITIAL_FORM_VALUES);
+  const [enquiryOptions, setEnquiryOptions] = useState(DEFAULT_ENQUIRY_OPTIONS);
+  const [optionsLoading, setOptionsLoading] = useState(false);
+  const [optionsError, setOptionsError] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formStatus, setFormStatus] = useState(null);
+  const optionsFetchedRef = useRef(false);
 
   useEffect(() => {
     if (isOpen) {
@@ -40,6 +51,42 @@ export default function ConnectModalButton() {
     return () => {
       document.body.style.overflow = "";
     };
+  }, [isOpen]);
+
+  useEffect(() => {
+    const fetchEnquiryOptions = async () => {
+      setOptionsLoading(true);
+      setOptionsError(null);
+      try {
+        const response = await fetch(
+          `${API_BASE_URL}/queries/meta/enquiry-options`
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch enquiry options");
+        }
+
+        const result = await response.json();
+        if (result?.success && Array.isArray(result?.data)) {
+          setEnquiryOptions(result.data);
+        } else {
+          setEnquiryOptions(DEFAULT_ENQUIRY_OPTIONS);
+        }
+        optionsFetchedRef.current = true;
+      } catch (error) {
+        setOptionsError(
+          "We couldn't load the latest enquiry topics. Showing default options."
+        );
+        setEnquiryOptions(DEFAULT_ENQUIRY_OPTIONS);
+        optionsFetchedRef.current = false;
+      } finally {
+        setOptionsLoading(false);
+      }
+    };
+
+    if (isOpen && !optionsFetchedRef.current) {
+      fetchEnquiryOptions();
+    }
   }, [isOpen]);
 
   const handleChange = (e) => {
@@ -59,19 +106,61 @@ export default function ConnectModalButton() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Connect form submitted", formValues);
-    setIsOpen(false);
-    setFormValues({
-      firstName: "",
-      lastName: "",
-      phone: "",
-      email: "",
-      enquiryType: "",
-      interests: [],
-      message: "",
-    });
+    setFormStatus(null);
+    setIsSubmitting(true);
+
+    const payload = {
+      firstName: formValues.firstName.trim(),
+      lastName: formValues.lastName.trim() || undefined,
+      email: formValues.email.trim(),
+      phone: formValues.phone.trim() || undefined,
+      enquiryType: formValues.enquiryType,
+      enquiryTopics: formValues.interests,
+      message: formValues.message.trim() || undefined,
+      priority: "normal",
+      source: "website",
+    };
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/queries/public`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        const errorPayload = await response.json().catch(() => null);
+        throw new Error(
+          errorPayload?.message ||
+            "We could not submit your enquiry. Please try again."
+        );
+      }
+
+      setFormStatus({
+        type: "success",
+        message:
+          "Thank you! Your enquiry was received. Our team will get in touch shortly.",
+      });
+      setFormValues(INITIAL_FORM_VALUES);
+
+      setTimeout(() => {
+        setIsOpen(false);
+        setFormStatus(null);
+      }, 2000);
+    } catch (error) {
+      setFormStatus({
+        type: "error",
+        message:
+          error?.message ||
+          "Something went wrong while submitting the enquiry. Please retry.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -107,6 +196,24 @@ export default function ConnectModalButton() {
 
             <div className="px-6 py-6 overflow-y-auto max-h-[75vh]">
               <form onSubmit={handleSubmit} className="space-y-6">
+                {formStatus && (
+                  <div
+                    className={`rounded-xl border px-4 py-3 text-sm ${
+                      formStatus.type === "success"
+                        ? "border-green-200 bg-green-50 text-green-700"
+                        : "border-red-200 bg-red-50 text-red-700"
+                    }`}
+                  >
+                    {formStatus.message}
+                  </div>
+                )}
+
+                {optionsError && (
+                  <p className="rounded-lg bg-[#FFF1E5] px-4 py-2 text-sm text-[#B83A4A]">
+                    {optionsError}
+                  </p>
+                )}
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <label className="text-sm font-semibold text-[#073349]">
@@ -197,10 +304,16 @@ export default function ConnectModalButton() {
                           checked={formValues.interests.includes(option)}
                           onChange={() => handleCheckboxChange(option)}
                           className="rounded text-[#D44459] focus:ring-[#D44459]"
+                          disabled={isSubmitting}
                         />
                         {option}
                       </label>
                     ))}
+                    {optionsLoading && (
+                      <div className="col-span-full text-sm text-[#073349]">
+                        Loading topics...
+                      </div>
+                    )}
                   </div>
                 </div>
 
@@ -221,9 +334,10 @@ export default function ConnectModalButton() {
                 <div className="flex justify-end">
                   <button
                     type="submit"
-                    className="px-6 py-3 bg-[#D44459] text-white rounded-full font-semibold hover:bg-[#B83A4A] transition-colors"
+                    disabled={isSubmitting}
+                    className="px-6 py-3 bg-[#D44459] text-white rounded-full font-semibold hover:bg-[#B83A4A] transition-colors disabled:cursor-not-allowed disabled:opacity-60"
                   >
-                    Submit enquiry
+                    {isSubmitting ? "Submitting..." : "Submit enquiry"}
                   </button>
                 </div>
               </form>
