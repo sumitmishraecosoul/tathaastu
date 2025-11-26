@@ -118,15 +118,9 @@ export default function ServiceDetails() {
             animate="visible"
             className="absolute inset-0 flex flex-col items-center justify-center text-center px-4"
           >
-            <p className="text-sm md:text-base uppercase tracking-widest text-[#F4D9C6] mb-4">
-              Tathaastu Signature Service
-            </p>
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3">
-              {service.title}
+              {service.bannerText || service.title}
             </h1>
-            <p className="max-w-3xl text-base md:text-lg text-white/85 leading-relaxed">
-              {service.description}
-            </p>
           </motion.div>
         </div>
       </section>
@@ -141,75 +135,84 @@ export default function ServiceDetails() {
           className="max-w-6xl mx-auto space-y-16"
         >
           <motion.section variants={fadeInVariant} className="space-y-6">
-            <h2 className="text-2xl md:text-3xl font-semibold text-[#073349]">
-              Awaken Your Potential With {service.title}
-            </h2>
+            <h1 className="text-2xl md:text-3xl font-semibold text-[#073349]">
+              {service.h1Title || service.title}
+            </h1>
             <p className="text-gray-700 text-base md:text-lg leading-relaxed">
               {service.longDescription}
             </p>
           </motion.section>
 
-          <motion.section
-            variants={fadeUpVariant}
-            className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-[#FFF6EF] rounded-3xl p-8 shadow-lg"
-          >
-            <div className="space-y-4">
-              <h3 className="text-xl font-semibold text-[#073349]">What’s Included</h3>
-              <ul className="space-y-3 text-sm md:text-base text-[#073349] leading-relaxed">
-                {service.highlights.map((item, index) => (
-                  <li key={index} className="flex gap-3">
-                    <span className="text-[#D44459] pt-1">✦</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="space-y-4">
-              <h3 className="text-xl font-semibold text-[#073349]">Benefits You’ll Experience</h3>
-              <ul className="space-y-3 text-sm md:text-base text-[#073349] leading-relaxed">
-                {service.benefits.map((item, index) => (
-                  <li key={index} className="flex gap-3">
-                    <span className="text-[#D44459] pt-1">✔</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </motion.section>
+          {service.whyChooseUs && service.whyChooseUs.length > 0 && (
+            <motion.section variants={fadeUpVariant} className="space-y-6">
+              <h2 className="text-2xl md:text-3xl font-semibold text-[#073349]">
+                Why Choose Us?
+              </h2>
+              <div className="bg-[#FFF6EF] rounded-3xl p-8 shadow-lg">
+                <ul className="space-y-4 text-sm md:text-base text-[#073349] leading-relaxed">
+                  {service.whyChooseUs.map((item, index) => (
+                    <li key={index} className="flex gap-3">
+                      <span className="text-[#D44459] pt-1">✔</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </motion.section>
+          )}
 
           <motion.section variants={fadeUpVariant} className="bg-white rounded-3xl p-8 shadow-lg">
-            <h3 className="text-xl md:text-2xl font-semibold text-[#073349] mb-4">
-              Ready to Begin Your Session?
-            </h3>
+            <h2 className="text-xl md:text-2xl font-semibold text-[#073349] mb-4">
+              Contact Us
+            </h2>
             <p className="text-gray-700 text-base leading-relaxed mb-6">
-              Our certified practitioners combine time-tested rituals with compassionate guidance to help
-              you transform. Book a consultation to receive a bespoke session blueprint and remedy plan.
+              {service.contactUsText || "Have questions? Reach out to us and book your session today."}
             </p>
-            <div className="flex flex-wrap gap-4">
-              <button
-                onClick={() =>
-                  navigate("/consultation-booking", {
-                    state: {
-                      plan: {
-                        name: service.title,
-                        price: formattedStartingPrice,
-                        features: service.highlights,
-                      },
-                    },
-                  })
-                }
-                className="px-6 py-3 rounded-full bg-[#D44459] text-white font-semibold hover:bg-[#B83A4A] transition"
-              >
-                Book a Consultation
-              </button>
-              <button
-                onClick={() => navigate("/contact")}
-                className="px-6 py-3 rounded-full border border-[#D44459] text-[#D44459] font-semibold hover:bg-[#FBE6EA] transition"
-              >
-                Speak to an Expert
-              </button>
-            </div>
+            <button
+              onClick={() => navigate("/contact")}
+              className="px-6 py-3 rounded-full bg-[#D44459] text-white font-semibold hover:bg-[#B83A4A] transition"
+            >
+              {service.contactButtonText || "Contact Now"}
+            </button>
           </motion.section>
+
+          {service.otherServices && service.otherServices.length > 0 && (
+            <motion.section variants={fadeUpVariant} className="space-y-6">
+              <h2 className="text-2xl md:text-3xl font-semibold text-[#073349]">
+                Explore Our Other Services
+              </h2>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                {service.otherServices.map((otherService, index) => {
+                  // Map service names to slugs
+                  const serviceSlugMap = {
+                    "Astrology Consultation": "astrology-kundli",
+                    "Vaastu Consultation": "vastu-shastra",
+                    "Vedic Astrology": "vedic-astrology",
+                    "Numerologists": "numerologists",
+                    "Numerology Consultation": "numerologists",
+                    "Pooja Services": "pooja-services",
+                    "Horoscope Matching": "horoscope-matching",
+                    "Tarot Reading": "tarot-reading",
+                    "Crystal Healing": "crystal-healing",
+                    "Pet Healing": "pet-healing",
+                    "Dowsing": "dowsing",
+                    "Aura Healing & Scanning": "aura-healing-scanning",
+                  };
+                  const slug = serviceSlugMap[otherService] || otherService.toLowerCase().replace(/\s+/g, "-");
+                  
+                  return (
+                    <button
+                      key={index}
+                      onClick={() => navigate(`/services/${slug}`)}
+                      className="px-4 py-3 rounded-lg bg-[#FFF6EF] text-[#073349] font-medium hover:bg-[#F5D6B4] transition text-sm text-center"
+                    >
+                      {otherService}
+                    </button>
+                  );
+                })}
+              </div>
+            </motion.section>
+          )}
         </motion.div>
       </main>
 
