@@ -1,9 +1,10 @@
 import React, { useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import tathaastuLogo from '../assets/tathaastu_logo.png';
 import SliderOpener from '../components/Home/SliderOpener';
 import Footer from '../layout/Footer';
 import Seperator from '../components/Home/SeperatorComponent';
+import coursesData from '../data/coursesData';
 
 // Course Images
 import VastuCourse1 from "../assets/vaastu_course1.svg";
@@ -23,6 +24,7 @@ import RightArrow from "../assets/right_side_arrow.svg";
 export default function Courses() {
   const [currentCategoryIndex, setCurrentCategoryIndex] = useState(0);
   const scrollContainerRef = useRef(null);
+  const navigate = useNavigate();
   
   const courseCategories = [
     "VASTU COURSE",
@@ -64,71 +66,43 @@ export default function Courses() {
     }
   };
 
-  const courses = [
-    {
-      id: 1,
-      title: "VASTU COURSE",
-      description: "Knowledge is the first step to transformation — and our Vaastu Courses are designed to help you harness the ancient science of space and energy. Whether you're a beginner exploring the principles of Vaastu or a professional looking to deepen your expertise, our courses combine spiritual insight with practical application. Learn how to balance the five elements, harmonize your home or workspace, and create environments that radiate peace, prosperity, and purpose — all under the guidance of seasoned Vaastu experts.",
-      image: VastuCourse1,
-      imagePosition: "left"
-    },
-    {
-      id: 2,
-      title: "ASTROLOGY COURSE",
-      description: "Our Astrology Courses invite you to explore the divine language of the cosmos — the art of reading stars, planets, and destinies. Designed for both beginners and advanced learners, these courses blend ancient Vedic wisdom with a modern, easy-to-understand approach. You'll learn how to interpret birth charts, study planetary movements, and uncover the deeper karmic patterns that shape human life. Each session is guided by experienced astrologers who share real-life insights and time-tested techniques.",
-      image: VastuCourse2,
-      imagePosition: "right"
-    },
-    {
-      id: 3,
-      title: "TAROT CARD COURSE",
-      description: "At Tathasstu, our Tarot Card Courses open the gateway to intuitive wisdom and self-discovery. These courses are designed to help you connect with the energy of the cards, interpret their meanings, and develop your intuitive abilities with confidence. Whether you're new to tarot or looking to refine your skills, our expert readers guide you through symbolism, spreads, and real-world practice. You'll learn how to offer insightful readings — not just by memorizing cards, but by truly feeling their messages.",
-      image: VastuCourse3,
-      imagePosition: "left"
-    },
-    {
-      id: 4,
-      title: "NUMEROLOGY COURSE",
-      description: "Our Numerology Courses reveal the hidden power of numbers — the sacred codes that shape your destiny. This course teaches you how to decode life's patterns through names, dates, and birth numbers, offering a deeper understanding of personality, purpose, and potential. Guided by experienced numerologists, you'll learn the ancient principles behind number vibrations and how they influence relationships, career paths, and life cycles. Whether you wish to master numerology for personal growth or as a professional skill, this course helps you ace the numeric blueprint.",
-      image: VastuCourse4,
-      imagePosition: "right"
-    },
-    {
-      id: 5,
-      title: "YOGA COURSE",
-      description: "At Tathasstu, our Become a Yoga Instructor Course is more than a certification — it's a journey of self-mastery and spiritual awakening. Rooted in ancient yogic traditions, this course blends philosophy, posture training, breathwork, and meditation to help you embody the true essence of yoga. You'll learn how to guide others with mindfulness, balance, and compassion while deepening your own physical and spiritual practice. Whether you dream of teaching professionally or simply wish to elevate your personal journey, our experienced mentors support you every step of the way.",
-      image: VastuCourse5,
-      imagePosition: "left"
-    },
-    {
-      id: 6,
-      title: "PET HEALING",
-      description: "At Tathasstu, our Pet Healing Courses are crafted for those who believe that animals, too, have souls that feel, love, and heal. This course helps you understand the energetic and emotional world of pets, teaching techniques like chakra healing, crystal therapy, and intuitive communication. Guided by compassionate healers, you'll learn how to identify imbalances in your pet's energy field and restore harmony through mindful healing practices. Whether you're a pet parent seeking to support your furry friend or an animal lover exploring holistic care, this course empowers you to bring peace, comfort, and vitality to the beautiful souls that share your home.",
-      image: VastuCourse6,
-      imagePosition: "right"
-    },
-    {
-      id: 7,
-      title: "AURA SCANNING",
-      description: "At Tathasstu, our Aura Scanning Courses help you see beyond the physical and tune into the subtle energies that surround every living being. These courses are designed to help you understand, interpret, and balance the aura — the energetic field that reflects our emotions, thoughts, and spiritual state. Under the guidance of expert healers, you'll learn how to detect energy imbalances, cleanse negative vibrations, and strengthen your own aura through meditation, visualization, and crystal tools. Perfect for healers, energy practitioners, or anyone on a path of spiritual growth, this course empowers you to perceive energy with clarity and bring harmony to the mind, body, and spirit.",
-      image: VastuCourse7,
-      imagePosition: "left"
-    },
-    {
-      id: 8,
-      title: "CRYSTAL SCANNING",
-      description: "At Tathasstu, our Crystal Scanning Courses introduce you to the mystical world of crystals — nature's own energy amplifiers. This course teaches you how to connect with the unique vibrations of crystals, use them for scanning energetic imbalances, and channel their healing power effectively. Guided by experienced crystal healers, you'll learn how to sense energy shifts, choose the right crystals for specific needs, and use them to cleanse, balance, and restore harmony within the body and environment. Whether you're new to crystal healing or looking to advance your practice, this course deepens your intuition and helps you work with crystals as sacred tools of transformation.",
-      image: VastuCourse8,
-      imagePosition: "right"
-    },
-    {
-      id: 9,
-      title: "DOWSING",
-      description: "At Tathasstu, our Dowsing Courses open the door to one of the most ancient and intuitive forms of energy detection. This course teaches you how to use pendulums and rods to tap into subtle vibrations and access the body's innate wisdom. You'll learn how to locate energy blockages, identify answers hidden in your subconscious, and use dowsing for guidance, healing, and spiritual clarity. Under the mentorship of skilled practitioners, you'll discover the right techniques, calibration methods, and ethical practices that make dowsing a trusted spiritual art. Each session deepens your connection with your higher intuition, empowering you to seek answers with confidence, balance, and divine alignment.",
-      image: VastuCourse9,
-      imagePosition: "left"
-    }
-  ];
+  // Map courses from coursesData with additional properties for display
+  const courses = coursesData.map((course, index) => {
+    // Map titles to match the display format
+    const titleMap = {
+      "Vaastu Course": "VASTU COURSE",
+      "Astrology Course": "ASTROLOGY COURSE",
+      "Tarot Card Reading Course": "TAROT CARD COURSE",
+      "Numerology Course": "NUMEROLOGY COURSE",
+      "Yoga Instructor Course": "YOGA COURSE",
+      "Pet Healing Course": "PET HEALING",
+      "Aura Scanning Course": "AURA SCANNING",
+      "Crystal Scanning Course": "CRYSTAL SCANNING",
+      "Dowsing Course": "DOWSING",
+    };
+    
+    // Original descriptions for the listing page
+    const originalDescriptions = {
+      "Vaastu Course": "Knowledge is the first step to transformation — and our Vaastu Courses are designed to help you harness the ancient science of space and energy. Whether you're a beginner exploring the principles of Vaastu or a professional looking to deepen your expertise, our courses combine spiritual insight with practical application. Learn how to balance the five elements, harmonize your home or workspace, and create environments that radiate peace, prosperity, and purpose — all under the guidance of seasoned Vaastu experts.",
+      "Astrology Course": "Our Astrology Courses invite you to explore the divine language of the cosmos — the art of reading stars, planets, and destinies. Designed for both beginners and advanced learners, these courses blend ancient Vedic wisdom with a modern, easy-to-understand approach. You'll learn how to interpret birth charts, study planetary movements, and uncover the deeper karmic patterns that shape human life. Each session is guided by experienced astrologers who share real-life insights and time-tested techniques.",
+      "Tarot Card Reading Course": "At Tathasstu, our Tarot Card Courses open the gateway to intuitive wisdom and self-discovery. These courses are designed to help you connect with the energy of the cards, interpret their meanings, and develop your intuitive abilities with confidence. Whether you're new to tarot or looking to refine your skills, our expert readers guide you through symbolism, spreads, and real-world practice. You'll learn how to offer insightful readings — not just by memorizing cards, but by truly feeling their messages.",
+      "Numerology Course": "Our Numerology Courses reveal the hidden power of numbers — the sacred codes that shape your destiny. This course teaches you how to decode life's patterns through names, dates, and birth numbers, offering a deeper understanding of personality, purpose, and potential. Guided by experienced numerologists, you'll learn the ancient principles behind number vibrations and how they influence relationships, career paths, and life cycles. Whether you wish to master numerology for personal growth or as a professional skill, this course helps you ace the numeric blueprint.",
+      "Yoga Instructor Course": "At Tathasstu, our Become a Yoga Instructor Course is more than a certification — it's a journey of self-mastery and spiritual awakening. Rooted in ancient yogic traditions, this course blends philosophy, posture training, breathwork, and meditation to help you embody the true essence of yoga. You'll learn how to guide others with mindfulness, balance, and compassion while deepening your own physical and spiritual practice. Whether you dream of teaching professionally or simply wish to elevate your personal journey, our experienced mentors support you every step of the way.",
+      "Pet Healing Course": "At Tathasstu, our Pet Healing Courses are crafted for those who believe that animals, too, have souls that feel, love, and heal. This course helps you understand the energetic and emotional world of pets, teaching techniques like chakra healing, crystal therapy, and intuitive communication. Guided by compassionate healers, you'll learn how to identify imbalances in your pet's energy field and restore harmony through mindful healing practices. Whether you're a pet parent seeking to support your furry friend or an animal lover exploring holistic care, this course empowers you to bring peace, comfort, and vitality to the beautiful souls that share your home.",
+      "Aura Scanning Course": "At Tathasstu, our Aura Scanning Courses help you see beyond the physical and tune into the subtle energies that surround every living being. These courses are designed to help you understand, interpret, and balance the aura — the energetic field that reflects our emotions, thoughts, and spiritual state. Under the guidance of expert healers, you'll learn how to detect energy imbalances, cleanse negative vibrations, and strengthen your own aura through meditation, visualization, and crystal tools. Perfect for healers, energy practitioners, or anyone on a path of spiritual growth, this course empowers you to perceive energy with clarity and bring harmony to the mind, body, and spirit.",
+      "Crystal Scanning Course": "At Tathasstu, our Crystal Scanning Courses introduce you to the mystical world of crystals — nature's own energy amplifiers. This course teaches you how to connect with the unique vibrations of crystals, use them for scanning energetic imbalances, and channel their healing power effectively. Guided by experienced crystal healers, you'll learn how to sense energy shifts, choose the right crystals for specific needs, and use them to cleanse, balance, and restore harmony within the body and environment. Whether you're new to crystal healing or looking to advance your practice, this course deepens your intuition and helps you work with crystals as sacred tools of transformation.",
+      "Dowsing Course": "At Tathasstu, our Dowsing Courses open the door to one of the most ancient and intuitive forms of energy detection. This course teaches you how to use pendulums and rods to tap into subtle vibrations and access the body's innate wisdom. You'll learn how to locate energy blockages, identify answers hidden in your subconscious, and use dowsing for guidance, healing, and spiritual clarity. Under the mentorship of skilled practitioners, you'll discover the right techniques, calibration methods, and ethical practices that make dowsing a trusted spiritual art. Each session deepens your connection with your higher intuition, empowering you to seek answers with confidence, balance, and divine alignment.",
+    };
+    
+    return {
+      id: course.id,
+      slug: course.slug,
+      title: titleMap[course.title] || course.title,
+      description: originalDescriptions[course.title] || course.h1Description.substring(0, 300) + "...",
+      image: course.image,
+      imagePosition: index % 2 === 0 ? "left" : "right",
+    };
+  });
 
   return (
     <div className="bg-white text-[#073349]">
@@ -248,7 +222,10 @@ export default function Courses() {
                      {course.description}
                    </p>
                    <div className="pt-4">
-                     <button className="bg-gradient-to-r from-[#D44459] to-[#B83A4A] text-white px-8 py-4 rounded-xl font-bold text-lg hover:from-[#B83A4A] hover:to-[#D44459] transition-all duration-300 transform hover:scale-105 shadow-lg">
+                     <button 
+                       onClick={() => navigate(`/courses/${course.slug}`)}
+                       className="bg-gradient-to-r from-[#D44459] to-[#B83A4A] text-white px-8 py-4 rounded-xl font-bold text-lg hover:from-[#B83A4A] hover:to-[#D44459] transition-all duration-300 transform hover:scale-105 shadow-lg"
+                     >
                        LEARN MORE
                      </button>
                    </div>

@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Banner from "../../assets/BANNER.svg";
 import ChakraImage from "../../assets/Chakra_image.svg";
 import Chakra from "../../assets/chakra_new.svg";
 import ChakraWithLotus from "../../assets/chakra_with_lotus.svg";
+import ChakraGif from "../../assets/freecompress-chakra.gif";
 import HomeBannerVector from '../../assets/home_banner_vector.png';
 import HOMESEPERATOR from '../../assets/HOME_Seperator_1.png';
 import ExpertIcon from "../../assets/expert.svg";
@@ -44,6 +45,36 @@ import AIPowerIcon from "../../assets/ai_power.svg";
 // import React from "react";
 
 const AstrologyHome = () => {
+  const gifRef = useRef(null);
+
+  useEffect(() => {
+    const img = gifRef.current;
+    if (img) {
+      // Ensure GIF loops infinitely by reloading when it completes
+      const handleLoad = () => {
+        // Add a small delay and reload to ensure continuous looping
+        const checkAndReload = () => {
+          if (img.complete) {
+            const currentSrc = img.src.split('?')[0]; // Remove any query params
+            // Force reload by adding timestamp
+            img.src = currentSrc + '?v=' + Date.now();
+          }
+        };
+        
+        // Check periodically to ensure it keeps looping
+        const interval = setInterval(checkAndReload, 3000);
+        
+        return () => clearInterval(interval);
+      };
+      
+      img.addEventListener('load', handleLoad);
+      
+      return () => {
+        img.removeEventListener('load', handleLoad);
+      };
+    }
+  }, []);
+
   return (
     <div className="w-full">
 
@@ -212,28 +243,37 @@ const AstrologyHome = () => {
   </div>
 </div> */}
 
-<div className="flex flex-col  md:flex-row items-start justify-between px-6 sm:px-10 md:px-20 pt-10 gap-10 bg-white overflow-hidden">
+<div className="flex flex-col  md:flex-row items-start justify-between px-6 sm:px-10 md:px-20 pt-10 gap-10 bg-white overflow-visible">
   {/* Image Section */}
-  <div className="flex-shrink-0 flex-col relative ">
+  <div className="flex-shrink-0 flex-col relative overflow-visible">
     <h2 className="text-2xl md:text-3xl font-semibold mb-4 leading-snug">
       <span className="text-green-900">FROM </span>
       <span className="text-pink-600 font-bold">CHARTS TO CHAKRAS - </span>
       <div className="text-green-900"> EVERYTHING YOU NEED</div>
     </h2>
 
-    {/* Responsive Image container with left shift */}
+    {/* Chakra GIF - showing only right half (container shifted left) */}
    <div
   className="
     relative 
     w-[500px] sm:w-[600px] md:w-[700px] lg:w-[800px] 
     -ml-40 sm:-ml-56 md:-ml-72 lg:-ml-[340px] xl:-ml-[400px] 
-    h-[600px]
+    h-[650px] sm:h-[650px] md:h-[750px] lg:h-[850px]
   "
+  style={{ overflow: 'visible' }}
 >
   <img
-    src={ChakraWithLotus}
+    ref={gifRef}
+    src={ChakraGif}
     alt="Chakra with Lotus"
-    className="w-full object-contain rounded-full"
+    style={{ 
+      objectFit: 'contain',
+      width: '100%',
+      height: '100%',
+      display: 'block',
+      borderRadius: '50%',
+      transform: 'scale(1.05)'
+    }}
   />
 </div>
 

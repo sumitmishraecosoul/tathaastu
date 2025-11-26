@@ -9,6 +9,7 @@ import Login from './pages/Login';
 import ConsultationBooking from './pages/ConsultationBooking';
 import Services from './pages/Services';
 import ServiceDetails from './pages/ServiceDetails';
+import CourseDetails from './pages/CourseDetails';
 import WhatsAppFloatingButton from './components/WhatsAppFloatingButton';
 import ConnectModalButton from './components/ConnectModalButton';
 import './styles/global.css';
@@ -32,6 +33,7 @@ function App() {
           <Route path="/services/:slug" element={<ServiceDetails />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/courses" element={<Courses />} />
+          <Route path="/courses/:slug" element={<CourseDetails />} />
           <Route path="/login" element={<Login />} />
           <Route path="/consultation-booking" element={<ConsultationBooking />} />
         </Routes>
