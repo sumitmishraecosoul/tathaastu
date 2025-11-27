@@ -5,8 +5,33 @@ import Footer from '../layout/Footer';
 import ContactBanner from "../assets/contact_us_banner.svg";
 import Seperator from '../components/Home/SeperatorComponent';
 
+const API_BASE_URL =
+  import.meta.env.VITE_ADMIN_API_BASE_URL || "http://localhost:5000/api";
+
+// Map category keys to API enquiry topic strings
+const CATEGORY_TO_ENQUIRY_TOPIC = {
+  career: 'Career & Business',
+  relationship: 'Relationship',
+  education: 'Education',
+  finance: 'Finance & Legal Case',
+  travel: 'Foreign Travel',
+  health: 'Health',
+  compatibility: 'Compatibility',
+  kundli: 'Kundli Reading',
+  childFuture: "Child's Future",
+  spiritual: 'Spiritual Healing',
+  vaastu: 'Vastu Reading',
+  tarot: 'Tarot Reading',
+  horoscope: 'Horoscope Report',
+  numerology: 'Numerology Report',
+  gemstone: 'Gemstone Suggestion',
+  other: 'Other',
+};
+
 export default function Contact() {
   const [activeFAQ, setActiveFAQ] = useState(2); // FAQ 3 is open by default
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formStatus, setFormStatus] = useState(null);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -80,6 +105,95 @@ export default function Contact() {
     }));
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setFormStatus(null);
+    setIsSubmitting(true);
+
+    // Convert categories object to array of enquiry topics
+    const enquiryTopics = Object.keys(formData.categories)
+      .filter(key => formData.categories[key])
+      .map(key => CATEGORY_TO_ENQUIRY_TOPIC[key]);
+
+    const payload = {
+      firstName: formData.firstName.trim(),
+      lastName: formData.lastName.trim() || undefined,
+      email: formData.email.trim(),
+      phone: formData.phone.trim() || undefined,
+      enquiryType: formData.enquiryFor || undefined,
+      enquiryTopics: enquiryTopics,
+      message: formData.message.trim() || undefined,
+      priority: "normal",
+      source: "website",
+    };
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/queries/public`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        const errorPayload = await response.json().catch(() => null);
+        throw new Error(
+          errorPayload?.message ||
+            "We could not submit your enquiry. Please try again."
+        );
+      }
+
+      setFormStatus({
+        type: "success",
+        message:
+          "Thank you! Your enquiry was received. Our team will get in touch shortly.",
+      });
+
+      // Reset form
+      setFormData({
+        firstName: '',
+        lastName: '',
+        phone: '',
+        email: '',
+        enquiryFor: '',
+        message: '',
+        categories: {
+          career: false,
+          relationship: false,
+          education: false,
+          finance: false,
+          travel: false,
+          health: false,
+          compatibility: false,
+          kundli: false,
+          childFuture: false,
+          spiritual: false,
+          vaastu: false,
+          tarot: false,
+          horoscope: false,
+          numerology: false,
+          gemstone: false,
+          other: false
+        }
+      });
+
+      // Clear status message after 5 seconds
+      setTimeout(() => {
+        setFormStatus(null);
+      }, 5000);
+    } catch (error) {
+      setFormStatus({
+        type: "error",
+        message:
+          error?.message ||
+          "Something went wrong while submitting the enquiry. Please retry.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   const toggleFAQ = (id) => {
     setActiveFAQ(activeFAQ === id ? null : id);
   };
@@ -131,7 +245,18 @@ export default function Contact() {
                 </h2>
               </div>
 
-              <form className="space-y-5">
+              <form className="space-y-5" onSubmit={handleSubmit}>
+                {formStatus && (
+                  <div
+                    className={`rounded-xl border px-4 py-3 text-sm ${
+                      formStatus.type === "success"
+                        ? "border-green-200 bg-green-50 text-green-700"
+                        : "border-red-200 bg-red-50 text-red-700"
+                    }`}
+                  >
+                    {formStatus.message}
+                  </div>
+                )}
                 {/* Name Fields */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
@@ -233,7 +358,11 @@ export default function Contact() {
                       { key: 'compatibility', label: 'COMPATIBILITY' },
                       { key: 'kundli', label: 'KUNDLI READING' }
                     ].map((item) => (
-                      <label key={item.key} className="flex items-center space-x-2 cursor-pointer">
+                      <label 
+                        key={item.key} 
+                        className="flex items-center space-x-2 cursor-pointer"
+                        onClick={() => handleCategoryChange(item.key)}
+                      >
                         <div className="w-3 h-3 border border-[#073349] rounded-sm flex items-center justify-center">
                           {formData.categories[item.key] && (
                             <div className="w-1.5 h-1.5 bg-[#073349] rounded-sm"></div>
@@ -254,7 +383,11 @@ export default function Contact() {
                       { key: 'gemstone', label: 'GEMSTONE SUGGESTION' },
                       { key: 'other', label: 'OTHER' }
                     ].map((item) => (
-                      <label key={item.key} className="flex items-center space-x-2 cursor-pointer">
+                      <label 
+                        key={item.key} 
+                        className="flex items-center space-x-2 cursor-pointer"
+                        onClick={() => handleCategoryChange(item.key)}
+                      >
                         <div className="w-3 h-3 border border-[#073349] rounded-sm flex items-center justify-center">
                           {formData.categories[item.key] && (
                             <div className="w-1.5 h-1.5 bg-[#073349] rounded-sm"></div>
@@ -283,9 +416,10 @@ export default function Contact() {
                 <div className="text-center pt-4">
                   <button
                     type="submit"
-                    className="bg-[#D44459] text-white px-6 py-3 rounded font-semibold text-sm hover:bg-[#B83A4A] transition-colors shadow-md"
+                    disabled={isSubmitting}
+                    className="bg-[#D44459] text-white px-6 py-3 rounded font-semibold text-sm hover:bg-[#B83A4A] transition-colors shadow-md disabled:cursor-not-allowed disabled:opacity-60"
                   >
-                    LET'S CONNECT
+                    {isSubmitting ? "Submitting..." : "LET'S CONNECT"}
                   </button>
                 </div>
               </form>

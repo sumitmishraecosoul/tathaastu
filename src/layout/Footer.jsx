@@ -30,18 +30,18 @@ export default function Footer() {
           <img src={tathaastuLogo} alt="Tathaastu Logo" className="h-14" />
         </div>
 
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-[minmax(0,260px)_minmax(0,250px)_minmax(0,180px)_minmax(0,250px)_minmax(0,180px)] items-start">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-[minmax(0,260px)_1fr_minmax(0,180px)] items-start">
           <div className="space-y-4 text-sm text-[#325d72] leading-relaxed font-semibold">
             <h3 className="text-[#D44459] font-semibold text-base uppercase tracking-wide">About Tathasstu</h3>
             <p>
-              At Tathasstu, we help you align your life with the rhythm of the universe. From astrology and healing to spiritual courses and remedies, we’re your trusted guide on the journey to self-awareness and divine balance. Discover the wisdom within — and unlock your destiny with Tathasstu.
+              At Tathasstu, we help you align your life with the rhythm of the universe. From astrology and healing to spiritual courses and remedies, we're your trusted guide on the journey to self-awareness and divine balance. Discover the wisdom within — and unlock your destiny with Tathasstu.
             </p>
           </div>
 
           {/* Our Services */}
-          <div className="space-y-4">
+          <div className="space-y-4 w-full flex flex-col items-center">
             <h3 className="text-[#D44459] font-semibold text-base uppercase tracking-wide">Our Services</h3>
-            <div className="grid grid-cols-2 gap-x-6 gap-y-3 text-sm text-[#073349] leading-6">
+            <div className="grid grid-cols-2 gap-x-6 gap-y-3 text-sm text-[#073349] leading-6 w-full">
               <a href="#" className="hover:text-[#D44459] transition-colors whitespace-normal">Vaastu for Home</a>
               <a href="#" className="hover:text-[#D44459] transition-colors whitespace-normal">Vaastu for Offices</a>
               <a href="#" className="hover:text-[#D44459] transition-colors whitespace-normal">Vaastu for Factories</a>
@@ -55,31 +55,6 @@ export default function Footer() {
               <a href="#" className="hover:text-[#D44459] transition-colors whitespace-normal">Pet Healing</a>
               <a href="#" className="hover:text-[#D44459] transition-colors whitespace-normal">Dowsing</a>
               <a href="#" className="hover:text-[#D44459] transition-colors whitespace-normal">Aura Healing &amp; Scanning</a>
-            </div>
-          </div>
-
-          {/* Astrologers Platform */}
-          <div className="space-y-4">
-            <h3 className="text-[#D44459] font-semibold text-base uppercase tracking-wide">Astrologers Platform</h3>
-            <div className="space-y-3 text-sm text-[#073349] leading-6">
-              <a href="#" className="block hover:text-[#D44459] transition-colors whitespace-normal">Astrologer's Login</a>
-              <a href="#" className="block hover:text-[#D44459] transition-colors whitespace-normal">Astrologer's Registration</a>
-            </div>
-          </div>
-
-          {/* Tathasstu Courses */}
-          <div className="space-y-4">
-            <h3 className="text-[#D44459] font-semibold text-base uppercase tracking-wide">Tathasstu Courses</h3>
-            <div className="grid grid-cols-2 gap-x-6 gap-y-3 text-sm text-[#073349] leading-6">
-              <a href="#" className="hover:text-[#D44459] transition-colors whitespace-normal">Vaastu Course</a>
-              <a href="#" className="hover:text-[#D44459] transition-colors whitespace-normal">Astrology Course</a>
-              <a href="#" className="hover:text-[#D44459] transition-colors whitespace-normal">Tarot Card Course</a>
-              <a href="#" className="hover:text-[#D44459] transition-colors whitespace-normal">Numerology Course</a>
-              <a href="#" className="hover:text-[#D44459] transition-colors whitespace-normal">Become a Yoga Instructor Course</a>
-              <a href="#" className="hover:text-[#D44459] transition-colors whitespace-normal">Pet Healing Course</a>
-              <a href="#" className="hover:text-[#D44459] transition-colors whitespace-normal">Aura Scanning Course</a>
-              <a href="#" className="hover:text-[#D44459] transition-colors whitespace-normal">Crystal Scanning Course</a>
-              <a href="#" className="hover:text-[#D44459] transition-colors whitespace-normal">Dowsing Course</a>
             </div>
           </div>
 
