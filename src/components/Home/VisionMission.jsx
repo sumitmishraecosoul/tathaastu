@@ -1,8 +1,10 @@
 import React from "react";
 import lotusBackground from "../../assets/lotus.svg"; // Replace with your actual image path
 import { ArrowRight } from "lucide-react";
+import { useConnectModal } from "../../contexts/ConnectModalContext";
 
 const VisionMissionSection = () => {
+  const { openModal } = useConnectModal();
   return (
     <section className="w-full py-16 bg-white font-sans">
       <div className="max-w-full  flex flex-col md:flex-row  justify-between px-6">
@@ -91,10 +93,13 @@ const VisionMissionSection = () => {
           {/* <button className="bg-[#C5445D] max-w-1/2 text-white px-24 py-2  rounded-full shadow-md font-semibold hover:bg-[#a6344f] transition-all">
             CONTACT US  
           </button> */}
-          <button className="bg-[#C5445D] max-w-1/2 text-white px-24 py-2 flex items-center gap-2 rounded-full shadow-md font-semibold hover:bg-[#a6344f] transition-all">
-  Book A Call
-  <ArrowRight size={20} />
-</button>
+          <button 
+            onClick={openModal}
+            className="bg-[#C5445D] max-w-1/2 text-white px-24 py-2 flex items-center gap-2 rounded-full shadow-md font-semibold hover:bg-[#a6344f] transition-all"
+          >
+            Book A Call
+            <ArrowRight size={20} />
+          </button>
 
         </div>
       </div>

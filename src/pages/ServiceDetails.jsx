@@ -87,7 +87,7 @@ export default function ServiceDetails() {
           <img src={tathaastuLogo} alt="Tathaastu Logo" className="h-16 md:h-20" />
         </div>
         <div className="flex justify-end space-x-2 md:space-x-4">
-          <button
+          {/* <button
             onClick={() => navigate("/contact")}
             className="text-sm font-semibold text-[#073349] hover:text-[#D44459] transition-colors"
           >
@@ -98,7 +98,7 @@ export default function ServiceDetails() {
             className="bg-[#D44459] text-white px-4 py-2 rounded-lg hover:bg-[#B83A4A] transition-colors"
           >
             SIGN IN
-          </button>
+          </button> */}
         </div>
       </nav>
 

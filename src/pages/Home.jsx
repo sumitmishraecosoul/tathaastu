@@ -105,8 +105,8 @@ export default function Home() {
           <img src={tathaastuLogo} alt="Tathaastu Logo" className="h-16 md:h-20" />
         </div>
         <div className="flex justify-end space-x-2 md:space-x-4">
-          <button className="text-sm font-semibold text-green-800">CONTACT US</button>
-          <Link to="/login" className="bg-[#D9716C] text-white px-4 py-1 rounded hover:bg-[#B83A4A] transition-colors inline-block">SIGN IN</Link>
+          {/* <button className="text-sm font-semibold text-green-800">CONTACT US</button>
+          <Link to="/login" className="bg-[#D9716C] text-white px-4 py-1 rounded hover:bg-[#B83A4A] transition-colors inline-block">SIGN IN</Link> */}
         </div>
       </nav>
       <AstrologyBanner/>

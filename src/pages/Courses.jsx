@@ -121,8 +121,8 @@ export default function Courses() {
           <img src={tathaastuLogo} alt="Tathaastu Logo" className="h-16 md:h-20" />
         </div>
         <div className="flex justify-end space-x-2 md:space-x-4">
-          <button className="text-sm font-semibold text-[#073349] hover:text-[#D44459] transition-colors">CONTACT US</button>
-          <Link to="/login" className="bg-[#D44459] text-white px-4 py-2 rounded-lg hover:bg-[#B83A4A] transition-colors inline-block">SIGN IN</Link>
+          {/* <button className="text-sm font-semibold text-[#073349] hover:text-[#D44459] transition-colors">CONTACT US</button>
+          <Link to="/login" className="bg-[#D44459] text-white px-4 py-2 rounded-lg hover:bg-[#B83A4A] transition-colors inline-block">SIGN IN</Link> */}
         </div>
       </nav>
 

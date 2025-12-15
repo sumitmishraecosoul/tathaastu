@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useConnectModal } from "../contexts/ConnectModalContext";
 
 const DEFAULT_ENQUIRY_OPTIONS = [
   "Career & Business",
@@ -33,7 +34,7 @@ const INITIAL_FORM_VALUES = {
 };
 
 export default function ConnectModalButton() {
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpen, openModal, closeModal } = useConnectModal();
   const [formValues, setFormValues] = useState(INITIAL_FORM_VALUES);
   const [enquiryOptions, setEnquiryOptions] = useState(DEFAULT_ENQUIRY_OPTIONS);
   const [optionsLoading, setOptionsLoading] = useState(false);
@@ -133,11 +134,23 @@ export default function ConnectModalButton() {
       });
 
       if (!response.ok) {
-        const errorPayload = await response.json().catch(() => null);
-        throw new Error(
-          errorPayload?.message ||
-            "We could not submit your enquiry. Please try again."
-        );
+        let errorMessage = "We could not submit your enquiry. Please try again.";
+        
+        if (response.status === 404) {
+          errorMessage = "The enquiry endpoint is not available. Please contact support or try again later.";
+          console.error("API Endpoint not found:", `${API_BASE_URL}/queries/public`);
+          console.error("Status:", response.status, response.statusText);
+        } else {
+          try {
+            const errorPayload = await response.json();
+            errorMessage = errorPayload?.message || errorMessage;
+          } catch (e) {
+            // If response is not JSON, use default message
+            errorMessage = `Server error (${response.status}). Please try again later.`;
+          }
+        }
+        
+        throw new Error(errorMessage);
       }
 
       setFormStatus({
@@ -148,7 +161,7 @@ export default function ConnectModalButton() {
       setFormValues(INITIAL_FORM_VALUES);
 
       setTimeout(() => {
-        setIsOpen(false);
+        closeModal();
         setFormStatus(null);
       }, 2000);
     } catch (error) {
@@ -167,7 +180,7 @@ export default function ConnectModalButton() {
     <>
       <button
         type="button"
-        onClick={() => setIsOpen(true)}
+        onClick={openModal}
         className="fixed left-4 bottom-4 sm:bottom-6 z-40 flex items-center gap-2 px-4 py-3 bg-[#073349] text-white rounded-full shadow-lg font-semibold hover:bg-[#0a4a6b] transition-transform hover:scale-105"
       >
         Let's Connect
@@ -177,7 +190,7 @@ export default function ConnectModalButton() {
         <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
           <div
             className="absolute inset-0 bg-black/60"
-            onClick={() => setIsOpen(false)}
+            onClick={closeModal}
           ></div>
           <div className="relative bg-white rounded-3xl shadow-2xl max-w-4xl w-full overflow-hidden">
             <div className="flex justify-between items-center px-6 py-4 border-b border-gray-100">
@@ -186,7 +199,7 @@ export default function ConnectModalButton() {
               </h2>
               <button
                 type="button"
-                onClick={() => setIsOpen(false)}
+                onClick={closeModal}
                 className="text-[#073349] hover:text-[#D44459] text-2xl leading-none"
                 aria-label="Close connect modal"
               >

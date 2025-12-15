@@ -909,16 +909,22 @@ import Surya from "../../assets/Surya.svg";
 import Shani from "../../assets/Shani.svg";
 import Guru from "../../assets/Guru.svg";
 import Chandrma from "../../assets/Chandrma.svg";
+import Mercury from "../../assets/MERCURY.svg";
+import Mars from "../../assets/MARS.svg";
+import Ketu from "../../assets/KETU.svg";
+import Rahu from "../../assets/RAHU.svg";
+import Venus from "../../assets/VENUS.svg";
 
 const planets = [
   { name: "SURYA", src: Surya },
   { name: "CHANDRMA", src: Chandrma },
   { name: "GURU", src: Guru },
   { name: "SHANI", src: Shani },
-  { name: "SURYA 2", src: Surya },
-  { name: "CHANDRMA 2", src: Chandrma },
-  { name: "GURU 2", src: Guru },
-  { name: "SHANI 2", src: Shani },
+  { name: "MERCURY", src: Mercury },
+  { name: "MARS", src: Mars },
+  { name: "KETU", src: Ketu },
+  { name: "RAHU", src: Rahu },
+  { name: "VENUS", src: Venus },
 ];
 
 const CARD_WIDTH = 250;

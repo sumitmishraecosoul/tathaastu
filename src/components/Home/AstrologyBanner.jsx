@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { useConnectModal } from "../../contexts/ConnectModalContext";
 import Banner from "../../assets/BANNER.svg";
 import ChakraImage from "../../assets/Chakra_image.svg";
 import Chakra from "../../assets/chakra_new.svg";
@@ -46,6 +47,7 @@ import AIPowerIcon from "../../assets/ai_power.svg";
 
 const AstrologyHome = () => {
   const gifRef = useRef(null);
+  const { openModal } = useConnectModal();
 
   useEffect(() => {
     const img = gifRef.current;
@@ -93,7 +95,10 @@ const AstrologyHome = () => {
             <p className="text-sm md:text-base text-gray-200">
              100+ Astrologers | Personalised Guidance | AI-Powered Insights
             </p>
-            <button className="bg-[#d05a69] hover:bg-pink-500 text-2xl text-white font-semibold py-3 px-16 rounded-full shadow-lg transition duration-300">
+            <button 
+              onClick={openModal}
+              className="bg-[#d05a69] hover:bg-pink-500 text-2xl text-white font-semibold py-3 px-16 rounded-full shadow-lg transition duration-300"
+            >
               Get a Free Prediction
             </button>
           </div>
@@ -324,7 +329,10 @@ const AstrologyHome = () => {
     </div>
 
     {/* Button */}
-    <button className="mt-4 text-xl md:text-2xl bg-[#d05a69] hover:bg-rose-600 text-white font-semibold py-2 px-10 md:px-12 rounded-full transition duration-300">
+    <button 
+      onClick={openModal}
+      className="mt-4 text-xl md:text-2xl bg-[#d05a69] hover:bg-rose-600 text-white font-semibold py-2 px-10 md:px-12 rounded-full transition duration-300"
+    >
       Get a Free Prediction
     </button>
   </div>

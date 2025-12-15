@@ -12,6 +12,7 @@ import ServiceDetails from './pages/ServiceDetails';
 import CourseDetails from './pages/CourseDetails';
 import WhatsAppFloatingButton from './components/WhatsAppFloatingButton';
 import ConnectModalButton from './components/ConnectModalButton';
+import { ConnectModalProvider } from './contexts/ConnectModalContext';
 import './styles/global.css';
 import useScrollToTop from './hooks/useScrollToTop';
 
@@ -22,25 +23,27 @@ function ScrollManager() {
 
 function App() {
   return (
-    <Router>
-      <div className="min-h-screen font-sans">
-        <ScrollManager />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/pricing" element={<Pricing />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/services/:slug" element={<ServiceDetails />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/courses" element={<Courses />} />
-          <Route path="/courses/:slug" element={<CourseDetails />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/consultation-booking" element={<ConsultationBooking />} />
-        </Routes>
-        <WhatsAppFloatingButton />
-        <ConnectModalButton />
-      </div>
-    </Router>
+    <ConnectModalProvider>
+      <Router>
+        <div className="min-h-screen font-sans">
+          <ScrollManager />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/pricing" element={<Pricing />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/services/:slug" element={<ServiceDetails />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/courses" element={<Courses />} />
+            <Route path="/courses/:slug" element={<CourseDetails />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/consultation-booking" element={<ConsultationBooking />} />
+          </Routes>
+          <WhatsAppFloatingButton />
+          <ConnectModalButton />
+        </div>
+      </Router>
+    </ConnectModalProvider>
   );
 }
 
