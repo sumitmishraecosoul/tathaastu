@@ -1,0 +1,326 @@
+/* Tathaastu solar hero — pure CSS orbits (prompt-accurate), assets via Vite-resolved paths */
+
+/* ════════════════════════════════════════════════════════════
+   SOLAR HERO SECTION
+   ════════════════════════════════════════════════════════════ */
+.home7.hs_slider_main_wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  padding-top: 80px;
+  padding-bottom: 400px;
+  overflow: hidden;
+  background: #020614;
+}
+
+/* ── Overlay ── */
+.home7 .hs_slider_img_overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── Page heading ── */
+.home7 .hs_slider_heading_wrapper {
+  position: relative;
+  z-index: 50;
+  text-align: center;
+  width: 100%;
+}
+
+.home7 .hs_slider_logo_cont_wraper h2 {
+  color: #ffffff;
+  font-size: clamp(28px, 5vw, 46px);
+  font-weight: 900;
+  font-style: italic;
+  text-transform: uppercase;
+  font-family: "Roboto", sans-serif;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
+  margin: 0;
+  line-height: 1.15;
+}
+
+.home7 .hs_slider_logo_cont_wraper h2 + h2 {
+  margin-top: 0.25rem;
+}
+
+.home7 .hs_slider_logo_cont_wraper h2 span {
+  color: #ffb300;
+}
+
+/* ════════════════════════════════════════════════════════════
+   SOLAR SYSTEM STAGE
+   ════════════════════════════════════════════════════════════ */
+.home7 .hs_slider_cont_wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 160px;
+  perspective: 1200px;
+  perspective-origin: 50% 50%;
+  transform: rotate(-10deg);
+  z-index: 15;
+}
+
+/* ════════════════════════════════════════════════════════════
+   SUN
+   ════════════════════════════════════════════════════════════ */
+.home7 .hs_sun {
+  position: absolute;
+  left: 50%;
+  top: 160px;
+  transform: translateX(-50%);
+  width: 280px;
+  height: 280px;
+  z-index: 10;
+}
+
+.home7 .hs_sun .star {
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: url("../../../assets/sun.png") center / cover no-repeat;
+  box-shadow:
+    0 0 60px rgba(255, 160, 30, 0.9),
+    0 0 120px rgba(255, 100, 10, 0.6),
+    0 0 220px rgba(255, 60, 0, 0.3);
+  animation: tathaastu-spin-sun 40s linear infinite;
+  position: relative;
+  z-index: 1;
+}
+
+.home7 .sun-shadow {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 30% 25%,
+    transparent 40%,
+    rgba(0, 0, 0, 0.96) 68%
+  );
+  z-index: 2;
+  pointer-events: none;
+}
+
+@keyframes tathaastu-spin-sun {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Pulse rings expanding from sun */
+.home7 .hs_waves2 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.home7 .hs_wave {
+  position: absolute;
+  width: 340px;
+  height: 340px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.15);
+  opacity: 0;
+  border: 1px solid rgba(255, 190, 60, 0.4);
+  border-radius: 50%;
+  animation: tathaastu-pulse-wave 3.5s ease-out infinite;
+}
+
+.home7 .hs_wave:nth-child(2) {
+  animation-delay: 0.875s;
+}
+.home7 .hs_wave:nth-child(3) {
+  animation-delay: 1.75s;
+}
+.home7 .hs_wave:nth-child(4) {
+  animation-delay: 2.625s;
+}
+
+@keyframes tathaastu-pulse-wave {
+  0% {
+    transform: translate(-50%, -50%) scale(0.15);
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2.8);
+    opacity: 0;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════
+   ORBIT RINGS (decorative)
+   sun_center_Y = 160 + 140 = 300px
+   ════════════════════════════════════════════════════════════ */
+.home7 .orbit-ring {
+  position: absolute;
+  left: 50%;
+  top: 300px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  pointer-events: none;
+  z-index: 5;
+}
+
+.home7 .orbit-ring-1 {
+  width: 320px;
+  height: 320px;
+}
+.home7 .orbit-ring-2 {
+  width: 500px;
+  height: 500px;
+}
+.home7 .orbit-ring-3 {
+  width: 680px;
+  height: 680px;
+}
+.home7 .orbit-ring-4 {
+  width: 920px;
+  height: 920px;
+}
+
+/* ════════════════════════════════════════════════════════════
+   ORBIT WRAPPERS
+   ════════════════════════════════════════════════════════════ */
+.home7 .mercury,
+.home7 .venus,
+.home7 .earth,
+.home7 .mars,
+.home7 .jupiter {
+  position: absolute;
+  height: 0;
+  left: 50%;
+  top: 300px;
+  transform: translateX(-50%);
+  transform-origin: center center;
+  transform-style: preserve-3d;
+}
+
+.home7 .planet {
+  position: absolute;
+  left: 100%;
+  top: 0;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.home7 .shadow {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 30% 30%,
+    transparent 38%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
+}
+
+@keyframes tathaastu-anti-spin {
+  from {
+    transform: translate(-50%, -50%) rotateY(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotateY(-360deg);
+  }
+}
+
+/* Mercury — 320px diameter, 10s */
+.home7 .mercury {
+  width: 320px;
+  animation: tathaastu-orbit-planet 10s linear infinite;
+}
+.home7 .mercury .planet {
+  width: 14px;
+  height: 14px;
+  background-image: url("../../../assets/mercury.png");
+  animation: tathaastu-anti-spin 10s linear infinite;
+}
+
+/* Venus — 500px, 16s, delay -5s */
+.home7 .venus {
+  width: 500px;
+  animation: tathaastu-orbit-planet 16s linear infinite;
+  animation-delay: -5s;
+}
+.home7 .venus .planet {
+  width: 32px;
+  height: 32px;
+  background-image: url("../../../assets/venus.png");
+  animation: tathaastu-anti-spin 16s linear infinite;
+  animation-delay: -5s;
+}
+
+/* Earth — 680px, 24s, delay -9s */
+.home7 .earth {
+  width: 680px;
+  animation: tathaastu-orbit-planet 24s linear infinite;
+  animation-delay: -9s;
+}
+.home7 .earth .planet {
+  width: 36px;
+  height: 36px;
+  background-image: url("../../../assets/earth.png");
+  animation: tathaastu-anti-spin 24s linear infinite;
+  animation-delay: -9s;
+}
+
+/* Mars — 680px, 36s, delay -18s */
+.home7 .mars {
+  width: 680px;
+  animation: tathaastu-orbit-planet 36s linear infinite;
+  animation-delay: -18s;
+}
+.home7 .mars .planet {
+  width: 22px;
+  height: 22px;
+  background-image: url("../../../assets/mars.png");
+  animation: tathaastu-anti-spin 36s linear infinite;
+  animation-delay: -18s;
+}
+
+/* Jupiter — 920px, 65s, delay -28s */
+.home7 .jupiter {
+  width: 920px;
+  animation: tathaastu-orbit-planet 65s linear infinite;
+  animation-delay: -28s;
+}
+.home7 .jupiter .planet {
+  width: 90px;
+  height: 90px;
+  background-image: url("../../../assets/jupiter.png");
+  animation: tathaastu-anti-spin 65s linear infinite;
+  animation-delay: -28s;
+}
+
+@keyframes tathaastu-orbit-planet {
+  0% {
+    z-index: 12;
+    transform: translateX(-50%) rotateY(0deg);
+  }
+  49.9% {
+    z-index: 12;
+  }
+  50% {
+    z-index: 8;
+    transform: translateX(-50%) rotateY(180deg);
+  }
+  99.9% {
+    z-index: 8;
+  }
+  100% {
+    z-index: 12;
+    transform: translateX(-50%) rotateY(360deg);
+  }
+}

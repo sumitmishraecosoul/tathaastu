@@ -21,7 +21,11 @@ const DEFAULT_ENQUIRY_OPTIONS = [
 ];
 
 const API_BASE_URL =
-  import.meta.env.VITE_ADMIN_API_BASE_URL || "http://localhost:5000/api";
+  import.meta.env.VITE_ADMIN_API_BASE_URL || "http://localhost:9001/api";
+
+// Debug: Log the API URL being used (check browser console)
+console.log("🔍 API_BASE_URL from .env:", import.meta.env.VITE_ADMIN_API_BASE_URL);
+console.log("🔍 Final API_BASE_URL being used:", API_BASE_URL);
 
 const INITIAL_FORM_VALUES = {
   firstName: "",

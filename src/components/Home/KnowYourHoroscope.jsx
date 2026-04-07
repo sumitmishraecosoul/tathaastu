@@ -126,7 +126,8 @@ const KnowYourHoroscope = () => {
         <div className="space-y-2">
           {horoscopeData.slice(0, 4).map((item, index) => (
             <div key={index} className="flex flex-col items-center space-x-2 space-y-2">
-              <img src={item.icon} alt={item.name} className="w-48 h-48" />
+              <img src={item.icon} alt={item.name} loading="lazy" decoding="async" className="w-48 h-48" />
+              
               <div >
                  <h3 className="text-lg font-bold text-[#0B513C]">{item.name}</h3>
                 <p className="text-sm font-bold text-[#0B513C]">{item.date}</p>
@@ -139,6 +140,8 @@ const KnowYourHoroscope = () => {
           <img
             src={CenterSunImage}
             alt="Sun with Background"
+            loading="lazy"
+            decoding="async"
             className="w-300 h-300 object-contain"
           />
         </div>
@@ -146,7 +149,7 @@ const KnowYourHoroscope = () => {
         <div className="space-y-6">
           {horoscopeData.slice(4).map((item, index) => (
             <div key={index} className="flex flex-col items-center space-x-2 space-y-2">
-              <img src={item.icon} alt={item.name} className="w-48 h-48" />
+              <img src={item.icon} alt={item.name} loading="lazy" decoding="async" className="w-48 h-48" />
               <div>
                 <h3 className="text-lg font-bold text-[#0B513C]">{item.name}</h3>
                 <p className="text-sm font-bold text-[#0B513C]">{item.date}</p>

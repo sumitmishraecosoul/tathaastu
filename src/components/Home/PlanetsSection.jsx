@@ -1013,6 +1013,8 @@ const PlanetsSection = () => {
                 <img
                   src={planet.src}
                   alt={planet.name}
+                  loading="lazy"
+                  decoding="async"
                   className="w-[140px] h-[140px] sm:w-[160px] sm:h-[160px] md:w-[180px] md:h-[180px] lg:w-[200px] lg:h-[200px] object-contain"
                 />
                 <h4 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-[#2D7351] mt-3 uppercase text-center">

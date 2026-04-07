@@ -72,7 +72,7 @@
 
 
 
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import HomeBannerVector from '../assets/home_banner_vector.png';
 import tathaastuLogo from '../assets/tathaastu_logo.png';
@@ -93,6 +93,35 @@ import SliderOpener from '../components/Home/SliderOpener';
 import Footer from '../layout/Footer';
 
 export default function Home() {
+  const DeferredSection = ({ children, minHeight = "240px", rootMargin = "300px 0px" }) => {
+    const [isVisible, setIsVisible] = useState(false);
+    const placeholderRef = useRef(null);
+
+    useEffect(() => {
+      const node = placeholderRef.current;
+      if (!node || isVisible) return;
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+            observer.disconnect();
+          }
+        },
+        { rootMargin }
+      );
+
+      observer.observe(node);
+      return () => observer.disconnect();
+    }, [isVisible, rootMargin]);
+
+    return (
+      <div ref={placeholderRef} style={{ minHeight }}>
+        {isVisible ? children : null}
+      </div>
+    );
+  };
+
   return (
     <div className="bg-white text-[#073349]">
       
@@ -161,21 +190,38 @@ export default function Home() {
           </p>
         </div>
       </section> */}
-      <PlanetsSection />
-      <Seperator />
+      <DeferredSection minHeight="420px">
+        <PlanetsSection />
+        <Seperator />
+      </DeferredSection>
 
-      <ServicesCarousel />
-       <Seperator />
+      <DeferredSection minHeight="360px">
+        <ServicesCarousel />
+        <Seperator />
+      </DeferredSection>
+
+      <DeferredSection minHeight="340px">
         <AIContentSection />
-      <Seperator />
-      {/* <FeatureSection /> */}
-      {/* <ZodiacSection /> */}
-      <VisionMission />
-      <Seperator />
-      <WhyChooseSection />
-      <Seperator />
-      <KnowYourHoroscope />
-      <TestimonialsSection />
+        <Seperator />
+      </DeferredSection>
+
+      <DeferredSection minHeight="320px">
+        <VisionMission />
+        <Seperator />
+      </DeferredSection>
+
+      <DeferredSection minHeight="320px">
+        <WhyChooseSection />
+        <Seperator />
+      </DeferredSection>
+
+      <DeferredSection minHeight="380px">
+        <KnowYourHoroscope />
+      </DeferredSection>
+
+      <DeferredSection minHeight="320px">
+        <TestimonialsSection />
+      </DeferredSection>
       <Footer />
     </div>
   );

@@ -6,7 +6,10 @@ import ContactBanner from "../assets/contact_us_banner.svg";
 import Seperator from '../components/Home/SeperatorComponent';
 
 const API_BASE_URL =
-  import.meta.env.VITE_ADMIN_API_BASE_URL || "http://localhost:5000/api";
+  import.meta.env.VITE_ADMIN_API_BASE_URL || "http://localhost:9001/api";
+
+// Debug: Log the API URL being used (check browser console)
+console.log("🔍 Contact page API_BASE_URL:", API_BASE_URL);
 
 // Map category keys to API enquiry topic strings
 const CATEGORY_TO_ENQUIRY_TOPIC = {

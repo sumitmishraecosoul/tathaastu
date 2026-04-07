@@ -16,8 +16,20 @@ export default function Footer() {
       <div className="max-w-[1440px] mx-auto px-6 md:px-16 py-6 flex justify-end">
         <div className="flex space-x-4">
           <img src={FacebookIcon} alt="Facebook" className="w-10 h-10" />
-          <img src={YoutubeIcon} alt="YouTube" className="w-10 h-10" />
-          <img src={InstagramIcon} alt="Instagram" className="w-10 h-10" />
+          <a
+            href="https://www.youtube.com/@Tathasstu_official"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src={YoutubeIcon} alt="YouTube" className="w-10 h-10" />
+          </a>
+          <a
+            href="https://www.instagram.com/tathasstu_official/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src={InstagramIcon} alt="Instagram" className="w-10 h-10" />
+          </a>
         </div>
       </div>
 

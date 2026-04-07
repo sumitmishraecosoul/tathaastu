@@ -204,6 +204,8 @@ export default function Courses() {
                      <img 
                        src={course.image} 
                        alt={course.title}
+                      loading="lazy"
+                      decoding="async"
                        className="w-full h-72 lg:h-96 object-cover rounded-2xl shadow-xl transition-transform duration-300 group-hover:scale-105"
                      />
                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl"></div>

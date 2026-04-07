@@ -1,16 +1,14 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { useConnectModal } from "../../contexts/ConnectModalContext";
 import Banner from "../../assets/BANNER.svg";
-import ChakraImage from "../../assets/Chakra_image.svg";
-import Chakra from "../../assets/chakra_new.svg";
-import ChakraWithLotus from "../../assets/chakra_with_lotus.svg";
 import ChakraGif from "../../assets/freecompress-chakra.gif";
-import HomeBannerVector from '../../assets/home_banner_vector.png';
 import HOMESEPERATOR from '../../assets/HOME_Seperator_1.png';
 import ExpertIcon from "../../assets/expert.svg";
 import AuthenticIcon from "../../assets/authentic.svg";
 import PERSONALISEDIcon from "../../assets/PERSONALISED.svg";
 import AIPowerIcon from "../../assets/ai_power.svg";
+import "./solar-hero/tathaastu-solar-hero.css";
+import "./solar-hero/tathaastu-solar-home7.css";
 
 // const AstrologyBanner = () => {
 //   return (
@@ -46,69 +44,89 @@ import AIPowerIcon from "../../assets/ai_power.svg";
 // import React from "react";
 
 const AstrologyHome = () => {
-  const gifRef = useRef(null);
   const { openModal } = useConnectModal();
-
-  useEffect(() => {
-    const img = gifRef.current;
-    if (img) {
-      // Ensure GIF loops infinitely by reloading when it completes
-      const handleLoad = () => {
-        // Add a small delay and reload to ensure continuous looping
-        const checkAndReload = () => {
-          if (img.complete) {
-            const currentSrc = img.src.split('?')[0]; // Remove any query params
-            // Force reload by adding timestamp
-            img.src = currentSrc + '?v=' + Date.now();
-          }
-        };
-        
-        // Check periodically to ensure it keeps looping
-        const interval = setInterval(checkAndReload, 3000);
-        
-        return () => clearInterval(interval);
-      };
-      
-      img.addEventListener('load', handleLoad);
-      
-      return () => {
-        img.removeEventListener('load', handleLoad);
-      };
-    }
-  }, []);
 
   return (
     <div className="w-full">
 
-      {/* SECTION 1: Banner */}
+      {/* SECTION 1: Solar system (Home7 style) */}
+      <section className="home7 hs_slider_main_wrapper">
+        <div className="hs_slider_img_overlay" />
+        <div className="hs_slider_heading_wrapper">
+          <div className="hs_slider_logo_cont_wraper">
+            <h2>Welcome To</h2>
+            <h2>
+              THE BEST <span>HOR</span>OSCOPE
+            </h2>
+          </div>
+        </div>
+
+        <div className="hs_slider_cont_wrapper" aria-hidden="true">
+          <div className="orbit-ring orbit-ring-1" />
+          <div className="orbit-ring orbit-ring-2" />
+          <div className="orbit-ring orbit-ring-3" />
+          <div className="orbit-ring orbit-ring-4" />
+
+          <div className="hs_sun">
+            <div className="star" />
+            <div className="sun-shadow" />
+            <div className="hs_waves2">
+              <div className="hs_wave" />
+              <div className="hs_wave" />
+              <div className="hs_wave" />
+              <div className="hs_wave" />
+            </div>
+          </div>
+
+          <div className="mercury">
+            <div className="planet">
+              <div className="shadow" />
+            </div>
+          </div>
+          <div className="venus">
+            <div className="planet">
+              <div className="shadow" />
+            </div>
+          </div>
+          <div className="earth">
+            <div className="planet">
+              <div className="shadow" />
+            </div>
+          </div>
+          <div className="mars">
+            <div className="planet">
+              <div className="shadow" />
+            </div>
+          </div>
+          <div className="jupiter">
+            <div className="planet">
+              <div className="shadow" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 1B: Original banner image/design (below solar section) */}
       <div
-        className="relative h-[600px] bg-cover bg-center flex items-center"
-       style={{ backgroundImage: `url(${Banner})` }}
+        className="relative clear-both w-full h-[600px] bg-cover bg-center flex items-center"
+        style={{ backgroundImage: `url(${Banner})` }}
       >
         <div className="relative z-10 flex flex-col md:flex-row items-center justify-between px-10 md:px-20 w-full">
-          {/* Left Content */}
           <div className="text-white max-w-xl space-y-4">
             <h1 className="text-3xl md:text-5xl font-bold leading-tight">
-             Unlock Your Destiny With The Best <br />
+              Unlock Your Destiny With The Best <br />
               <span className="text-pink-300">Astrology Predictions</span>
             </h1>
             <p className="text-sm md:text-base text-gray-200">
-             100+ Astrologers | Personalised Guidance | AI-Powered Insights
+              100+ Astrologers | Personalised Guidance | AI-Powered Insights
             </p>
-            <button 
+            <button
               onClick={openModal}
               className="bg-[#d05a69] hover:bg-pink-500 text-2xl text-white font-semibold py-3 px-16 rounded-full shadow-lg transition duration-300"
             >
               Get a Free Prediction
             </button>
           </div>
-
-          {/* Right Zodiac Wheel */}
-          {/* <img
-            src={ChakraImage}
-            alt="Zodiac Wheel"
-            className="hidden md:block w-[300px] lg:w-[400px]"
-          /> */}
         </div>
       </div>
 
@@ -268,9 +286,10 @@ const AstrologyHome = () => {
   style={{ overflow: 'visible' }}
 >
   <img
-    ref={gifRef}
     src={ChakraGif}
     alt="Chakra with Lotus"
+    loading="lazy"
+    decoding="async"
     style={{ 
       objectFit: 'contain',
       width: '100%',
@@ -296,14 +315,14 @@ const AstrologyHome = () => {
     {/* Features Grid */}
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 bg-[#fff5e5] py-8 px-6 rounded-3xl shadow-md text-sm">
       <div className="flex items-center gap-3">
-        <img src={AIPowerIcon} alt="AI Power" className="w-10 h-10 rounded-full" />
+        <img src={AIPowerIcon} alt="AI Power" loading="lazy" decoding="async" className="w-10 h-10 rounded-full" />
        <div className="flex flex-col gap-2">
          <span className="font-semibold text-green-800">Real Guidance by Verified Astrologers</span>
         <span className="font-semibold text-green-800">We have a community of — + best astrologers who provide you with real-time predictions.</span>
        </div>
       </div>
       <div className="flex items-center gap-3">
-        <img src={AuthenticIcon} alt="Authentic Remedies" className="w-10 h-10 rounded-full" />
+        <img src={AuthenticIcon} alt="Authentic Remedies" loading="lazy" decoding="async" className="w-10 h-10 rounded-full" />
         <div className="flex flex-col gap-2">
           <span className="font-semibold text-pink-700">100% Safe & Secure</span>
         <span className="font-semibold text-pink-700">Your personal information & privacy are 100% protected with us.</span>
@@ -311,7 +330,7 @@ const AstrologyHome = () => {
        
       </div>
       <div className="flex items-center gap-3">
-        <img src={ExpertIcon} alt="Expert" className="w-10 h-10 rounded-full" />
+        <img src={ExpertIcon} alt="Expert" loading="lazy" decoding="async" className="w-10 h-10 rounded-full" />
          <div className="flex flex-col gap-2">
           <span className="font-semibold text-red-600">Accurate and Personalised Predictions</span>
           <span className="font-semibold text-red-600">Every report and consultation is based on your unique birth details and current planetary alignments from — + years of experienced astrologers.</span>
@@ -319,7 +338,7 @@ const AstrologyHome = () => {
         
       </div>
       <div className="flex items-center gap-3">
-        <img src={PERSONALISEDIcon} alt="Personalized" className="w-10 h-10 rounded-full" />
+        <img src={PERSONALISEDIcon} alt="Personalized" loading="lazy" decoding="async" className="w-10 h-10 rounded-full" />
         <div className="flex flex-col gap-2">
            <span className="font-semibold text-green-600">24/7 Available</span>
             <span className="font-semibold text-green-600">We are 24/7 available. You can connect with experts anytime via call or chat.</span>
