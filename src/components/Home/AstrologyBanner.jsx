@@ -1,5 +1,6 @@
 import React from "react";
 import { useConnectModal } from "../../contexts/ConnectModalContext";
+import { Link } from "react-router-dom";
 import ChakraGif from "../../assets/freecompress-chakra.gif";
 import HOMESEPERATOR from '../../assets/HOME_Seperator_1.png';
 import ExpertIcon from "../../assets/expert.svg";
@@ -57,11 +58,25 @@ const AstrologyHome = () => {
         <div className="hs_slider_img_overlay" />
         <div className="hs_slider_heading_wrapper">
           <div className="hs_slider_logo_cont_wraper">
-            <h2 className="hs_slider_title_1">Unlock Your Destiny With The Best</h2>
-            <h2 className="hs_slider_title_2">Astrology Predictions</h2>
-            <p className="hs_slider_subtext">
-              100+ Astrologers | Personalised Guidance | AI-Powered Insights
+            <h2 className="hs_slider_title_1">
+              Unlock the secret of your <span className="hs_slider_title_accent">Destiny</span>
+            </h2>
+            <p className="hs_slider_subtext hs_slider_subtext_body">
+              Ancient astrology wisdom combined with modern guidance to solve career, money,
+              relationship and life challenges.​ 
             </p>
+            <div className="hs_slider_cta_row">
+              <Link to="/pricing" className="hs_slider_cta hs_slider_cta_primary">
+                Book Consultation
+              </Link>
+              <button
+                type="button"
+                onClick={openModal}
+                className="hs_slider_cta hs_slider_cta_secondary"
+              >
+                Get Free Insight​
+              </button>
+            </div>
           </div>
         </div>
 
