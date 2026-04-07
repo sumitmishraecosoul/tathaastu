@@ -1,7 +1,7 @@
 import React from 'react';
 import Footer from '../layout/Footer';
 import SiteNavbar from '../layout/SiteNavbar';
-import BlogsBanner from "../assets/blogs_banner.svg";
+import Banner from "../assets/BANNER.svg";
 import Seperator from '../components/Home/SeperatorComponent';
 import { Link } from "react-router-dom";
 import blogsData from "../data/blogsData";
@@ -22,8 +22,8 @@ export default function Blog() {
       {/* HERO SECTION WITH BANNER IMAGE */}
       <section className="relative -mt-1">
         <img 
-          src={BlogsBanner} 
-          alt="Blogs Banner" 
+          src={Banner} 
+          alt="Banner" 
           fetchPriority="high"
           decoding="async"
           className="w-full h-[600px] object-cover object-top"

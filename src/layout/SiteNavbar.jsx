@@ -16,7 +16,7 @@ const NAV_LINKS = [
 /**
  * Header: cream bar (#F5D6B4), logo left, links centered (desktop), CTA right.
  * @param {object} props
- * @param {React.ReactNode} [props.endSlot] — replaces default “Get a Free Prediction” button
+ * @param {React.ReactNode} [props.endSlot] — replaces default “Get a prediction” button
  */
 export default function SiteNavbar({ endSlot = null }) {
   const { openModal } = useConnectModal();
@@ -72,7 +72,7 @@ export default function SiteNavbar({ endSlot = null }) {
               onClick={openModal}
               className="rounded-lg border border-[#073349] px-3 py-2 text-xs font-medium text-[#073349] shadow-sm transition-colors hover:bg-[#073349]/10 hover:text-[#D44459] hover:border-[#D44459] sm:px-4 sm:text-sm"
             >
-              Get a Free Prediction
+              Get a prediction
             </button>
           )}
         </div>

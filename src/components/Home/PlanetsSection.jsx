@@ -974,7 +974,7 @@ const PlanetsSection = () => {
       {/* Headings */}
       <div className="text-center mb-8">
         <h1 className="text-xl sm:text-2xl md:text-3xl font-bold uppercase tracking-wider text-[#073349]">
-          Discover which cosmic forces will rule 2025–26
+          Discover which cosmic forces will rule 2026
         </h1>
         <p className="text-sm sm:text-base md:text-lg text-gray-700 mt-4 uppercase">
           the planets are in motion, and so is your destiny.

@@ -72,6 +72,18 @@
   width: 100%;
 }
 
+.home7 .hs_slider_subtext {
+  margin: 0.75rem auto 0;
+  max-width: 680px;
+  padding: 0 16px;
+  color: rgba(229, 231, 235, 1); /* matches Tailwind text-gray-200 */
+  font-size: clamp(12px, 2.2vw, 18px);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
+}
+
 .home7 .hs_slider_logo_cont_wraper h2 {
   color: #ffffff;
   font-size: clamp(28px, 5vw, 46px);
@@ -82,6 +94,10 @@
   text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
   margin: 0;
   line-height: 1.15;
+}
+
+.home7 .hs_slider_logo_cont_wraper h2.hs_slider_title_2 {
+  color: rgba(249, 168, 212, 1); /* matches Tailwind text-pink-300 */
 }
 
 .home7 .hs_slider_logo_cont_wraper h2 + h2 {

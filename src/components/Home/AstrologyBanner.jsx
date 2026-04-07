@@ -1,6 +1,5 @@
 import React from "react";
 import { useConnectModal } from "../../contexts/ConnectModalContext";
-import Banner from "../../assets/BANNER.svg";
 import ChakraGif from "../../assets/freecompress-chakra.gif";
 import HOMESEPERATOR from '../../assets/HOME_Seperator_1.png';
 import ExpertIcon from "../../assets/expert.svg";
@@ -58,10 +57,11 @@ const AstrologyHome = () => {
         <div className="hs_slider_img_overlay" />
         <div className="hs_slider_heading_wrapper">
           <div className="hs_slider_logo_cont_wraper">
-            <h2>Welcome To</h2>
-            <h2>
-              THE BEST <span>HOR</span>OSCOPE
-            </h2>
+            <h2 className="hs_slider_title_1">Unlock Your Destiny With The Best</h2>
+            <h2 className="hs_slider_title_2">Astrology Predictions</h2>
+            <p className="hs_slider_subtext">
+              100+ Astrologers | Personalised Guidance | AI-Powered Insights
+            </p>
           </div>
         </div>
 
@@ -109,30 +109,6 @@ const AstrologyHome = () => {
           </div>
         </div>
       </section>
-
-      {/* SECTION 1B: Original banner image/design (below solar section) */}
-      <div
-        className="relative clear-both w-full h-[600px] bg-cover bg-center flex items-center"
-        style={{ backgroundImage: `url(${Banner})` }}
-      >
-        <div className="relative z-10 flex flex-col md:flex-row items-center justify-between px-10 md:px-20 w-full">
-          <div className="text-white max-w-xl space-y-4">
-            <h1 className="text-3xl md:text-5xl font-bold leading-tight">
-              Unlock Your Destiny With The Best <br />
-              <span className="text-pink-300">Astrology Predictions</span>
-            </h1>
-            <p className="text-sm md:text-base text-gray-200">
-              100+ Astrologers | Personalised Guidance | AI-Powered Insights
-            </p>
-            <button
-              onClick={openModal}
-              className="bg-[#d05a69] hover:bg-pink-500 text-2xl text-white font-semibold py-3 px-16 rounded-full shadow-lg transition duration-300"
-            >
-              Get a Free Prediction
-            </button>
-          </div>
-        </div>
-      </div>
 
        <div className="flex justify-center my-4">
                 <img src={HOMESEPERATOR} alt="Separator" className="h-12" />
@@ -356,7 +332,7 @@ const AstrologyHome = () => {
       onClick={openModal}
       className="mt-4 text-xl md:text-2xl bg-[#d05a69] hover:bg-rose-600 text-white font-semibold py-2 px-10 md:px-12 rounded-full transition duration-300"
     >
-      Get a Free Prediction
+      Get a prediction
     </button>
   </div>
 </div>
