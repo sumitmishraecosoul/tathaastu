@@ -675,214 +675,223 @@
 
 
 
-import React, { useRef, useEffect, useState, useCallback } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import AIBirthChart from "../../assets/ai_birth_chart.svg";
-import ChatbotMystic from "../../assets/chatbot_mystic_ai.svg";
-import DailyHoroscope from "../../assets/daily_horoscope_ai.svg";
-import VastuFloor from "../../assets/vasstu_floorplane_ai.svg";
+import React from "react";
 
-const features = [
-  {
-    title: "AI BIRTH CHART &\nREPORT GENERATOR",
-    image: AIBirthChart,
-  },
-  {
-    title: "CHATBOT MYSTIC\nADVISOR (24/7)",
-    image: ChatbotMystic,
-  },
-  {
-    title: "DAILY HOROSCOPE\nENGINE",
-    image: DailyHoroscope,
-  },
-  {
-    title: "VAASTU AUTO-\nFLOORPLAN ANALYSER",
-    image: VastuFloor,
-  },
-];
+// COMMENTED OUT: "AI THAT READS THE STARS" header, tagline, and feature carousel
+// (Daily Horoscope Engine, Vaastu Auto-Floorplan, AI Birth Chart, Chatbot Mystic)
+// import React, { useRef, useEffect, useState, useCallback } from "react";
+// import { ChevronLeft, ChevronRight } from "lucide-react";
+// import AIBirthChart from "../../assets/ai_birth_chart.svg";
+// import ChatbotMystic from "../../assets/chatbot_mystic_ai.svg";
+// import DailyHoroscope from "../../assets/daily_horoscope_ai.svg";
+// import VastuFloor from "../../assets/vasstu_floorplane_ai.svg";
+// 
+// const features = [
+//   {
+//     title: "AI BIRTH CHART &\nREPORT GENERATOR",
+//     image: AIBirthChart,
+//   },
+//   {
+//     title: "CHATBOT MYSTIC\nADVISOR (24/7)",
+//     image: ChatbotMystic,
+//   },
+//   {
+//     title: "DAILY HOROSCOPE\nENGINE",
+//     image: DailyHoroscope,
+//   },
+//   {
+//     title: "VAASTU AUTO-\nFLOORPLAN ANALYSER",
+//     image: VastuFloor,
+//   },
+// ];
+// 
+// const CARD_WIDTH = 240;
+// const GAP = 32;
+// const SCROLL_AMOUNT = CARD_WIDTH + GAP;
+// const BUFFER_ITEMS = 2;
+// 
+// const AIContentSection = () => {
+//   const scrollRef = useRef(null);
+//   const [isHovered, setIsHovered] = useState(false);
+//   const [isScrolling, setIsScrolling] = useState(false);
+//   const cloned = [...features, ...features, ...features];
+// 
+//   useEffect(() => {
+//     const container = scrollRef.current;
+//     if (container) {
+//       container.scrollLeft = features.length * SCROLL_AMOUNT;
+//     }
+//   }, []);
+// 
+//   useEffect(() => {
+//     const container = scrollRef.current;
+//     if (!container || isHovered || isScrolling) return;
+// 
+//     const interval = setInterval(() => {
+//       if (!container) return;
+//       const scrollLeft = container.scrollLeft;
+//       const maxScroll = container.scrollWidth - container.clientWidth;
+// 
+//       if (scrollLeft >= maxScroll - (BUFFER_ITEMS * SCROLL_AMOUNT)) {
+//         container.scrollTo({
+//           left: features.length * SCROLL_AMOUNT,
+//           behavior: "instant",
+//         });
+//       }
+// 
+//       container.scrollBy({
+//         left: SCROLL_AMOUNT,
+//         behavior: "smooth",
+//       });
+//     }, 3000);
+// 
+//     return () => clearInterval(interval);
+//   }, [isHovered, isScrolling]);
+// 
+//   const scroll = (dir) => {
+//     const container = scrollRef.current;
+//     if (!container) return;
+//     const scrollLeft = container.scrollLeft;
+//     const maxScroll = container.scrollWidth - container.clientWidth;
+// 
+//     if (dir === "left") {
+//       if (scrollLeft <= BUFFER_ITEMS * SCROLL_AMOUNT) {
+//         container.scrollTo({
+//           left: features.length * SCROLL_AMOUNT,
+//           behavior: "instant",
+//         });
+//       }
+//       container.scrollBy({ left: -SCROLL_AMOUNT, behavior: "smooth" });
+//     } else {
+//       if (scrollLeft >= maxScroll - (BUFFER_ITEMS * SCROLL_AMOUNT)) {
+//         container.scrollTo({
+//           left: features.length * SCROLL_AMOUNT,
+//           behavior: "instant",
+//         });
+//       }
+//       container.scrollBy({ left: SCROLL_AMOUNT, behavior: "smooth" });
+//     }
+//   };
+// 
+//   const handleScroll = useCallback(() => {
+//     setIsScrolling(true);
+//     const container = scrollRef.current;
+//     if (!container) return;
+// 
+//     const scrollLeft = container.scrollLeft;
+//     const middlePoint = features.length * SCROLL_AMOUNT;
+//     const maxScroll = container.scrollWidth - container.clientWidth;
+// 
+//     if (scrollLeft <= BUFFER_ITEMS * SCROLL_AMOUNT) {
+//       container.scrollTo({ left: middlePoint, behavior: "instant" });
+//     } else if (scrollLeft >= maxScroll - (BUFFER_ITEMS * SCROLL_AMOUNT)) {
+//       container.scrollTo({
+//         left: middlePoint - BUFFER_ITEMS * SCROLL_AMOUNT,
+//         behavior: "instant",
+//       });
+//     }
+// 
+//     const timer = setTimeout(() => {
+//       setIsScrolling(false);
+//     }, 100);
+//     return () => clearTimeout(timer);
+//   }, []);
+// 
+//   return (
+//     <section className="relative font-sans py-12 sm:py-16 lg:py-20">
+//       {/* Header */}
+//       <div className="max-w-[1300px] mx-auto px-4 sm:px-6 flex justify-between items-start flex-wrap gap-y-4 mb-10">
+//         <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#2D7351] leading-snug ">
+//           <span className="text-[#C5445D]">AI</span> THAT READS THE STARS <br />
+//           — AND <span className="text-[#2D7351]">YOUR ENERGY</span>
+//         </h2>
+//         <p className="text-sm sm:text-base md:text-lg  text-center text-gray-500 max-w-[300px]">
+//           FASTER, DEEPER, AND MORE PERSONAL THAN EVER BEFORE.
+//         </p>
+//       </div>
+// 
+//       {/* Carousel Container */}
+//       <div
+//         className="relative"
+//         onMouseEnter={() => setIsHovered(true)}
+//         onMouseLeave={() => setIsHovered(false)}
+//       >
+//         {/* Scrollable Carousel */}
+//         <div className="overflow-hidden px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 relative">
+//           {/* Arrows - positioned inside carousel container */}
+//           <button
+//             onClick={() => scroll("left")}
+//             className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 bg-[#C5445D] text-white w-10 h-10 sm:w-12 sm:h-12 rounded-full shadow-md flex items-center justify-center hover:scale-110 transition-transform"
+//           >
+//             <ChevronLeft className="text-white" size={20} />
+//           </button>
+//           <button
+//             onClick={() => scroll("right")}
+//             className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 bg-[#C5445D] text-white w-10 h-10 sm:w-12 sm:h-12 rounded-full shadow-md flex items-center justify-center hover:scale-110 transition-transform"
+//           >
+//             <ChevronRight className="text-white" size={20} />
+//           </button>
+//           {/* <div
+//             ref={scrollRef}
+//             onScroll={handleScroll}
+//             className="flex gap-4 sm:gap-6 md:gap-8 scroll-smooth overflow-x-auto scrollbar-hide py-6"
+//             style={{ scrollSnapType: "x mandatory" }}
+//           >
+//             {cloned.map((item, index) => (
+//               <div
+//                 key={index}
+//                 className="carousel-card snap-start shrink-0 text-center flex flex-col items-center 
+//                 min-w-[75%] sm:min-w-[220px] md:min-w-[240px] lg:min-w-[240px] xl:min-w-[260px]"
+//               >
+//                 <div className="w-[100px] h-[100px] sm:w-[140px] sm:h-[140px] md:w-[160px] md:h-[160px] rounded-full overflow-hidden flex items-center justify-center mb-3">
+//                   <img
+//                     src={item.image}
+//                     alt={item.title}
+//                     className="w-full h-full object-contain"
+//                   />
+//                 </div>
+//                 <h4 className="text-sm sm:text-base md:text-lg font-bold text-[#2D7351] whitespace-pre-line leading-snug">
+//                   {item.title}
+//                 </h4>
+//               </div>
+//             ))}
+//           </div> */}
+// 
+//           <div
+//             ref={scrollRef}
+//             onScroll={handleScroll}
+//             className="flex gap-4 sm:gap-5 md:gap-6 lg:gap-7 scroll-smooth overflow-x-auto scrollbar-hide py-6 px-8 sm:px-10 md:px-12 lg:px-14 xl:px-16"
+//             style={{ scrollSnapType: "x mandatory" }}
+//           >
+//             {cloned.map((item, index) => (
+//               <div
+//                 key={index}
+//                 className="carousel-card snap-start shrink-0 text-center flex flex-col items-center 
+//                 w-[85%] sm:w-[250px] md:w-[280px] lg:w-[300px] xl:w-[320px]"
+//               >
+//                 <div className="w-[140px] h-[140px] sm:w-[160px] sm:h-[160px] md:w-[180px] md:h-[180px] lg:w-[200px] lg:h-[200px] rounded-full overflow-hidden flex items-center justify-center mb-4">
+//                   <img
+//                     src={item.image}
+//                     alt={item.title}
+//                     className="w-full h-full object-contain"
+//                   />
+//                 </div>
+//                 <h4 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-[#2D7351] whitespace-pre-line leading-snug">
+//                   {item.title}
+//                 </h4>
+//               </div>
+//             ))}
+//           </div>
+// 
+//         </div>
+//       </div>
+//     </section>
+//   );
+// };
+// 
+// export default AIContentSection;
 
-const CARD_WIDTH = 240;
-const GAP = 32;
-const SCROLL_AMOUNT = CARD_WIDTH + GAP;
-const BUFFER_ITEMS = 2;
-
-const AIContentSection = () => {
-  const scrollRef = useRef(null);
-  const [isHovered, setIsHovered] = useState(false);
-  const [isScrolling, setIsScrolling] = useState(false);
-  const cloned = [...features, ...features, ...features];
-
-  useEffect(() => {
-    const container = scrollRef.current;
-    if (container) {
-      container.scrollLeft = features.length * SCROLL_AMOUNT;
-    }
-  }, []);
-
-  useEffect(() => {
-    const container = scrollRef.current;
-    if (!container || isHovered || isScrolling) return;
-
-    const interval = setInterval(() => {
-      if (!container) return;
-      const scrollLeft = container.scrollLeft;
-      const maxScroll = container.scrollWidth - container.clientWidth;
-
-      if (scrollLeft >= maxScroll - (BUFFER_ITEMS * SCROLL_AMOUNT)) {
-        container.scrollTo({
-          left: features.length * SCROLL_AMOUNT,
-          behavior: "instant",
-        });
-      }
-
-      container.scrollBy({
-        left: SCROLL_AMOUNT,
-        behavior: "smooth",
-      });
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, [isHovered, isScrolling]);
-
-  const scroll = (dir) => {
-    const container = scrollRef.current;
-    if (!container) return;
-    const scrollLeft = container.scrollLeft;
-    const maxScroll = container.scrollWidth - container.clientWidth;
-
-    if (dir === "left") {
-      if (scrollLeft <= BUFFER_ITEMS * SCROLL_AMOUNT) {
-        container.scrollTo({
-          left: features.length * SCROLL_AMOUNT,
-          behavior: "instant",
-        });
-      }
-      container.scrollBy({ left: -SCROLL_AMOUNT, behavior: "smooth" });
-    } else {
-      if (scrollLeft >= maxScroll - (BUFFER_ITEMS * SCROLL_AMOUNT)) {
-        container.scrollTo({
-          left: features.length * SCROLL_AMOUNT,
-          behavior: "instant",
-        });
-      }
-      container.scrollBy({ left: SCROLL_AMOUNT, behavior: "smooth" });
-    }
-  };
-
-  const handleScroll = useCallback(() => {
-    setIsScrolling(true);
-    const container = scrollRef.current;
-    if (!container) return;
-
-    const scrollLeft = container.scrollLeft;
-    const middlePoint = features.length * SCROLL_AMOUNT;
-    const maxScroll = container.scrollWidth - container.clientWidth;
-
-    if (scrollLeft <= BUFFER_ITEMS * SCROLL_AMOUNT) {
-      container.scrollTo({ left: middlePoint, behavior: "instant" });
-    } else if (scrollLeft >= maxScroll - (BUFFER_ITEMS * SCROLL_AMOUNT)) {
-      container.scrollTo({
-        left: middlePoint - BUFFER_ITEMS * SCROLL_AMOUNT,
-        behavior: "instant",
-      });
-    }
-
-    const timer = setTimeout(() => {
-      setIsScrolling(false);
-    }, 100);
-    return () => clearTimeout(timer);
-  }, []);
-
-  return (
-    <section className="relative font-sans py-12 sm:py-16 lg:py-20">
-      {/* Header */}
-      <div className="max-w-[1300px] mx-auto px-4 sm:px-6 flex justify-between items-start flex-wrap gap-y-4 mb-10">
-        <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#2D7351] leading-snug ">
-          <span className="text-[#C5445D]">AI</span> THAT READS THE STARS <br />
-          — AND <span className="text-[#2D7351]">YOUR ENERGY</span>
-        </h2>
-        <p className="text-sm sm:text-base md:text-lg  text-center text-gray-500 max-w-[300px]">
-          FASTER, DEEPER, AND MORE PERSONAL THAN EVER BEFORE.
-        </p>
-      </div>
-
-      {/* Carousel Container */}
-      <div
-        className="relative"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
-        {/* Scrollable Carousel */}
-        <div className="overflow-hidden px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 relative">
-          {/* Arrows - positioned inside carousel container */}
-          <button
-            onClick={() => scroll("left")}
-            className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 bg-[#C5445D] text-white w-10 h-10 sm:w-12 sm:h-12 rounded-full shadow-md flex items-center justify-center hover:scale-110 transition-transform"
-          >
-            <ChevronLeft className="text-white" size={20} />
-          </button>
-          <button
-            onClick={() => scroll("right")}
-            className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 bg-[#C5445D] text-white w-10 h-10 sm:w-12 sm:h-12 rounded-full shadow-md flex items-center justify-center hover:scale-110 transition-transform"
-          >
-            <ChevronRight className="text-white" size={20} />
-          </button>
-          {/* <div
-            ref={scrollRef}
-            onScroll={handleScroll}
-            className="flex gap-4 sm:gap-6 md:gap-8 scroll-smooth overflow-x-auto scrollbar-hide py-6"
-            style={{ scrollSnapType: "x mandatory" }}
-          >
-            {cloned.map((item, index) => (
-              <div
-                key={index}
-                className="carousel-card snap-start shrink-0 text-center flex flex-col items-center 
-                min-w-[75%] sm:min-w-[220px] md:min-w-[240px] lg:min-w-[240px] xl:min-w-[260px]"
-              >
-                <div className="w-[100px] h-[100px] sm:w-[140px] sm:h-[140px] md:w-[160px] md:h-[160px] rounded-full overflow-hidden flex items-center justify-center mb-3">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-full object-contain"
-                  />
-                </div>
-                <h4 className="text-sm sm:text-base md:text-lg font-bold text-[#2D7351] whitespace-pre-line leading-snug">
-                  {item.title}
-                </h4>
-              </div>
-            ))}
-          </div> */}
-
-          <div
-            ref={scrollRef}
-            onScroll={handleScroll}
-            className="flex gap-4 sm:gap-5 md:gap-6 lg:gap-7 scroll-smooth overflow-x-auto scrollbar-hide py-6 px-8 sm:px-10 md:px-12 lg:px-14 xl:px-16"
-            style={{ scrollSnapType: "x mandatory" }}
-          >
-            {cloned.map((item, index) => (
-              <div
-                key={index}
-                className="carousel-card snap-start shrink-0 text-center flex flex-col items-center 
-                w-[85%] sm:w-[250px] md:w-[280px] lg:w-[300px] xl:w-[320px]"
-              >
-                <div className="w-[140px] h-[140px] sm:w-[160px] sm:h-[160px] md:w-[180px] md:h-[180px] lg:w-[200px] lg:h-[200px] rounded-full overflow-hidden flex items-center justify-center mb-4">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-full object-contain"
-                  />
-                </div>
-                <h4 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-[#2D7351] whitespace-pre-line leading-snug">
-                  {item.title}
-                </h4>
-              </div>
-            ))}
-          </div>
-
-        </div>
-      </div>
-    </section>
-  );
-};
+const AIContentSection = () => null;
 
 export default AIContentSection;
+

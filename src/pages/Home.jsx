@@ -82,10 +82,10 @@ import ChakraSection from '../components/Home/ChakraSection';
 import PlanetsSection from '../components/Home/PlanetsSection';
 import ServicesCarousel from '../components/Home/ServiceCarousel';
 import Seperator from '../components/Home/SeperatorComponent';
-import AIContentSection from '../components/Home/AIContent';
+// import AIContentSection from '../components/Home/AIContent';
 import VisionMission from '../components/Home/VisionMission';
 import WhyChooseSection from '../components/Home/WhyChooseSection';
-import KnowYourHoroscope from '../components/Home/KnowYourHoroscope';
+// import KnowYourHoroscope from '../components/Home/KnowYourHoroscope';
 import TestimonialsSection from '../components/Home/TestimonialsSection';
 import Footer from '../layout/Footer';
 import SiteNavbar from '../layout/SiteNavbar';
@@ -186,10 +186,11 @@ export default function Home() {
         <Seperator />
       </DeferredSection>
 
-      <DeferredSection minHeight="340px">
+      {/* AI “reads the stars” carousel removed — was leaving empty space + extra divider */}
+      {/* <DeferredSection minHeight="340px">
         <AIContentSection />
         <Seperator />
-      </DeferredSection>
+      </DeferredSection> */}
 
       <DeferredSection minHeight="320px">
         <VisionMission />
@@ -201,9 +202,10 @@ export default function Home() {
         <Seperator />
       </DeferredSection>
 
-      <DeferredSection minHeight="380px">
+      {/* Know Your Horoscope (zodiac carousel) — disabled */}
+      {/* <DeferredSection minHeight="380px">
         <KnowYourHoroscope />
-      </DeferredSection>
+      </DeferredSection> */}
 
       <DeferredSection minHeight="320px">
         <TestimonialsSection />
