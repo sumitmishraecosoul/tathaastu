@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export default function SliderOpener() {
+/**
+ * @param {{ variant?: 'light' | 'dark' }} props — dark = light icon for navy header
+ */
+export default function SliderOpener({ variant = "light" }) {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -32,7 +35,11 @@ export default function SliderOpener() {
       {/* Hamburger Menu Button */}
       <button
         onClick={toggleSlider}
-        className="text-3xl text-[#073349] hover:text-[#D44459] transition-colors duration-300"
+        className={
+          variant === "dark"
+            ? "text-2xl text-white/90 transition-colors duration-300 hover:text-white"
+            : "text-3xl text-[#073349] transition-colors duration-300 hover:text-[#D44459]"
+        }
         aria-label="Open navigation menu"
       >
         ☰

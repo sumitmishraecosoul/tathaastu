@@ -1,9 +1,8 @@
 import React, { useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import SliderOpener from "../components/Home/SliderOpener";
-import tathaastuLogo from "../assets/tathaastu_logo.png";
 import Footer from "../layout/Footer";
+import SiteNavbar from "../layout/SiteNavbar";
 import blogsData from "../data/blogsData";
 import { fadeInVariant, fadeUpVariant, staggerContainer } from "../utils/motionVariants";
 
@@ -172,21 +171,17 @@ export default function BlogDetails() {
   if (!blog) {
     return (
       <div className="bg-white min-h-screen flex flex-col">
-        <header className="bg-[#F5D6B4] px-4 md:px-6 py-3 shadow">
-          <div className="max-w-7xl mx-auto flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <SliderOpener />
-              <span className="text-sm font-semibold text-[#073349]">Navigate</span>
-            </div>
-            <img src={tathaastuLogo} alt="Tathaastu Logo" className="h-16 md:h-20" />
+        <SiteNavbar
+          endSlot={
             <button
+              type="button"
               onClick={() => navigate("/blog")}
-              className="text-sm font-semibold text-[#073349] hover:text-[#D44459] transition-colors"
+              className="rounded-lg border border-[#073349] px-3 py-2 text-xs font-medium text-[#073349] transition-colors hover:bg-[#073349]/10 hover:text-[#D44459] hover:border-[#D44459] sm:px-4 sm:text-sm"
             >
               Back to Blog
             </button>
-          </div>
-        </header>
+          }
+        />
         <main className="flex-1 flex flex-col items-center justify-center text-center px-6">
           <motion.div variants={fadeUpVariant} initial="hidden" animate="visible" className="max-w-lg space-y-4">
             <h1 className="text-3xl font-bold text-[#073349]">Blog not found</h1>
@@ -220,22 +215,17 @@ export default function BlogDetails() {
         <p className="text-sm font-medium">AI-POWERED PLATFORM REVOLUTIONIZING ASTROLOGY</p>
       </div>
 
-      <nav className="grid grid-cols-3 items-center bg-[#F5D6B4] px-4 md:px-6 py-3 shadow">
-        <div className="flex items-center">
-          <SliderOpener />
-        </div>
-        <div className="flex justify-center">
-          <img src={tathaastuLogo} alt="Tathaastu Logo" className="h-16 md:h-20" />
-        </div>
-        <div className="flex justify-end">
+      <SiteNavbar
+        endSlot={
           <button
+            type="button"
             onClick={() => navigate("/blog")}
-            className="text-sm font-semibold text-[#073349] hover:text-[#D44459] transition-colors"
+            className="rounded-lg border border-[#073349] px-3 py-2 text-xs font-medium text-[#073349] transition-colors hover:bg-[#073349]/10 hover:text-[#D44459] hover:border-[#D44459] sm:px-4 sm:text-sm"
           >
             Back to Blog
           </button>
-        </div>
-      </nav>
+        }
+      />
 
       <section className="relative w-full">
         <div className="relative h-[360px] md:h-[420px] lg:h-[460px] overflow-hidden">

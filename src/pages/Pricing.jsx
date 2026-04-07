@@ -1,8 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import tathaastuLogo from '../assets/tathaastu_logo.png';
-import SliderOpener from '../components/Home/SliderOpener';
 import Footer from '../layout/Footer';
+import SiteNavbar from '../layout/SiteNavbar';
 import PricingBanner from "../assets/pricing_banner.svg";
 import Seperator from '../components/Home/SeperatorComponent';
 
@@ -79,19 +78,7 @@ export default function Pricing() {
         <p className="text-sm font-medium">AI-POWERED PLATFORM REVOLUTIONIZING ASTROLOGY</p>
       </div>
       
-      {/* NAVIGATION */}
-      <nav className="grid grid-cols-3 items-center bg-[#F5D6B4] px-4 md:px-6 py-3">
-        <div className="flex items-center">
-          <SliderOpener />
-        </div>
-        <div className="flex justify-center">
-          <img src={tathaastuLogo} alt="Tathaastu Logo" className="h-16 md:h-20" />
-        </div>
-        <div className="flex justify-end space-x-2 md:space-x-4">
-          {/* <button className="text-sm font-semibold text-[#073349] hover:text-[#D44459] transition-colors">CONTACT US</button>
-          <button className="bg-[#D44459] text-white px-4 py-2 rounded-lg hover:bg-[#B83A4A] transition-colors">SIGN IN</button> */}
-        </div>
-      </nav>
+      <SiteNavbar />
 
       {/* HERO SECTION WITH BANNER IMAGE */}
       <section className="relative -mt-[6px] leading-none">

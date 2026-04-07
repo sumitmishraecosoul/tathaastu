@@ -73,9 +73,7 @@
 
 
 import React, { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
 import HomeBannerVector from '../assets/home_banner_vector.png';
-import tathaastuLogo from '../assets/tathaastu_logo.png';
 import HOMESEPERATOR from '../assets/HOME_Seperator_1.png';
 import FeatureSection from '../components/Home/FeatureSection';
 import ZodiacSection from '../components/Home/ZodiacSection';
@@ -89,8 +87,8 @@ import VisionMission from '../components/Home/VisionMission';
 import WhyChooseSection from '../components/Home/WhyChooseSection';
 import KnowYourHoroscope from '../components/Home/KnowYourHoroscope';
 import TestimonialsSection from '../components/Home/TestimonialsSection';
-import SliderOpener from '../components/Home/SliderOpener';
 import Footer from '../layout/Footer';
+import SiteNavbar from '../layout/SiteNavbar';
 
 export default function Home() {
   const DeferredSection = ({ children, minHeight = "240px", rootMargin = "300px 0px" }) => {
@@ -125,19 +123,7 @@ export default function Home() {
   return (
     <div className="bg-white text-[#073349]">
       
-      {/* NAVIGATION */}
-      <nav className="grid grid-cols-3 items-center bg-[#F5D6B4] px-4 md:px-6 py-3 shadow">
-        <div className="flex items-center">
-          <SliderOpener />
-        </div>
-        <div className="flex justify-center">
-          <img src={tathaastuLogo} alt="Tathaastu Logo" className="h-16 md:h-20" />
-        </div>
-        <div className="flex justify-end space-x-2 md:space-x-4">
-          {/* <button className="text-sm font-semibold text-green-800">CONTACT US</button>
-          <Link to="/login" className="bg-[#D9716C] text-white px-4 py-1 rounded hover:bg-[#B83A4A] transition-colors inline-block">SIGN IN</Link> */}
-        </div>
-      </nav>
+      <SiteNavbar />
       <AstrologyBanner/>
       <Seperator/>
       {/* <ChakraSection /> */}

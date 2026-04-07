@@ -1,9 +1,8 @@
 import React, { useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import servicesData from "../data/servicesData";
-import SliderOpener from "../components/Home/SliderOpener";
-import tathaastuLogo from "../assets/tathaastu_logo.png";
 import Footer from "../layout/Footer";
+import SiteNavbar from "../layout/SiteNavbar";
 import { motion } from "framer-motion";
 import { fadeInVariant, fadeUpVariant, staggerContainer } from "../utils/motionVariants";
 
@@ -19,21 +18,17 @@ export default function ServiceDetails() {
   if (!service) {
     return (
       <div className="bg-white min-h-screen flex flex-col">
-        <header className="bg-[#F5D6B4] px-4 md:px-6 py-3 shadow">
-          <div className="max-w-7xl mx-auto flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <SliderOpener />
-              <span className="text-sm font-semibold text-[#073349]">Navigate</span>
-            </div>
-            <img src={tathaastuLogo} alt="Tathaastu Logo" className="h-16 md:h-20" />
+        <SiteNavbar
+          endSlot={
             <button
-              onClick={() => navigate("/")}
-              className="text-sm font-semibold text-[#073349] hover:text-[#D44459] transition-colors"
+              type="button"
+              onClick={() => navigate("/services")}
+              className="rounded-lg border border-[#073349] px-3 py-2 text-xs font-medium text-[#073349] transition-colors hover:bg-[#073349]/10 hover:text-[#D44459] hover:border-[#D44459] sm:px-4 sm:text-sm"
             >
-              Back Home
+              Back to Services
             </button>
-          </div>
-        </header>
+          }
+        />
         <main className="flex-1 flex flex-col items-center justify-center text-center px-6">
           <motion.div
             variants={fadeUpVariant}
@@ -78,29 +73,7 @@ export default function ServiceDetails() {
         <p className="text-sm font-medium">Experience holistic healing with Tathaastu experts</p>
       </div>
 
-      {/* Navigation */}
-      <nav className="grid grid-cols-3 items-center bg-[#F5D6B4] px-4 md:px-6 py-3 shadow">
-        <div className="flex items-center">
-          <SliderOpener />
-        </div>
-        <div className="flex justify-center">
-          <img src={tathaastuLogo} alt="Tathaastu Logo" className="h-16 md:h-20" />
-        </div>
-        <div className="flex justify-end space-x-2 md:space-x-4">
-          {/* <button
-            onClick={() => navigate("/contact")}
-            className="text-sm font-semibold text-[#073349] hover:text-[#D44459] transition-colors"
-          >
-            CONTACT US
-          </button>
-          <button
-            onClick={() => navigate("/login")}
-            className="bg-[#D44459] text-white px-4 py-2 rounded-lg hover:bg-[#B83A4A] transition-colors"
-          >
-            SIGN IN
-          </button> */}
-        </div>
-      </nav>
+      <SiteNavbar />
 
       {/* Hero Banner */}
       <section className="relative w-full">
