@@ -8,7 +8,8 @@
   width: 100%;
   min-height: 100vh;
   padding-top: 80px;
-  padding-bottom: 400px;
+  /* Extra space below outer orbit + breathing room under solar scene (was 400px) */
+  padding-bottom: clamp(480px, 42vw, 620px);
   overflow: hidden;
   background: #020614;
 }
