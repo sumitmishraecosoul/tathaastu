@@ -51,6 +51,10 @@ const AstrologyHome = () => {
 
       {/* SECTION 1: Solar system (Home7 style) */}
       <section className="home7 hs_slider_main_wrapper">
+        <div className="hs_slider_bg_track" aria-hidden="true">
+          <div className="hs_slider_bg_layer" />
+          <div className="hs_slider_bg_layer" />
+        </div>
         <div className="hs_slider_img_overlay" />
         <div className="hs_slider_heading_wrapper">
           <div className="hs_slider_logo_cont_wraper">

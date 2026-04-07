@@ -1,12 +1,7 @@
 /* Home7-style overrides: deep space photo + stronger sun glow */
 
-.home7.hs_slider_main_wrapper {
+.home7 .hs_slider_bg_layer {
   background-image: url("../../../assets/slide_bg.jpg");
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  animation: none !important;
 }
 
 .home7 .hs_slider_img_overlay {

@@ -13,6 +13,47 @@
   background: #020614;
 }
 
+/* ── Scrolling starfield (two tiles, seamless loop right → left) ── */
+.home7 .hs_slider_bg_track {
+  position: absolute;
+  inset: 0;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  z-index: 0;
+  animation: tathaastu-solar-bg-scroll 70s linear infinite;
+  will-change: transform;
+}
+
+.home7 .hs_slider_bg_layer {
+  flex: 0 0 50%;
+  width: 50%;
+  height: 100%;
+  min-height: 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+@keyframes tathaastu-solar-bg-scroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home7 .hs_slider_bg_track {
+    animation: none;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
 /* ── Overlay ── */
 .home7 .hs_slider_img_overlay {
   position: absolute;
