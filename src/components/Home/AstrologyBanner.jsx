@@ -67,14 +67,40 @@ const AstrologyHome = () => {
             </p>
             <div className="hs_slider_cta_row">
               <Link to="/pricing" className="hs_slider_cta hs_slider_cta_primary">
-                Book Consultation
+                <svg className="hs_slider_cta_icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path
+                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+                <span className="hs_slider_cta_sep" aria-hidden="true" />
+                <span className="hs_slider_cta_lbl">
+                  <span className="hs_slider_cta_lbl_sub">Talk to an astrologer</span>
+                  <span className="hs_slider_cta_lbl_main">Book Consultation</span>
+                </span>
               </Link>
               <button
                 type="button"
                 onClick={openModal}
                 className="hs_slider_cta hs_slider_cta_secondary"
               >
-                Get Free Insight​
+                <svg className="hs_slider_cta_icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path
+                    d="M12 2L9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2z"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+                <span className="hs_slider_cta_sep hs_slider_cta_sep_dark" aria-hidden="true" />
+                <span className="hs_slider_cta_lbl">
+                  <span className="hs_slider_cta_lbl_sub">No signup needed</span>
+                  <span className="hs_slider_cta_lbl_main">Get Free Insight</span>
+                </span>
               </button>
             </div>
           </div>
