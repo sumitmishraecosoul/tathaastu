@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useConnectModal } from "../../contexts/ConnectModalContext";
-import ChakraGif from "../../assets/freecompress-chakra.gif";
+import ChartsToChakraVideo from "../../assets/Charts to chakra.mp4";
 import HOMESEPERATOR from '../../assets/HOME_Seperator_1.png';
 import ExpertIcon from "../../assets/expert.svg";
 import AuthenticIcon from "../../assets/authentic.svg";
@@ -73,6 +73,183 @@ const AstrologyHome = () => {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
+        {/* Text/content overlay only for first banner */}
+        {active === 0 && (
+          <div className="home_top_banner_overlay">
+            <div className="home_top_banner_overlay_inner">
+              <h1 className="home_top_banner_h1">
+                Unlock the <span className="home_top_banner_h1_accent1">Secrets</span>
+                <br />
+                of your <span className="home_top_banner_h1_accent2">destiny</span>
+              </h1>
+              <p className="home_top_banner_p">
+                Your birth chart reveals powerful insights about your career, relationships, wealth,
+                and life path.
+              </p>
+
+              <div className="home_top_banner_cards" aria-label="Quick questions">
+                <div className="home_top_banner_card">
+                  <div className="home_top_banner_card_icon" aria-hidden="true">🪙</div>
+                  <div className="home_top_banner_card_title">Career growth stuck?</div>
+                </div>
+                <div className="home_top_banner_card">
+                  <div className="home_top_banner_card_icon" aria-hidden="true">💍</div>
+                  <div className="home_top_banner_card_title">Marriage getting delayed?</div>
+                </div>
+                <div className="home_top_banner_card">
+                  <div className="home_top_banner_card_icon" aria-hidden="true">💔</div>
+                  <div className="home_top_banner_card_title">Relationship conflicts?</div>
+                </div>
+              </div>
+
+              <div className="home_top_banner_ctas">
+                <button
+                  type="button"
+                  className="home_top_banner_btn home_top_banner_btn_gold"
+                  onClick={openModal}
+                >
+                  Generate Free Kundli <span aria-hidden="true">›</span>
+                </button>
+                <button
+                  type="button"
+                  className="home_top_banner_btn home_top_banner_btn_pink"
+                  onClick={openModal}
+                >
+                  Talk to an Astrologer
+                </button>
+              </div>
+
+              <div className="home_top_banner_stats" aria-label="Trust stats">
+                <div className="home_top_banner_stat">
+                  <span className="home_top_banner_stat_dot" aria-hidden="true" />
+                  <span>Verified Astrologers</span>
+                </div>
+                <div className="home_top_banner_stat">
+                  <span className="home_top_banner_stat_dot" aria-hidden="true" />
+                  <span>10,000+ Happy Users</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Text/content overlay for second banner */}
+        {active === 1 && (
+          <div className="home_top_banner_overlay">
+            <div className="home_top_banner_overlay_inner home_top_banner_overlay_inner_wide">
+              <h1 className="home_top_banner_h1">
+                Is Your Home
+                <br />
+                <span className="home_top_banner_h1_accent1">Blocking Positive</span>
+                <br />
+                Energy?
+              </h1>
+              <p className="home_top_banner_p">
+                Your home's direction and layout can influence wealth, peace, and success.
+                Discover how Vaastu can restore balance and harmony.
+              </p>
+
+              <div className="home_top_banner_cards home_top_banner_cards_2col" aria-label="Common concerns">
+                <div className="home_top_banner_card">
+                  <div className="home_top_banner_card_icon" aria-hidden="true">🏠</div>
+                  <div className="home_top_banner_card_title">Lack of peace at home?</div>
+                </div>
+                <div className="home_top_banner_card">
+                  <div className="home_top_banner_card_icon" aria-hidden="true">💰</div>
+                  <div className="home_top_banner_card_title">Financial instability?</div>
+                </div>
+                <div className="home_top_banner_card">
+                  <div className="home_top_banner_card_icon" aria-hidden="true">📉</div>
+                  <div className="home_top_banner_card_title">Negative energy in your house?</div>
+                </div>
+                <div className="home_top_banner_card">
+                  <div className="home_top_banner_card_icon" aria-hidden="true">👨‍👩‍👧‍👦</div>
+                  <div className="home_top_banner_card_title">Frequent family conflicts?</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Text/content overlay for third banner */}
+        {active === 2 && (
+          <div className="home_top_banner_overlay">
+            <div className="home_top_banner_overlay_inner home_top_banner_overlay_inner_wide">
+              <h1 className="home_top_banner_h1">
+                Your Numbers Reveal Your <span className="home_top_banner_h1_accent1">True</span>{" "}
+                <span className="home_top_banner_h1_accent2">Potential</span>
+              </h1>
+              <p className="home_top_banner_p">
+                Discover how your birth number and destiny number influence your career, success,
+                and relationships.
+              </p>
+
+              <div className="home_top_banner_cards home_top_banner_cards_2col" aria-label="Questions">
+                <div className="home_top_banner_card">
+                  <div className="home_top_banner_card_icon" aria-hidden="true">🔢</div>
+                  <div className="home_top_banner_card_title">Why success feels delayed?</div>
+                </div>
+                <div className="home_top_banner_card">
+                  <div className="home_top_banner_card_icon" aria-hidden="true">💼</div>
+                  <div className="home_top_banner_card_title">Career confusion?</div>
+                </div>
+                <div className="home_top_banner_card">
+                  <div className="home_top_banner_card_icon" aria-hidden="true">💔</div>
+                  <div className="home_top_banner_card_title">Relationship struggles?</div>
+                </div>
+                <div className="home_top_banner_card">
+                  <div className="home_top_banner_card_icon" aria-hidden="true">✨</div>
+                  <div className="home_top_banner_card_title">Want to know your lucky number?</div>
+                </div>
+              </div>
+
+              <div className="home_top_banner_ctas">
+                <button
+                  type="button"
+                  className="home_top_banner_btn home_top_banner_btn_gold"
+                  onClick={openModal}
+                >
+                  🔢 Calculate My Life Number
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Text/content overlay for fourth banner */}
+        {active === 3 && (
+          <div className="home_top_banner_overlay">
+            <div className="home_top_banner_overlay_inner home_top_banner_overlay_inner_wide">
+              <h1 className="home_top_banner_h1">
+                Seek Guidance From The <span className="home_top_banner_h1_accent2">Tarot</span>
+              </h1>
+              <p className="home_top_banner_p">
+                Reveal hidden insights about your love, career, and life path through mystical tarot
+                cards.
+              </p>
+
+              <div className="home_top_banner_cards home_top_banner_cards_2col" aria-label="Highlights">
+                <div className="home_top_banner_card">
+                  <div className="home_top_banner_card_icon" aria-hidden="true">❤️</div>
+                  <div className="home_top_banner_card_title">Relationship confusion?</div>
+                </div>
+                <div className="home_top_banner_card">
+                  <div className="home_top_banner_card_icon" aria-hidden="true">💼</div>
+                  <div className="home_top_banner_card_title">Unsure about career decisions?</div>
+                </div>
+                <div className="home_top_banner_card">
+                  <div className="home_top_banner_card_icon" aria-hidden="true">🔮</div>
+                  <div className="home_top_banner_card_title">Looking for guidance in life?</div>
+                </div>
+                <div className="home_top_banner_card">
+                  <div className="home_top_banner_card_icon" aria-hidden="true">✨</div>
+                  <div className="home_top_banner_card_title">Curious about your future?</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
         <div className="home_top_banner_track" style={{ transform: `translateX(-${active * 100}%)` }}>
           {slides.map((src, idx) => (
             <div key={idx} className="home_top_banner_slide">
@@ -242,31 +419,26 @@ const AstrologyHome = () => {
       <div className="text-green-900"> EVERYTHING YOU NEED</div>
     </h2>
 
-    {/* Chakra GIF - showing only right half (container shifted left) */}
-   <div
-  className="
-    relative 
-    w-[500px] sm:w-[600px] md:w-[700px] lg:w-[800px] 
-    -ml-40 sm:-ml-56 md:-ml-72 lg:-ml-[340px] xl:-ml-[400px] 
-    h-[650px] sm:h-[650px] md:h-[750px] lg:h-[850px]
-  "
-  style={{ overflow: 'visible' }}
->
-  <img
-    src={ChakraGif}
-    alt="Chakra with Lotus"
-    loading="lazy"
-    decoding="async"
-    style={{ 
-      objectFit: 'contain',
-      width: '100%',
-      height: '100%',
-      display: 'block',
-      borderRadius: '50%',
-      transform: 'scale(1.05)'
-    }}
-  />
-</div>
+    {/* Chakra video (no crop: show full frame) */}
+    <div
+      className="
+        relative
+        w-[360px] sm:w-[420px] md:w-[520px] lg:w-[600px]
+        ml-0 md:-ml-10 lg:-ml-20 xl:-ml-28
+        bg-transparent
+      "
+    >
+      <video
+        src={ChartsToChakraVideo}
+        aria-label="Charts to Chakras"
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        className="block h-auto w-full max-w-full"
+      />
+    </div>
 
   </div>
 
