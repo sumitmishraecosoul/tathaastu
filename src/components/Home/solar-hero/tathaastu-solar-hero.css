@@ -1,6 +1,86 @@
 /* Tathaastu solar hero — pure CSS orbits (prompt-accurate), assets via Vite-resolved paths */
 
 /* ════════════════════════════════════════════════════════════
+   HOME TOP BANNER CAROUSEL (temporary replacement for solar hero)
+   ════════════════════════════════════════════════════════════ */
+.home_top_banner {
+  position: relative;
+  width: 100%;
+  /* No crop: let image decide height */
+  height: auto;
+  overflow: hidden;
+  background: #0b111b;
+}
+
+.home_top_banner_track {
+  height: auto;
+  display: flex;
+  width: 100%;
+  transition: transform 500ms ease;
+  will-change: transform;
+}
+
+.home_top_banner_slide {
+  flex: 0 0 100%;
+  height: auto;
+}
+
+.home_top_banner_img {
+  width: 100%;
+  height: auto;
+  /* show full image with zero crop */
+  object-fit: contain;
+  object-position: center center;
+  display: block;
+}
+
+.home_top_banner_arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  width: 44px;
+  height: 44px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(8px);
+  color: #fff;
+  font-size: 28px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 180ms ease, background-color 180ms ease, border-color 180ms ease;
+}
+
+.home_top_banner_arrow:hover {
+  background: rgba(0, 0, 0, 0.5);
+  border-color: rgba(255, 255, 255, 0.45);
+  transform: translateY(-50%) scale(1.06);
+}
+
+.home_top_banner_arrow:active {
+  transform: translateY(-50%) scale(0.98);
+}
+
+.home_top_banner_arrow_left {
+  left: 14px;
+}
+
+.home_top_banner_arrow_right {
+  right: 14px;
+}
+
+.home_top_banner_arrow:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 3px rgba(255, 255, 255, 0.22),
+    0 0 0 6px rgba(208, 90, 105, 0.35);
+}
+
+/* ════════════════════════════════════════════════════════════
    SOLAR HERO SECTION
    ════════════════════════════════════════════════════════════ */
 .home7.hs_slider_main_wrapper {
