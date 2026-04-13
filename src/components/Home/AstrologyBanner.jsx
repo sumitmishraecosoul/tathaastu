@@ -12,6 +12,7 @@ import HomeBanner1 from "../../assets/home_banner1.jpeg";
 import HomeBanner2 from "../../assets/home_banner2.jpeg";
 import HomeBanner3 from "../../assets/home_banner3.jpeg";
 import HomeBanner4 from "../../assets/home_banner4.jpeg";
+import HomeBanner5 from "../../assets/home_banner5.png";
 import SolarHero from "./SolarHero";
 
 // const AstrologyBanner = () => {
@@ -49,7 +50,7 @@ import SolarHero from "./SolarHero";
 
 const AstrologyHome = () => {
   const { openModal } = useConnectModal();
-  const slides = useMemo(() => [HomeBanner1, HomeBanner2, HomeBanner3, HomeBanner4], []);
+  const slides = useMemo(() => [HomeBanner1, HomeBanner2, HomeBanner3, HomeBanner4, HomeBanner5], []);
   const [active, setActive] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -57,7 +58,7 @@ const AstrologyHome = () => {
     if (isHovered) return;
     const t = setInterval(() => {
       setActive((v) => (v + 1) % slides.length);
-    }, 4500);
+    }, 2500);
     return () => clearInterval(t);
   }, [isHovered, slides.length]);
 
@@ -410,40 +411,35 @@ const AstrologyHome = () => {
   </div>
 </div> */}
 
-<div className="flex flex-col  md:flex-row items-start justify-between px-6 sm:px-10 md:px-20 pt-10 gap-10 bg-white overflow-visible">
-  {/* Image Section */}
-  <div className="flex-shrink-0 flex-col relative overflow-visible">
-    <h2 className="text-2xl md:text-3xl font-semibold mb-4 leading-snug">
+<div className="flex flex-col gap-10 overflow-x-visible bg-white px-4 py-10 sm:px-8 md:flex-row md:items-start md:justify-between md:px-12 lg:px-16 xl:px-20">
+  {/* Square frame + object-contain: shows full video frame (circle) without clipping */}
+  <div className="flex w-full min-w-0 flex-col md:max-w-[min(100%,640px)]">
+    <h2 className="mb-4 text-2xl font-semibold leading-snug md:text-3xl">
       <span className="text-green-900">FROM </span>
-      <span className="text-pink-600 font-bold">CHARTS TO CHAKRAS - </span>
+      <span className="font-bold text-pink-600">CHARTS TO CHAKRAS - </span>
       <div className="text-green-900"> EVERYTHING YOU NEED</div>
     </h2>
 
-    {/* Chakra video (no crop: show full frame) */}
-    <div
-      className="
-        relative
-        w-[360px] sm:w-[420px] md:w-[520px] lg:w-[600px]
-        ml-0 md:-ml-10 lg:-ml-20 xl:-ml-28
-        bg-transparent
-      "
-    >
-      <video
-        src={ChartsToChakraVideo}
-        aria-label="Charts to Chakras"
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="auto"
-        className="block h-auto w-full max-w-full"
-      />
+    <div className="flex w-full justify-center md:justify-start">
+      <div className="w-full max-w-full rounded-2xl bg-slate-50 p-3 shadow-sm ring-1 ring-slate-100 sm:p-4">
+        <div className="relative mx-auto aspect-square w-full max-w-[min(100%,min(85vw,640px))]">
+          <video
+            src={ChartsToChakraVideo}
+            aria-label="Charts to Chakras"
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            className="absolute inset-0 h-full w-full object-contain object-center"
+          />
+        </div>
+      </div>
     </div>
-
   </div>
 
   {/* Content Section */}
-  <div className="max-w-2xl space-y-6">
+  <div className="min-w-0 max-w-2xl flex-1 space-y-6">
     <p className="text-gray-700 text-lg md:text-xl leading-relaxed">
      The cosmos are with you. And, it's your time to seek wisdom from ancient Indian sciences and Unlock Your Destiny.
     </p>
