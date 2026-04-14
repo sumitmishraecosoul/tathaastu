@@ -17,6 +17,7 @@ const ConsultationBooking = lazy(() => import('./pages/ConsultationBooking'));
 const Services = lazy(() => import('./pages/Services'));
 const ServiceDetails = lazy(() => import('./pages/ServiceDetails'));
 const CourseDetails = lazy(() => import('./pages/CourseDetails'));
+const Calculator = lazy(() => import('./pages/Calculator'));
 
 function ScrollManager() {
   useScrollToTop();
@@ -42,6 +43,7 @@ function App() {
               <Route path="/courses/:slug" element={<CourseDetails />} />
               <Route path="/login" element={<Login />} />
               <Route path="/consultation-booking" element={<ConsultationBooking />} />
+              <Route path="/calculator" element={<Calculator />} />
             </Routes>
           </Suspense>
           <WhatsAppFloatingButton />

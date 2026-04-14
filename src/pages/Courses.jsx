@@ -1,9 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Footer from '../layout/Footer';
 import SiteNavbar from '../layout/SiteNavbar';
 import Seperator from '../components/Home/SeperatorComponent';
 import coursesData from '../data/coursesData';
+import { motion } from "framer-motion";
 
 // Course Images
 import VastuCourse1 from "../assets/vaastu_course1.svg";
@@ -23,6 +24,8 @@ import RightArrow from "../assets/right_side_arrow.svg";
 export default function Courses() {
   const [currentCategoryIndex, setCurrentCategoryIndex] = useState(0);
   const scrollContainerRef = useRef(null);
+  const categoryBtnRefs = useRef([]);
+  const courseSectionRefs = useRef({});
   const navigate = useNavigate();
   
   const courseCategories = [
@@ -55,13 +58,22 @@ export default function Courses() {
 
   const handleCategoryClick = (index) => {
     setCurrentCategoryIndex(index);
-    // Scroll to the clicked category
+    // Keep the clicked category visible in the strip
     if (scrollContainerRef.current) {
       const container = scrollContainerRef.current;
       const buttonWidth = 150; // Approximate button width
       const gap = 12; // Gap between buttons
       const scrollPosition = index * (buttonWidth + gap);
       container.scrollTo({ left: scrollPosition, behavior: 'smooth' });
+    }
+
+    // Scroll to the matching course card
+    const category = courseCategories[index];
+    const targetEl = courseSectionRefs.current?.[category];
+    if (targetEl) {
+      const topOffset = 140; // sticky navbar + top bar
+      const y = targetEl.getBoundingClientRect().top + window.scrollY - topOffset;
+      window.scrollTo({ top: y, behavior: "smooth" });
     }
   };
 
@@ -102,6 +114,67 @@ export default function Courses() {
       imagePosition: index % 2 === 0 ? "left" : "right",
     };
   });
+
+  // Map each visible category label to its course section element
+  const categoriesByCourseTitle = useMemo(() => {
+    const titleMap = {
+      "VASTU COURSE": "VASTU COURSE",
+      "ASTROLOGY COURSE": "ASTROLOGY COURSE",
+      "TAROT CARD COURSE": "TAROT CARD COURSE",
+      "NUMEROLOGY COURSE": "NUMEROLOGY COURSE",
+      "YOGA COURSE": "YOGA COURSE",
+      "PET HEALING": "PET HEALING",
+      "AURA SCANNING": "AURA SCANNING",
+      "CRYSTAL SCANNING": "CRYSTAL SCANNING",
+      "DOWSING": "DOWSING",
+    };
+    return titleMap;
+  }, []);
+
+  useEffect(() => {
+    // Auto-highlight strip based on scroll position
+    const elements = courseCategories
+      .map((cat) => ({ cat, el: courseSectionRefs.current?.[cat] }))
+      .filter((x) => Boolean(x.el));
+
+    if (!elements.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // Pick the entry closest to top (and intersecting)
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => Math.abs(a.boundingClientRect.top) - Math.abs(b.boundingClientRect.top))[0];
+        if (!visible?.target) return;
+
+        const found = elements.find((x) => x.el === visible.target);
+        if (!found) return;
+
+        const idx = courseCategories.indexOf(found.cat);
+        if (idx < 0) return;
+        setCurrentCategoryIndex(idx);
+
+        // IMPORTANT: Don't use scrollIntoView() here — it can scroll the PAGE back to the top strip.
+        // Only scroll the horizontal strip container.
+        const container = scrollContainerRef.current;
+        const btn = categoryBtnRefs.current?.[idx];
+        if (container && btn) {
+          const targetLeft =
+            btn.offsetLeft - (container.clientWidth / 2 - btn.clientWidth / 2);
+          container.scrollTo({ left: Math.max(0, targetLeft), behavior: "smooth" });
+        }
+      },
+      {
+        root: null,
+        threshold: 0.35,
+        rootMargin: "-160px 0px -55% 0px", // account for sticky header
+      }
+    );
+
+    elements.forEach(({ el }) => observer.observe(el));
+    return () => observer.disconnect();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [courseCategories.join("|")]);
 
   return (
     <div className="bg-white text-[#073349]">
@@ -161,6 +234,7 @@ export default function Courses() {
                        : 'bg-[#F5D6B4] text-[#073349] hover:bg-[#E8C8A0]'
                    }`}
                    onClick={() => handleCategoryClick(index)}
+                    ref={(el) => { categoryBtnRefs.current[index] = el; }}
                  >
                    {category}
                  </button>
@@ -183,10 +257,29 @@ export default function Courses() {
          <div className="max-w-7xl mx-auto">
            <div className="space-y-20">
              {courses.map((course) => (
-               <div key={course.id} className={`flex flex-col ${course.imagePosition === 'right' ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center gap-12 lg:gap-16`}>
+              <motion.div
+                key={course.id}
+                ref={(el) => {
+                  const category = categoriesByCourseTitle[course.title] || course.title;
+                  if (el && courseCategories.includes(category)) {
+                    courseSectionRefs.current[category] = el;
+                  }
+                }}
+                initial={{ opacity: 0, y: 22 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-120px" }}
+                transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+                className={`flex flex-col ${course.imagePosition === 'right' ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center gap-12 lg:gap-16`}
+              >
                  
                  {/* Course Image */}
-                 <div className="w-full lg:w-1/2">
+                 <motion.div
+                   className="w-full lg:w-1/2"
+                   initial={{ opacity: 0, y: 18, scale: 0.98 }}
+                   whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                   viewport={{ once: true, margin: "-140px" }}
+                   transition={{ duration: 0.95, ease: [0.22, 1, 0.36, 1] }}
+                 >
                    <div className="relative group">
                      <img 
                        src={course.image} 
@@ -197,10 +290,16 @@ export default function Courses() {
                      />
                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl"></div>
                    </div>
-                 </div>
+                 </motion.div>
                  
                  {/* Course Content */}
-                 <div className="w-full lg:w-1/2 space-y-6">
+                 <motion.div
+                   className="w-full lg:w-1/2 space-y-6"
+                   initial={{ opacity: 0, y: 18 }}
+                   whileInView={{ opacity: 1, y: 0 }}
+                   viewport={{ once: true, margin: "-140px" }}
+                   transition={{ duration: 1.05, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
+                 >
                    <div className="space-y-4">
                      <h3 className="text-3xl md:text-4xl font-bold text-[#073349] leading-tight">
                        {course.title}
@@ -218,8 +317,8 @@ export default function Courses() {
                        LEARN MORE
                      </button>
                    </div>
-                 </div>
-               </div>
+                 </motion.div>
+              </motion.div>
              ))}
            </div>
          </div>

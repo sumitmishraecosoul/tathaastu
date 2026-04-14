@@ -8,6 +8,7 @@ const NAV_LINKS = [
   { name: "Home", path: "/" },
   { name: "Services", path: "/services" },
   { name: "Courses", path: "/courses" },
+  { name: "Calculator", path: "/calculator" },
   { name: "Blog", path: "/blog" },
   { name: "Pricing", path: "/pricing" },
   { name: "Contact", path: "/contact" },
