@@ -80,6 +80,7 @@ import ZodiacSection from '../components/Home/ZodiacSection';
 import AstrologyBanner from '../components/Home/AstrologyBanner';
 import ChakraSection from '../components/Home/ChakraSection';
 import PlanetsSection from '../components/Home/PlanetsSection';
+import ZodiacInsightSection from '../components/Home/ZodiacInsightSection';
 import ServicesCarousel from '../components/Home/ServiceCarousel';
 import Seperator from '../components/Home/SeperatorComponent';
 // import AIContentSection from '../components/Home/AIContent';
@@ -178,6 +179,7 @@ export default function Home() {
       </section> */}
       <DeferredSection minHeight="420px">
         <PlanetsSection />
+        <ZodiacInsightSection />
         <Seperator />
       </DeferredSection>
 
@@ -208,7 +210,10 @@ export default function Home() {
       </DeferredSection> */}
 
       <DeferredSection minHeight="320px">
+        {/* OLD: testimonials were Home-only. Keeping code commented, since new screenshot-style clients+footer now renders globally via `Footer`. */}
+        {/*
         <TestimonialsSection />
+        */}
       </DeferredSection>
       <Footer />
     </div>

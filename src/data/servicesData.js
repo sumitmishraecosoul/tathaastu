@@ -22,7 +22,7 @@ import petHealingBanner from "../assets/PET_HEALING_banner.svg";
 import dowsingBanner from "../assets/dowsing_banner.svg";
 import auraHealingBanner from "../assets/AURA_HEALING_AND_SCANNING_banner.svg";
 
-const servicesData = [
+const servicesDataUnsorted = [
   {
     id: "astrology-kundli",
     slug: "astrology-kundli",
@@ -409,6 +409,29 @@ const servicesData = [
     ],
   },
 ];
+
+// Card order for Home/Services listings (user-requested priority first).
+const SERVICE_ORDER = [
+  "dowsing",
+  "aura-healing-scanning",
+  "astrology-kundli",
+  "vastu-shastra",
+  "numerologists",
+  "pooja-services",
+  "tarot-reading",
+  "horoscope-matching",
+  "crystal-healing",
+  // everything else follows (e.g. vedic-astrology, pet-healing)
+];
+
+const serviceOrderIndex = new Map(SERVICE_ORDER.map((id, idx) => [id, idx]));
+
+const servicesData = [...servicesDataUnsorted].sort((a, b) => {
+  const ai = serviceOrderIndex.has(a.id) ? serviceOrderIndex.get(a.id) : Number.MAX_SAFE_INTEGER;
+  const bi = serviceOrderIndex.has(b.id) ? serviceOrderIndex.get(b.id) : Number.MAX_SAFE_INTEGER;
+  if (ai !== bi) return ai - bi;
+  return 0;
+});
 
 export default servicesData;
 

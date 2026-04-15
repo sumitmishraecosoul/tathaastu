@@ -933,12 +933,61 @@ const GAP = 32;
 const PlanetsSection = () => {
   const scrollRef = useRef(null);
   const extendedPlanets = [...planets, ...planets, ...planets];
+  const rafRef = useRef(0);
+  const lastTsRef = useRef(0);
+  const isHoveringRef = useRef(false);
+  const isUserInteractingRef = useRef(false);
+  const interactionTORef = useRef(0);
+  const stepRef = useRef(0);
 
   useEffect(() => {
     const container = scrollRef.current;
-    if (container) {
-      container.scrollLeft = planets.length * (CARD_WIDTH + GAP);
-    }
+    if (!container) return;
+
+    const measure = () => {
+      const card = container.querySelector(".planet-card");
+      if (!card) return;
+      const w = card.getBoundingClientRect().width || card.offsetWidth || 0;
+      const styles = window.getComputedStyle(container);
+      const gap = Number.parseFloat(styles.columnGap || styles.gap || "") || 24;
+      const step = Math.max(1, Math.round(w + gap));
+      stepRef.current = step;
+      container.scrollLeft = planets.length * step;
+    };
+
+    const raf = window.requestAnimationFrame(measure);
+    return () => window.cancelAnimationFrame(raf);
+  }, []);
+
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container) return;
+
+    // Continuous infinite auto-scroll (faster). px/sec
+    const SPEED_PX_PER_SEC = 240;
+
+    const frame = (ts) => {
+      rafRef.current = window.requestAnimationFrame(frame);
+      if (!scrollRef.current) return;
+      if (isHoveringRef.current) return;
+      if (isUserInteractingRef.current) {
+        lastTsRef.current = ts;
+        return;
+      }
+
+      const last = lastTsRef.current || ts;
+      const dt = Math.min(48, ts - last); // cap dt to avoid huge jumps
+      lastTsRef.current = ts;
+
+      container.scrollLeft += (SPEED_PX_PER_SEC * dt) / 1000;
+    };
+
+    rafRef.current = window.requestAnimationFrame(frame);
+    return () => {
+      window.cancelAnimationFrame(rafRef.current);
+      rafRef.current = 0;
+      lastTsRef.current = 0;
+    };
   }, []);
 
   const handleScroll = () => {
@@ -948,8 +997,9 @@ const PlanetsSection = () => {
     const scrollLeft = container.scrollLeft;
     const total = extendedPlanets.length;
     const visible = planets.length;
-    const middle = visible * (CARD_WIDTH + GAP);
-    const maxScroll = (total - visible) * (CARD_WIDTH + GAP);
+    const step = stepRef.current || CARD_WIDTH + GAP;
+    const middle = visible * step;
+    const maxScroll = (total - visible) * step;
 
     if (scrollLeft <= 0) {
       container.scrollLeft = middle;
@@ -1001,13 +1051,42 @@ const PlanetsSection = () => {
           <div
             ref={scrollRef}
             onScroll={handleScroll}
+            onWheel={() => {
+              isUserInteractingRef.current = true;
+              window.clearTimeout(interactionTORef.current);
+              interactionTORef.current = window.setTimeout(() => {
+                isUserInteractingRef.current = false;
+              }, 900);
+            }}
+            onPointerDown={() => {
+              isUserInteractingRef.current = true;
+              window.clearTimeout(interactionTORef.current);
+            }}
+            onPointerUp={() => {
+              window.clearTimeout(interactionTORef.current);
+              interactionTORef.current = window.setTimeout(() => {
+                isUserInteractingRef.current = false;
+              }, 900);
+            }}
+            onTouchStart={() => {
+              isUserInteractingRef.current = true;
+              window.clearTimeout(interactionTORef.current);
+            }}
+            onTouchEnd={() => {
+              window.clearTimeout(interactionTORef.current);
+              interactionTORef.current = window.setTimeout(() => {
+                isUserInteractingRef.current = false;
+              }, 900);
+            }}
+            onMouseEnter={() => { isHoveringRef.current = true; }}
+            onMouseLeave={() => { isHoveringRef.current = false; }}
             className="flex gap-4 sm:gap-5 md:gap-6 lg:gap-7 scroll-smooth overflow-x-auto scrollbar-hide py-6 px-8 sm:px-10 md:px-12 lg:px-14 xl:px-16"
             style={{ scrollSnapType: "x mandatory" }}
           >
             {extendedPlanets.map((planet, index) => (
               <div
                 key={index}
-                className="snap-start shrink-0 flex flex-col items-center 
+                className="planet-card snap-start shrink-0 flex flex-col items-center 
                   min-w-[240px] sm:min-w-[260px] md:min-w-[280px] lg:min-w-[300px]"
               >
                 <img

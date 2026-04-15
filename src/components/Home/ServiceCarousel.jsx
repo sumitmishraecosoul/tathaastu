@@ -241,26 +241,72 @@ const services = servicesData;
 const ServicesCarousel = () => {
   const scrollRef = useRef(null);
   const cloned = [...services, ...services, ...services];
+  const rafRef = useRef(0);
+  const lastTsRef = useRef(0);
+  const isHoveringRef = useRef(false);
+  const isUserInteractingRef = useRef(false);
+  const interactionTORef = useRef(0);
+  const cardStepRef = useRef(0);
 
   useEffect(() => {
     const container = scrollRef.current;
-    if (container) {
+    if (!container) return;
+
+    const measure = () => {
       const card = container.querySelector(".carousel-card");
-      if (card) container.scrollLeft = card.offsetWidth * services.length;
-    }
+      if (!card) return;
+      const width = card.getBoundingClientRect().width || card.offsetWidth || 0;
+      const step = Math.max(1, Math.round(width + 24)); // card width + gap-6 (24px)
+      cardStepRef.current = step;
+      container.scrollLeft = step * services.length; // jump to middle copy
+    };
+
+    // wait for layout
+    const raf = window.requestAnimationFrame(measure);
+    return () => window.cancelAnimationFrame(raf);
+  }, []);
+
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container) return;
+
+    // Continuous infinite auto-scroll. px/sec
+    const SPEED_PX_PER_SEC = 180;
+
+    const frame = (ts) => {
+      rafRef.current = window.requestAnimationFrame(frame);
+      if (!scrollRef.current) return;
+      if (isHoveringRef.current) return;
+      if (isUserInteractingRef.current) {
+        lastTsRef.current = ts;
+        return;
+      }
+
+      const last = lastTsRef.current || ts;
+      const dt = Math.min(48, ts - last);
+      lastTsRef.current = ts;
+
+      container.scrollLeft += (SPEED_PX_PER_SEC * dt) / 1000;
+    };
+
+    rafRef.current = window.requestAnimationFrame(frame);
+    return () => {
+      window.cancelAnimationFrame(rafRef.current);
+      rafRef.current = 0;
+      lastTsRef.current = 0;
+    };
   }, []);
 
   const handleScroll = () => {
     const container = scrollRef.current;
     if (!container) return;
 
-    const card = container.querySelector(".carousel-card");
-    if (!card) return;
+    const step = cardStepRef.current;
+    if (!step) return;
 
-    const cardWidth = card.offsetWidth;
     const visible = services.length;
-    const middle = visible * cardWidth;
-    const maxScroll = (cloned.length - visible) * cardWidth;
+    const middle = visible * step;
+    const maxScroll = (cloned.length - visible) * step;
 
     if (container.scrollLeft <= 0) {
       container.scrollLeft = middle;
@@ -376,6 +422,35 @@ const ServicesCarousel = () => {
       <div
         ref={scrollRef}
         onScroll={handleScroll}
+        onWheel={() => {
+          isUserInteractingRef.current = true;
+          window.clearTimeout(interactionTORef.current);
+          interactionTORef.current = window.setTimeout(() => {
+            isUserInteractingRef.current = false;
+          }, 900);
+        }}
+        onPointerDown={() => {
+          isUserInteractingRef.current = true;
+          window.clearTimeout(interactionTORef.current);
+        }}
+        onPointerUp={() => {
+          window.clearTimeout(interactionTORef.current);
+          interactionTORef.current = window.setTimeout(() => {
+            isUserInteractingRef.current = false;
+          }, 900);
+        }}
+        onTouchStart={() => {
+          isUserInteractingRef.current = true;
+          window.clearTimeout(interactionTORef.current);
+        }}
+        onTouchEnd={() => {
+          window.clearTimeout(interactionTORef.current);
+          interactionTORef.current = window.setTimeout(() => {
+            isUserInteractingRef.current = false;
+          }, 900);
+        }}
+        onMouseEnter={() => { isHoveringRef.current = true; }}
+        onMouseLeave={() => { isHoveringRef.current = false; }}
         className="flex gap-6 scroll-smooth overflow-x-auto scrollbar-hide"
         style={{ scrollSnapType: "x mandatory" }}
       >
