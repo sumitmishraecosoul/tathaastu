@@ -1,40 +1,27 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { ChevronDown } from "lucide-react";
+import { NAV_MEGA_MENUS } from "../../data/navMegaMenu";
 
 /**
- * @param {{ variant?: 'light' | 'dark' }} props — dark = light icon for navy header
+ * Mobile drawer with the same IA depth as desktop mega-menus.
  */
 export default function SliderOpener({ variant = "light" }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [expandedId, setExpandedId] = useState("consult");
   const navigate = useNavigate();
 
-  const toggleSlider = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const closeSlider = () => {
-    setIsOpen(false);
-  };
+  const closeSlider = () => setIsOpen(false);
 
   const handleNavigation = (path) => {
     closeSlider();
     navigate(path);
   };
 
-  const navigationItems = [
-    { name: "Home", path: "/" },
-    { name: "Services", path: "/services" },
-    { name: "Courses", path: "/courses" },
-    { name: "Blog", path: "/blog" },
-    { name: "Pricing", path: "/pricing" },
-    { name: "Contact us", path: "/contact" }
-  ];
-
   return (
     <>
-      {/* Hamburger Menu Button */}
       <button
-        onClick={toggleSlider}
+        onClick={() => setIsOpen(true)}
         className={
           variant === "dark"
             ? "text-2xl text-white/90 transition-colors duration-300 hover:text-white"
@@ -45,48 +32,80 @@ export default function SliderOpener({ variant = "light" }) {
         ☰
       </button>
 
-      {/* Overlay */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40"
+          className="fixed inset-0 z-40 bg-black/50"
           onClick={closeSlider}
-        ></div>
+          aria-hidden="true"
+        />
       )}
 
-      {/* Slider Navigation */}
       <div
-        className={`fixed top-0 left-0 h-full w-80 bg-[#FFF1E5] shadow-2xl transform transition-transform duration-300 ease-in-out z-50 ${
-          isOpen ? 'translate-x-0' : '-translate-x-full'
+        className={`fixed left-0 top-0 z-50 h-full w-[min(22rem,92vw)] transform bg-[#F8FFF6] shadow-2xl transition-transform duration-300 ease-in-out ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        {/* Header */}
-        <div className="flex justify-between items-center p-6 border-b border-[#073349] border-opacity-20">
-          <h2 className="text-xl font-bold text-[#073349]">Menu</h2>
+        <div className="flex items-center justify-between border-b border-[#073349]/15 p-5">
+          <h2 className="text-lg font-bold text-[#073349]">Tathaastu Menu</h2>
           <button
             onClick={closeSlider}
-            className="text-2xl text-[#073349] hover:text-[#D44459] transition-colors duration-300"
+            className="text-2xl text-[#073349] transition-colors hover:text-[#D44459]"
             aria-label="Close navigation menu"
           >
             ✕
           </button>
         </div>
 
-        {/* Navigation Items */}
-        <nav className="p-6">
-          <ul className="space-y-4">
-            {navigationItems.map((item, index) => (
-              <li key={index}>
-                <button
-                  onClick={() => handleNavigation(item.path)}
-                  className="block w-full text-left py-3 px-4 text-[#073349] hover:text-[#D44459] hover:bg-[#073349] hover:bg-opacity-10 rounded-lg transition-all duration-300 font-medium"
+        <nav className="h-[calc(100%-4.5rem)] overflow-y-auto p-4">
+          <button
+            type="button"
+            onClick={() => handleNavigation("/")}
+            className="mb-3 w-full rounded-xl bg-[#073349] px-4 py-3 text-left text-sm font-bold text-white"
+          >
+            Home
+          </button>
+
+          <ul className="space-y-2">
+            {NAV_MEGA_MENUS.map((menu) => {
+              const expanded = expandedId === menu.id;
+              return (
+                <li
+                  key={menu.id}
+                  className="overflow-hidden rounded-xl border border-[#073349]/10 bg-white"
+                  style={{ borderLeft: `4px solid ${menu.accent}` }}
                 >
-                  {item.name}
-                </button>
-              </li>
-            ))}
+                  <button
+                    type="button"
+                    className="flex w-full items-center justify-between px-4 py-3 text-left text-sm font-bold uppercase tracking-wide"
+                    style={{ background: menu.tint, color: menu.accent }}
+                    onClick={() => setExpandedId(expanded ? null : menu.id)}
+                    aria-expanded={expanded}
+                  >
+                    {menu.label}
+                    <ChevronDown
+                      className={`h-4 w-4 transition-transform ${expanded ? "rotate-180" : ""}`}
+                    />
+                  </button>
+                  {expanded && (
+                    <ul className="border-t border-[#073349]/8 py-1">
+                      {menu.items.map((item) => (
+                        <li key={item.name}>
+                          <button
+                            type="button"
+                            onClick={() => handleNavigation(item.path)}
+                            className="w-full px-4 py-2.5 text-left text-sm font-medium text-[#073349] hover:bg-[#F8FFF6] hover:text-[#D44459]"
+                          >
+                            {item.name}
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </nav>
-
       </div>
     </>
   );

@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useConnectModal } from "../../contexts/ConnectModalContext";
-import ChartsToChakraVideo from "../../assets/Charts to chakra.mp4";
+import ChakraImg from "../../assets/chakra.jpg";
 import HOMESEPERATOR from '../../assets/HOME_Seperator_1.png';
 import ExpertIcon from "../../assets/expert.svg";
 import AuthenticIcon from "../../assets/authentic.svg";
@@ -8,10 +8,10 @@ import PERSONALISEDIcon from "../../assets/PERSONALISED.svg";
 import AIPowerIcon from "../../assets/ai_power.svg";
 import "./solar-hero/tathaastu-solar-hero.css";
 import "./solar-hero/tathaastu-solar-home7.css";
-import HomeBanner1 from "../../assets/home_banner1.jpeg";
-import HomeBanner2 from "../../assets/home_banner2.jpeg";
-import HomeBanner3 from "../../assets/home_banner3.jpeg";
-import HomeBanner4 from "../../assets/home_banner4.jpeg";
+import HomeBanner1 from "../../assets/home_banner_1.png";
+import HomeBanner2 from "../../assets/home_banner_2.jpeg";
+import HomeBanner3 from "../../assets/home_banner_3.jpeg";
+import HomeBanner4 from "../../assets/home_banner_4.jpeg";
 import SolarHero from "./SolarHero";
 
 // const AstrologyBanner = () => {
@@ -52,6 +52,16 @@ const AstrologyHome = () => {
   const slides = useMemo(() => [HomeBanner1, HomeBanner2, HomeBanner3, HomeBanner4], []);
   const [active, setActive] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
+  const ROTATING_PROBLEM_WORDS = useMemo(
+    () => ["Struggles", "Challenges", "Issues", "Troubles", "Obstacles", "Setbacks", "Complications", "Crises"],
+    []
+  );
+  const [problemWordIdx, setProblemWordIdx] = useState(0);
+  const [isProblemWordFading, setIsProblemWordFading] = useState(false);
+  const problemWordWidthCh = useMemo(
+    () => Math.max(...ROTATING_PROBLEM_WORDS.map((w) => String(w || "").length)),
+    [ROTATING_PROBLEM_WORDS]
+  );
   const [isNumerologyOpen, setIsNumerologyOpen] = useState(false);
   const [numForm, setNumForm] = useState({ name: "", phone: "", dob: "" });
   const [numResult, setNumResult] = useState(null);
@@ -67,6 +77,17 @@ const AstrologyHome = () => {
     }, 2500);
     return () => clearInterval(t);
   }, [isHovered, slides.length]);
+
+  useEffect(() => {
+    const t = window.setInterval(() => {
+      setIsProblemWordFading(true);
+      window.setTimeout(() => {
+        setProblemWordIdx((v) => (v + 1) % ROTATING_PROBLEM_WORDS.length);
+        setIsProblemWordFading(false);
+      }, 220);
+    }, 1600);
+    return () => window.clearInterval(t);
+  }, [ROTATING_PROBLEM_WORDS.length]);
 
   const TAROT_CARDS = useMemo(
     () => [
@@ -450,12 +471,20 @@ const AstrologyHome = () => {
         <div className="home_top_banner_track" style={{ transform: `translateX(-${active * 100}%)` }}>
           {slides.map((src, idx) => (
             <div key={idx} className="home_top_banner_slide">
+              {/* Two-layer image: background cover (blur) + foreground contain (no crop) */}
+              <img
+                src={src}
+                alt=""
+                aria-hidden="true"
+                decoding="async"
+                className="home_top_banner_img_bg"
+              />
               <img
                 src={src}
                 alt={`Home banner ${idx + 1}`}
                 fetchPriority={idx === 0 ? "high" : "auto"}
                 decoding="async"
-                className="home_top_banner_img"
+                className="home_top_banner_img_fg"
               />
             </div>
           ))}
@@ -473,7 +502,26 @@ const AstrologyHome = () => {
         <div className="mx-auto w-full max-w-6xl">
           <div className="text-center">
             <h2 className="text-2xl font-extrabold tracking-wide text-[#1F5A49] sm:text-3xl">
-              ARE YOU FACING THESE PROBLEMS?
+              ARE YOU FACING THESE{" "}
+              <span className="font-extrabold text-pink-600">PROBLEMS</span>{" "}
+              {/* Keep layout stable (fixed min width), but keep "?" right after the word */}
+              <span
+                className="inline-flex align-baseline"
+                style={{ minWidth: `${problemWordWidthCh + 2}ch` }}
+              >
+                <span
+                  className={[
+                    "font-extrabold text-pink-600 transition-opacity duration-200 uppercase",
+                    isProblemWordFading ? "opacity-0" : "opacity-100",
+                  ].join(" ")}
+                  aria-live="polite"
+                >
+                  {ROTATING_PROBLEM_WORDS[problemWordIdx]}
+                </span>
+                <span className="font-extrabold text-pink-600">?</span>
+                {/* Spacer to reserve remaining width after the question mark */}
+                <span className="flex-1" aria-hidden="true" />
+              </span>
             </h2>
             <p className="mx-auto mt-3 max-w-3xl text-sm leading-relaxed text-[#1F5A49]/80 sm:text-base">
               Many people experience life blocks due to planetary influences. Astrology can help uncover the hidden reasons behind these challenges.
@@ -1044,14 +1092,11 @@ const AstrologyHome = () => {
     <div className="flex w-full justify-center md:justify-start">
       <div className="w-full max-w-full rounded-2xl bg-slate-50 p-3 shadow-sm ring-1 ring-slate-100 sm:p-4">
         <div className="relative mx-auto aspect-square w-full max-w-[min(100%,min(85vw,640px))]">
-          <video
-            src={ChartsToChakraVideo}
-            aria-label="Charts to Chakras"
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="metadata"
+          <img
+            src={ChakraImg}
+            alt="Charts to Chakras"
+            loading="lazy"
+            decoding="async"
             className="absolute inset-0 h-full w-full object-contain object-center"
           />
         </div>

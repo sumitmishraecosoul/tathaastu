@@ -1,42 +1,78 @@
-import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { ChevronDown } from "lucide-react";
 import { useConnectModal } from "../contexts/ConnectModalContext";
 import SliderOpener from "../components/Home/SliderOpener";
 import tathaastuLogo from "../assets/tathaastu_logo.png";
-
-const NAV_LINKS = [
-  { name: "Home", path: "/" },
-  { name: "Services", path: "/services" },
-  { name: "Courses", path: "/courses" },
-  { name: "Calculator", path: "/calculator" },
-  { name: "Blog", path: "/blog" },
-  { name: "Pricing", path: "/pricing" },
-  { name: "Contact", path: "/contact" },
-];
+import { NAV_MEGA_MENUS } from "../data/navMegaMenu";
 
 /**
- * Header: cream bar (#F5D6B4), logo left, links centered (desktop), CTA right.
- * @param {object} props
- * @param {React.ReactNode} [props.endSlot] — replaces default “Get a prediction” button
+ * Sticky cream navbar with simple top labels + mega-menus for depth.
  */
 export default function SiteNavbar({ endSlot = null }) {
   const { openModal } = useConnectModal();
+  const location = useLocation();
+  const [openMenuId, setOpenMenuId] = useState(null);
+  const closeTimer = useRef(null);
+  const navRef = useRef(null);
+
+  const clearCloseTimer = () => {
+    if (closeTimer.current) {
+      clearTimeout(closeTimer.current);
+      closeTimer.current = null;
+    }
+  };
+
+  const scheduleClose = () => {
+    clearCloseTimer();
+    closeTimer.current = setTimeout(() => setOpenMenuId(null), 160);
+  };
+
+  const openMenu = (id) => {
+    clearCloseTimer();
+    setOpenMenuId(id);
+  };
+
+  useEffect(() => {
+    setOpenMenuId(null);
+  }, [location.pathname, location.hash]);
+
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === "Escape") setOpenMenuId(null);
+    };
+    const onClickOutside = (e) => {
+      if (navRef.current && !navRef.current.contains(e.target)) {
+        setOpenMenuId(null);
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    document.addEventListener("mousedown", onClickOutside);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.removeEventListener("mousedown", onClickOutside);
+      clearCloseTimer();
+    };
+  }, []);
 
   return (
-    <header className="sticky top-0 z-[100] bg-[#F5D6B4] shadow">
-      <div className="relative mx-auto flex max-w-[1920px] items-center px-4 py-3 md:px-6 lg:px-12">
+    <header className="sticky top-0 z-[100] border-b border-[#073349]/10 bg-[#F8FFF6]/95 shadow-sm backdrop-blur-md">
+      <div
+        ref={navRef}
+        className="relative mx-auto flex max-w-[1920px] items-center px-4 py-3 md:px-6 lg:px-10"
+      >
         <div className="flex min-w-0 flex-1 items-center gap-3 sm:gap-4">
-          <div className="shrink-0 md:hidden">
+          <div className="shrink-0 lg:hidden">
             <SliderOpener />
           </div>
           <Link
             to="/"
-            className="flex shrink-0 items-center gap-2 rounded-sm outline-none ring-offset-2 ring-offset-[#F5D6B4] focus-visible:ring-2 focus-visible:ring-[#073349]"
+            className="flex shrink-0 items-center gap-2 rounded-sm outline-none ring-offset-2 ring-offset-[#F8FFF6] focus-visible:ring-2 focus-visible:ring-[#073349]"
           >
             <img
               src={tathaastuLogo}
               alt="Tathaastu"
-              className="h-12 w-auto md:h-16 lg:h-20"
+              className="h-11 w-auto md:h-14 lg:h-16"
               width={160}
               height={64}
             />
@@ -44,37 +80,90 @@ export default function SiteNavbar({ endSlot = null }) {
         </div>
 
         <nav
-          className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 md:flex md:items-center md:gap-5 lg:gap-8"
+          className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 lg:flex lg:items-center lg:gap-1"
           aria-label="Main navigation"
         >
-          {NAV_LINKS.map(({ name, path }) => (
-            <NavLink
-              key={path}
-              to={path}
-              end={path === "/"}
-              className={({ isActive }) =>
-                [
-                  "whitespace-nowrap text-sm font-medium tracking-wide transition-colors",
-                  isActive
-                    ? "text-[#D44459]"
-                    : "text-[#073349] hover:text-[#D44459]",
-                ].join(" ")
-              }
-            >
-              {name}
-            </NavLink>
-          ))}
+          {NAV_MEGA_MENUS.map((menu) => {
+            const isOpen = openMenuId === menu.id;
+            return (
+              <div
+                key={menu.id}
+                className="relative"
+                onMouseEnter={() => openMenu(menu.id)}
+                onMouseLeave={scheduleClose}
+              >
+                <button
+                  type="button"
+                  className={[
+                    "inline-flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-semibold tracking-wide transition-colors",
+                    isOpen
+                      ? "bg-white/70 text-[#D44459]"
+                      : "text-[#073349] hover:bg-white/50 hover:text-[#D44459]",
+                  ].join(" ")}
+                  aria-expanded={isOpen}
+                  aria-haspopup="true"
+                  onClick={() => setOpenMenuId(isOpen ? null : menu.id)}
+                >
+                  {menu.label}
+                  <ChevronDown
+                    className={`h-3.5 w-3.5 transition-transform ${isOpen ? "rotate-180" : ""}`}
+                  />
+                </button>
+
+                {isOpen && (
+                  <div
+                    className="absolute left-1/2 top-full z-50 w-64 -translate-x-1/2 pt-3"
+                    onMouseEnter={() => openMenu(menu.id)}
+                    onMouseLeave={scheduleClose}
+                  >
+                    <div
+                      className="overflow-hidden rounded-2xl border border-[#073349]/8 bg-white shadow-[0_18px_40px_rgba(7,51,73,0.12)]"
+                      style={{ borderLeft: `4px solid ${menu.accent}` }}
+                    >
+                      <div
+                        className="px-4 py-3 text-xs font-bold uppercase tracking-[0.14em]"
+                        style={{ background: menu.tint, color: menu.accent }}
+                      >
+                        {menu.label}
+                      </div>
+                      <ul className="py-2">
+                        {menu.items.map((item) => (
+                          <li key={item.name}>
+                            <Link
+                              to={item.path}
+                              className="block px-4 py-2.5 text-sm font-medium text-[#073349] transition-colors hover:bg-[#F8FFF6] hover:text-[#D44459]"
+                              onClick={() => setOpenMenuId(null)}
+                            >
+                              {item.name}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </nav>
 
         <div className="flex flex-1 items-center justify-end gap-2 sm:gap-3">
           {endSlot ?? (
-            <button
-              type="button"
-              onClick={openModal}
-              className="rounded-lg border border-[#073349] px-3 py-2 text-xs font-medium text-[#073349] shadow-sm transition-colors hover:bg-[#073349]/10 hover:text-[#D44459] hover:border-[#D44459] sm:px-4 sm:text-sm"
-            >
-              Get a prediction
-            </button>
+            <>
+              <Link
+                to="/login"
+                className="hidden rounded-lg px-3 py-2 text-sm font-semibold text-[#073349] transition-colors hover:text-[#D44459] sm:inline-flex"
+              >
+                Login
+              </Link>
+              <button
+                type="button"
+                onClick={openModal}
+                className="rounded-xl bg-[#E74660] px-3 py-2 text-xs font-bold text-white shadow-sm transition hover:bg-[#d13a52] sm:px-4 sm:text-sm"
+              >
+                Chat with Expert
+              </button>
+            </>
           )}
         </div>
       </div>

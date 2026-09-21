@@ -1,5 +1,18 @@
 import React, { useMemo, useState } from "react";
 
+import AriesImg from "../../assets/Aries.jpg";
+import TaurusImg from "../../assets/taurus.jpg";
+import GeminiImg from "../../assets/gemini.jpg";
+import CancerImg from "../../assets/cancer.jpg";
+import LeoImg from "../../assets/leo.jpg";
+import VirgoImg from "../../assets/virgo.jpg";
+import LibraImg from "../../assets/libra.jpg";
+import ScorpioImg from "../../assets/scorpio.jpg";
+import SagittariusImg from "../../assets/sagittarius.jpg";
+import CapricornImg from "../../assets/capricorn.png";
+import AquariusImg from "../../assets/aquarius.jpg";
+import PiscesImg from "../../assets/pisces.jpg";
+
 const ZODIAC_SIGNS = [
   { key: "aries", label: "Aries" },
   { key: "taurus", label: "Taurus" },
@@ -99,6 +112,23 @@ export default function ZodiacInsightSection() {
   const now = new Date();
   const monthLabel = MONTHS[now.getMonth()] || "This month";
   const [activeKey, setActiveKey] = useState("taurus");
+  const signImages = useMemo(
+    () => ({
+      aries: AriesImg,
+      taurus: TaurusImg,
+      gemini: GeminiImg,
+      cancer: CancerImg,
+      leo: LeoImg,
+      virgo: VirgoImg,
+      libra: LibraImg,
+      scorpio: ScorpioImg,
+      sagittarius: SagittariusImg,
+      capricorn: CapricornImg,
+      aquarius: AquariusImg,
+      pisces: PiscesImg,
+    }),
+    []
+  );
 
   const activeSign = useMemo(
     () => ZODIAC_SIGNS.find((s) => s.key === activeKey) || ZODIAC_SIGNS[0],
@@ -133,14 +163,27 @@ export default function ZodiacInsightSection() {
                   type="button"
                   onClick={() => setActiveKey(sign.key)}
                   className={[
-                    "rounded-xl px-3 py-2 text-sm font-semibold transition",
+                    "rounded-xl bg-white p-2 text-left transition",
                     "ring-1 ring-black/5",
                     isActive
                       ? "bg-[#2D7351] text-white shadow-[0_10px_24px_rgba(45,115,81,0.25)]"
-                      : "bg-white text-[#1F5A49] hover:bg-white/70",
+                      : "text-[#1F5A49] hover:bg-white/70",
                   ].join(" ")}
                 >
-                  {sign.label}
+                  <div className="flex items-center gap-2">
+                    <div className="h-10 w-10 overflow-hidden rounded-lg bg-[#F6F1E6] ring-1 ring-black/5">
+                      <img
+                        src={signImages[sign.key]}
+                        alt={sign.label}
+                        loading="lazy"
+                        decoding="async"
+                        className="h-full w-full object-cover"
+                      />
+                    </div>
+                    <div className={["text-sm font-semibold", isActive ? "text-white" : "text-[#1F5A49]"].join(" ")}>
+                      {sign.label}
+                    </div>
+                  </div>
                 </button>
               );
             })}
@@ -148,18 +191,17 @@ export default function ZodiacInsightSection() {
 
           {/* Content: image + text */}
           <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-[360px_1fr] lg:items-stretch">
-            {/* Placeholder image block */}
+            {/* Active sign image */}
             <div className="relative overflow-hidden rounded-2xl bg-white ring-1 ring-black/5">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(45,115,81,0.14),transparent_55%)]" />
-              <div className="relative flex h-full min-h-[220px] items-center justify-center p-6">
-                <div className="text-center">
-                  <div className="text-xs font-extrabold tracking-widest text-[#1F5A49]/75">
-                    {activeSign.label.toUpperCase()}
-                  </div>
-                  <div className="mt-2 text-sm text-[#1F5A49]/70">
-                    Image placeholder (you’ll add zodiac images later)
-                  </div>
-                </div>
+              <div className="relative flex h-full min-h-[220px] items-center justify-center p-4">
+                <img
+                  src={signImages[activeKey]}
+                  alt={activeSign.label}
+                  loading="lazy"
+                  decoding="async"
+                  className="h-full w-full rounded-xl object-cover shadow-sm ring-1 ring-black/5"
+                />
               </div>
             </div>
 

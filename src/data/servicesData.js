@@ -1,26 +1,27 @@
-import astrologyKundli from "../assets/astrology_kundli.svg";
-import vastuForHome from "../assets/vastu_for_home.svg";
-import vedicAstrology from "../assets/VEDIC_ASTROLOGY.svg";
-import numerologist from "../assets/NUMEROLOGIST.svg";
-import poojaServices from "../assets/POOJA_SERVICES.svg";
-import horoscopeMatching from "../assets/horoscope_matching.svg";
-import tarotReading from "../assets/tarot_reading.svg";
-import crystalHealing from "../assets/crystal_healing.svg";
-import petHealing from "../assets/pet_heeling.svg";
-import dowsing from "../assets/dowsing.svg";
-import auraHealing from "../assets/heeling_and_scanning.svg";
+import astrologyKundli from "../assets/AStrology kundli.jpg";
+import vastuForHome from "../assets/Vastu Astrology.jpg";
+import vedicAstrology from "../assets/Asstrology.jpeg";
+import numerologist from "../assets/Numerology.jpg";
+import poojaServices from "../assets/Number.jpeg";
+import horoscopeMatching from "../assets/Horoscope Guidance.jpg";
+import tarotReading from "../assets/Tarot Reading.jpg";
+import crystalHealing from "../assets/Crystal Healing.jpg";
+import petHealing from "../assets/Pet healing.jpeg";
+import dowsing from "../assets/dowsing.jpg";
+import auraHealing from "../assets/Aura Healing & Scanning.jpg";
 
-import astrologyKundliBanner from "../assets/ASTROLOGY_KUNDLI_banner.svg";
-import vastuForHomeBanner from "../assets/VASTU_SHASTRA_VASTU_FOR_HOME_banner.svg";
-import vedicAstrologyBanner from "../assets/VEDIC_ASTROLOGY_banner.svg";
-import numerologistBanner from "../assets/NUMEROLOGIST_banner.svg";
-import poojaServicesBanner from "../assets/POOJA_SERVICES_banner.svg";
-import horoscopeMatchingBanner from "../assets/horoscope_matching_banner.svg";
-import tarotReadingBanner from "../assets/tarot_reading_banner.svg";
-import crystalHealingBanner from "../assets/crystal_healing_banner.svg";
-import petHealingBanner from "../assets/PET_HEALING_banner.svg";
-import dowsingBanner from "../assets/dowsing_banner.svg";
-import auraHealingBanner from "../assets/AURA_HEALING_AND_SCANNING_banner.svg";
+// Use new provided images for Service Details hero banners as well.
+import astrologyKundliBanner from "../assets/AStrology kundli.jpg";
+import vastuForHomeBanner from "../assets/Vastu Astrology.jpg";
+import vedicAstrologyBanner from "../assets/Asstrology.jpeg";
+import numerologistBanner from "../assets/Numerology.jpg";
+import poojaServicesBanner from "../assets/Number.jpeg";
+import horoscopeMatchingBanner from "../assets/Horoscope Guidance.jpg";
+import tarotReadingBanner from "../assets/Tarot Reading.jpg";
+import crystalHealingBanner from "../assets/Crystal Healing.jpg";
+import petHealingBanner from "../assets/Pet healing.jpeg";
+import dowsingBanner from "../assets/dowsing.jpg";
+import auraHealingBanner from "../assets/Aura Healing & Scanning.jpg";
 
 const servicesDataUnsorted = [
   {

@@ -88,8 +88,8 @@ export default function Footer() {
       */}
 
       {/* What Our Clients Say (screenshot-style UI) */}
-      <section className="bg-[#FFF1E5] py-16">
-        <div className="mx-auto max-w-7xl px-6 md:px-12">
+      <section className="bg-[#F8FFF6] py-16">
+        <div className="mx-auto max-w-[1680px] px-4 sm:px-6 md:px-8 lg:px-10">
           <div className="text-center">
             <h2 className="text-2xl md:text-3xl font-extrabold text-[#073349]">What Our Clients Say</h2>
             <p className="mt-2 text-sm md:text-base text-[#325d72]">
@@ -105,7 +105,7 @@ export default function Footer() {
               >
                 {/* Screenshot shows no customer photos: use simple initials badge */}
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#F6F1E6] text-sm font-extrabold text-[#2D7351] ring-1 ring-black/5">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#F8FFF6] text-sm font-extrabold text-[#2D7351] ring-1 ring-black/5">
                     {(t.name || "U").trim().slice(0, 1)}
                   </div>
                   <div className="min-w-0">
@@ -134,8 +134,8 @@ export default function Footer() {
       </section>
 
       {/* CTA band (screenshot-style) */}
-      <section className="bg-gradient-to-r from-[#6E2B8C] via-[#6B2FA1] to-[#5B4BC6] py-14">
-        <div className="mx-auto max-w-7xl px-6 md:px-12 text-center text-white">
+      <section className="bg-[#064233] py-14">
+        <div className="mx-auto max-w-[1680px] px-4 sm:px-6 md:px-8 lg:px-10 text-center text-white">
           <div className="text-2xl md:text-3xl font-extrabold">Ready to Know Your Future?</div>
           <div className="mt-2 text-sm md:text-base text-white/85">
             Talk to an expert and get guidance that feels personal and accurate.
@@ -144,7 +144,7 @@ export default function Footer() {
             <button
               type="button"
               onClick={scrollToTop}
-              className="rounded-full bg-white px-7 py-3 text-sm font-extrabold text-[#5B2B8C] shadow-md hover:bg-white/90"
+              className="rounded-full bg-white px-7 py-3 text-sm font-extrabold text-[#064233] shadow-md hover:bg-white/90"
             >
               Book Your Consultation
             </button>
@@ -153,8 +153,8 @@ export default function Footer() {
       </section>
 
       {/* Footer (screenshot-style UI; uses your existing content) */}
-      <section className="bg-[#4B1272] text-white">
-        <div className="mx-auto max-w-7xl px-6 py-12 md:px-12">
+      <section className="bg-[#064233] text-white">
+        <div className="mx-auto max-w-[1680px] px-4 py-12 sm:px-6 md:px-8 lg:px-10">
           <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
             <div className="space-y-4">
               {/* Use text brand like screenshot footer */}

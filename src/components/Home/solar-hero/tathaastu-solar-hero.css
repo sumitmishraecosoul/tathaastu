@@ -6,14 +6,14 @@
 .home_top_banner {
   position: relative;
   width: 100%;
-  /* No crop: let image decide height */
-  height: auto;
+  /* Slightly reduced height (avoid heavy cropping) */
+  height: clamp(560px, 86vh, 820px);
   overflow: hidden;
   background: #0b111b;
 }
 
 .home_top_banner_track {
-  height: auto;
+  height: 100%;
   display: flex;
   width: 100%;
   transition: transform 500ms ease;
@@ -22,15 +22,33 @@
 
 .home_top_banner_slide {
   flex: 0 0 100%;
-  height: auto;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
 }
 
-.home_top_banner_img {
+/* Background: fills width, hides side gaps, blurred */
+.home_top_banner_img_bg {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  height: auto;
-  /* show full image with zero crop */
-  object-fit: contain;
-  object-position: center center;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: blur(18px) saturate(1.05);
+  transform: scale(1.08);
+  opacity: 0.55;
+}
+
+/* Foreground: never crops the actual banner image */
+.home_top_banner_img_fg {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Slightly down-biased to avoid cutting from bottom */
+  object-position: center 38%;
   display: block;
 }
 
