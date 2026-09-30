@@ -1,5 +1,9 @@
 # Tathaastu home redesign notes
 
+## Home hero (Figma)
+- Banner: `src/assets/Main banner 1.svg` (1920×801) — full-width hero with copy/CTAs overlaid on the left open area
+- Service logos: `src/assets/home_services/` (Free Kundli, Daily Horoscope, Tarot, Numerology, Vastu, Crystal Healing)
+
 ## Theme
 - Primary page background: `#F8FFF6`
 - Footer / CTA band: `#064233`

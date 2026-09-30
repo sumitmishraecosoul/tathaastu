@@ -5,12 +5,17 @@ import {
   BadgeCheck,
   BookOpen,
   Briefcase,
-  Calculator,
+  ChevronLeft,
+  ChevronRight,
+  Gem,
   Heart,
+  Lock,
   MessageCircle,
   Phone,
+  ShieldCheck,
   Sparkles,
   Star,
+  Truck,
   Users,
   Wallet,
   ChevronDown,
@@ -21,24 +26,25 @@ import AnkitImg from "../../assets/AnkitImg.svg";
 import MeeraImg from "../../assets/MeeraImg.svg";
 import NeerajImg from "../../assets/NeerajImg.svg";
 import RishikaImg from "../../assets/Srinita_testimonial.jpg";
-import AriesImg from "../../assets/Aries.jpg";
-import TaurusImg from "../../assets/taurus.jpg";
-import GeminiImg from "../../assets/gemini.jpg";
-import CancerImg from "../../assets/cancer.jpg";
-import LeoImg from "../../assets/leo.jpg";
-import VirgoImg from "../../assets/virgo.jpg";
-import LibraImg from "../../assets/libra.jpg";
-import ScorpioImg from "../../assets/scorpio.jpg";
+import MainBanner from "../../assets/Main banner 1.svg";
+import FreeKundliLogo from "../../assets/home_services/Free-kundli.png";
+import DailyHoroscopeLogo from "../../assets/home_services/Daily-Horoscope.png";
+import TarotReadingLogo from "../../assets/home_services/tarot-reading.png";
+import NumerologyLogo from "../../assets/home_services/Numerology.png";
+import VastuLogo from "../../assets/home_services/Vastu.png";
+import CrystalHealingLogo from "../../assets/home_services/crystal-healing.png";
+import AriesLogo from "../../assets/aries_logo.svg";
+import TaurusLogo from "../../assets/taurus.svg";
+import GeminiLogo from "../../assets/gemini.svg";
+import CancerLogo from "../../assets/cancer.svg";
+import LeoLogo from "../../assets/leo.svg";
+import VirgoLogo from "../../assets/virgo.svg";
+import LibraLogo from "../../assets/libra.svg";
+import ScorpioLogo from "../../assets/scorpio.svg";
 import SagittariusImg from "../../assets/sagittarius.jpg";
 import CapricornImg from "../../assets/capricorn.png";
 import AquariusImg from "../../assets/aquarius.jpg";
 import PiscesImg from "../../assets/pisces.jpg";
-import TarotImg from "../../assets/Tarot Reading.jpg";
-import KundliImg from "../../assets/AStrology kundli.jpg";
-import HoroscopeImg from "../../assets/Horoscope Guidance.jpg";
-import NumerologyImg from "../../assets/Numerology.jpg";
-import VastuImg from "../../assets/Vastu Astrology.jpg";
-import CrystalImg from "../../assets/Crystal Healing.jpg";
 import "./astro-home.css";
 
 const ASTROLOGERS = [
@@ -88,13 +94,6 @@ const ASTROLOGERS = [
   },
 ];
 
-const QUICK_LINKS = [
-  { title: "Daily Horoscope", desc: "Personalized daily reading", icon: Sparkles, path: "/#daily-horoscope" },
-  { title: "Free Kundli", desc: "Detailed birth chart", icon: Calculator, path: "/calculator" },
-  { title: "Kundli Matching", desc: "Guna milan score", icon: Heart, path: "/calculator" },
-  { title: "Chat with Expert", desc: "Instant text guidance", icon: MessageCircle, path: "/consultation-booking" },
-];
-
 const CATEGORIES = [
   { title: "Love", count: "120+ experts", icon: Heart },
   { title: "Marriage & Kundli", count: "95+ experts", icon: Users },
@@ -104,34 +103,133 @@ const CATEGORIES = [
   { title: "Family Guidance", count: "60+ experts", icon: Users },
 ];
 
+const TRUST_BADGES = [
+  { title: "Authentic & Pure", desc: "Sourced with care", icon: ShieldCheck },
+  { title: "Secure Payments", desc: "100% safe checkout", icon: Lock },
+  { title: "Fast & Reliable Delivery", desc: "Pan India shipping", icon: Truck },
+  { title: "Trusted by Thousands", desc: "4.8+ average rating", icon: Users },
+];
+
 const SERVICE_TILES = [
-  { title: "Free Kundli", img: KundliImg, path: "/calculator" },
-  { title: "Daily Horoscope", img: HoroscopeImg, path: "/#daily-horoscope" },
-  { title: "Tarot Reading", img: TarotImg, path: "/services" },
-  { title: "Numerology", img: NumerologyImg, path: "/services" },
-  { title: "Vastu", img: VastuImg, path: "/services" },
-  { title: "Crystal Healing", img: CrystalImg, path: "/services" },
+  {
+    title: "Free Kundli",
+    desc: "Get your personalized birth chart.",
+    img: FreeKundliLogo,
+    path: "/calculator",
+  },
+  {
+    title: "Daily Horoscope",
+    desc: "Your cosmic guidance for today.",
+    img: DailyHoroscopeLogo,
+    path: "/#daily-horoscope",
+  },
+  {
+    title: "Tarot Reading",
+    desc: "Find clarity for your next step.",
+    img: TarotReadingLogo,
+    path: "/services",
+  },
+  {
+    title: "Numerology",
+    desc: "Decode your numbers, discover your path.",
+    img: NumerologyLogo,
+    path: "/services",
+  },
+  {
+    title: "Vastu",
+    desc: "Harmonize your space, invite positivity.",
+    img: VastuLogo,
+    path: "/services",
+  },
+  {
+    title: "Crystal Healing",
+    desc: "Natural energy for a balanced you.",
+    img: CrystalHealingLogo,
+    path: "/services",
+  },
 ];
 
 const ZODIAC = [
-  { name: "Aries", hindi: "Mesh", dates: "Mar 21 – Apr 19", img: AriesImg },
-  { name: "Taurus", hindi: "Vrishabh", dates: "Apr 20 – May 20", img: TaurusImg },
-  { name: "Gemini", hindi: "Mithun", dates: "May 21 – Jun 20", img: GeminiImg },
-  { name: "Cancer", hindi: "Kark", dates: "Jun 21 – Jul 22", img: CancerImg },
-  { name: "Leo", hindi: "Singh", dates: "Jul 23 – Aug 22", img: LeoImg },
-  { name: "Virgo", hindi: "Kanya", dates: "Aug 23 – Sep 22", img: VirgoImg },
-  { name: "Libra", hindi: "Tula", dates: "Sep 23 – Oct 22", img: LibraImg },
-  { name: "Scorpio", hindi: "Vrishchik", dates: "Oct 23 – Nov 21", img: ScorpioImg },
-  { name: "Sagittarius", hindi: "Dhanu", dates: "Nov 22 – Dec 21", img: SagittariusImg },
-  { name: "Capricorn", hindi: "Makar", dates: "Dec 22 – Jan 19", img: CapricornImg },
-  { name: "Aquarius", hindi: "Kumbh", dates: "Jan 20 – Feb 18", img: AquariusImg },
-  { name: "Pisces", hindi: "Meen", dates: "Feb 19 – Mar 20", img: PiscesImg },
+  {
+    name: "Aries",
+    logo: AriesLogo,
+    blurb: "Bold, energetic, and driven. Today brings fresh momentum and opportunities to take the lead.",
+    scores: { love: 50, career: 85, marriage: 62, finance: 78 },
+  },
+  {
+    name: "Taurus",
+    logo: TaurusLogo,
+    blurb: "Steady and grounded. Focus on comfort, patience, and one meaningful goal that builds lasting value.",
+    scores: { love: 72, career: 60, marriage: 80, finance: 70 },
+  },
+  {
+    name: "Gemini",
+    logo: GeminiLogo,
+    blurb: "Curious energy opens doors. Conversations spark clarity—share ideas and stay flexible with plans.",
+    scores: { love: 65, career: 88, marriage: 55, finance: 58 },
+  },
+  {
+    name: "Cancer",
+    logo: CancerLogo,
+    blurb: "Emotional intuition is strong. Nurture close bonds and protect your peace with gentle boundaries.",
+    scores: { love: 82, career: 54, marriage: 76, finance: 63 },
+  },
+  {
+    name: "Leo",
+    logo: LeoLogo,
+    blurb: "Confidence shines today. Lead with warmth, celebrate progress, and let your creativity take center stage.",
+    scores: { love: 78, career: 90, marriage: 68, finance: 74 },
+  },
+  {
+    name: "Virgo",
+    logo: VirgoLogo,
+    blurb: "Detail brings results. Organize priorities, refine routines, and trust careful steps over rush.",
+    scores: { love: 58, career: 86, marriage: 70, finance: 81 },
+  },
+  {
+    name: "Libra",
+    logo: LibraLogo,
+    blurb: "Balance and beauty guide you. Seek harmony in relationships and choose fairness in every decision.",
+    scores: { love: 84, career: 66, marriage: 88, finance: 60 },
+  },
+  {
+    name: "Scorpio",
+    logo: ScorpioLogo,
+    blurb: "Depth and focus intensify. Transform one lingering issue and trust your instinct on hidden truths.",
+    scores: { love: 70, career: 75, marriage: 64, finance: 82 },
+  },
+  {
+    name: "Sagittarius",
+    logo: SagittariusImg,
+    blurb: "Adventure calls. Expand your view, say yes to learning, and keep optimism as your compass.",
+    scores: { love: 67, career: 79, marriage: 58, finance: 69 },
+  },
+  {
+    name: "Capricorn",
+    logo: CapricornImg,
+    blurb: "Discipline pays off. Climb steadily, honor commitments, and build toward a long-term win.",
+    scores: { love: 55, career: 92, marriage: 72, finance: 88 },
+  },
+  {
+    name: "Aquarius",
+    logo: AquariusImg,
+    blurb: "Fresh ideas flow freely. Innovate with community in mind and welcome unexpected allies.",
+    scores: { love: 61, career: 84, marriage: 57, finance: 73 },
+  },
+  {
+    name: "Pisces",
+    logo: PiscesImg,
+    blurb: "Dreams feel vivid. Soften into intuition, create space for rest, and let compassion lead.",
+    scores: { love: 86, career: 52, marriage: 79, finance: 56 },
+  },
 ];
 
-const HOROSCOPE_COPY = {
-  default:
-    "The Moon supports clarity and calm action today. Focus on one meaningful goal, stay thoughtful in conversations, and trust steady progress over rushed decisions. Love feels warmer when you listen first; work rewards careful planning.",
-};
+const SCORE_META = [
+  { key: "love", label: "Love", icon: Heart },
+  { key: "career", label: "Career", icon: Briefcase },
+  { key: "marriage", label: "Marriage", icon: Gem },
+  { key: "finance", label: "Finance", icon: Wallet },
+];
 
 const ACTIVITY = [
   "Priya from Mumbai just started a chat with Acharya Prem",
@@ -179,7 +277,22 @@ export default function AstroHomePage() {
   const [openFaq, setOpenFaq] = useState(0);
   const [activityIdx, setActivityIdx] = useState(0);
   const blogs = useMemo(() => blogsData.slice(0, 3), []);
-  const sign = ZODIAC[activeZodiac];
+
+  const goPrevZodiac = () => {
+    setActiveZodiac((i) => (i - 1 + ZODIAC.length) % ZODIAC.length);
+  };
+
+  const goNextZodiac = () => {
+    setActiveZodiac((i) => (i + 1) % ZODIAC.length);
+  };
+
+  const visibleZodiac = useMemo(() => {
+    const total = ZODIAC.length;
+    return [-2, -1, 0, 1, 2].map((offset) => {
+      const index = (activeZodiac + offset + total) % total;
+      return { ...ZODIAC[index], index, offset };
+    });
+  }, [activeZodiac]);
 
   useEffect(() => {
     const t = setInterval(() => {
@@ -190,45 +303,42 @@ export default function AstroHomePage() {
 
   return (
     <div className="astro-home">
-      {/* HERO */}
+      {/* HERO — Figma-style banner */}
       <section className="astro-hero">
-        <div className="astro-hero__inner">
-          <div className="astro-hero__copy">
-            <p className="astro-live-pill">
-              <span className="astro-live-dot" />
-              Live now · Experts online
-            </p>
-            <h1>
-              India’s most trusted
-              <br />
-              <span>astrology &amp; healing</span> platform
-            </h1>
-            <ul className="astro-hero__bullets">
-              <li>Personalized Kundli &amp; life guidance</li>
-              <li>Chat, call, or video with verified experts</li>
-              <li>Remedies, Vastu, tarot &amp; healing in one place</li>
-            </ul>
-            <div className="astro-hero__actions">
-              <button type="button" className="astro-btn-primary" onClick={openModal}>
-                Chat with Expert
-              </button>
-              <Link to="/calculator" className="astro-btn-ghost">
-                Get Free Kundli
-              </Link>
-            </div>
-            <div className="astro-activity" key={activityIdx}>
-              <Sparkles className="h-4 w-4 text-[#E74660]" />
-              <span>{ACTIVITY[activityIdx]}</span>
-            </div>
-          </div>
-
-          <div className="astro-hero__visual" aria-hidden="true">
-            <div className="astro-orbit">
-              <div className="astro-orbit__ring" />
-              <img className="astro-orbit__center" src={RishikaImg} alt="" />
-              <img className="astro-orbit__a" src={AnkitImg} alt="" />
-              <img className="astro-orbit__b" src={MeeraImg} alt="" />
-              <img className="astro-orbit__c" src={NeerajImg} alt="" />
+        <div className="astro-hero-banner">
+          <img
+            className="astro-hero-banner__img"
+            src={MainBanner}
+            alt="Tathaastu — trusted astrology and healing experts"
+          />
+          <div className="astro-hero-banner__overlay">
+            <div className="astro-hero__copy">
+              <p className="astro-live-pill">
+                <span className="astro-live-dot" />
+                Live now · Experts online
+              </p>
+              <h1>
+                India’s most trusted
+                <br />
+                <span>astrology &amp; healing</span> platform
+              </h1>
+              <ul className="astro-hero__bullets">
+                <li>Personalized Kundli &amp; life guidance</li>
+                <li>Chat, call, or video with verified experts</li>
+                <li>Remedies, Vastu, tarot &amp; healing in one place</li>
+              </ul>
+              <div className="astro-hero__actions">
+                <button type="button" className="astro-btn-primary" onClick={openModal}>
+                  Chat with Expert
+                </button>
+                <Link to="/calculator" className="astro-btn-ghost astro-btn-ghost--on-banner">
+                  Get Free Kundli
+                </Link>
+              </div>
+              <div className="astro-activity" key={activityIdx}>
+                <Sparkles className="h-4 w-4 text-[#E74660]" />
+                <span>{ACTIVITY[activityIdx]}</span>
+              </div>
             </div>
           </div>
         </div>
@@ -248,25 +358,56 @@ export default function AstroHomePage() {
         </div>
       </section>
 
-      {/* QUICK LINKS */}
-      <section className="astro-section">
-        <div className="astro-quick-grid">
-          {QUICK_LINKS.map(({ title, desc, icon: Icon, path }) => (
-            <Link key={title} to={path} className="astro-quick-card">
-              <span className="astro-quick-icon">
-                <Icon className="h-5 w-5" />
-              </span>
-              <div>
-                <h3>{title}</h3>
-                <p>{desc}</p>
+      {/* TRUST BAR + OUR SERVICES — Figma rounded cards */}
+      <section className="astro-services-section">
+        <div className="astro-section astro-services-section__inner">
+          <div className="astro-trust-bar">
+            {TRUST_BADGES.map(({ title, desc, icon: Icon }) => (
+              <div key={title} className="astro-trust-item">
+                <span className="astro-trust-item__icon">
+                  <Icon className="h-5 w-5" />
+                </span>
+                <div>
+                  <strong>{title}</strong>
+                  <span>{desc}</span>
+                </div>
               </div>
-              <ArrowRight className="ml-auto h-4 w-4 opacity-50" />
+            ))}
+          </div>
+
+          <div className="astro-services-head">
+            <p className="astro-services-eyebrow">Our Services</p>
+            <h2>Everything You Need – From Charts to Chakras</h2>
+            <p className="astro-services-sub">
+              Ancient wisdom for a modern life. Explore personalised guidance, healing solutions
+              and spiritual tools — all in one place.
+            </p>
+          </div>
+
+          <div className="astro-service-row">
+            {SERVICE_TILES.map((s) => (
+              <Link key={s.title} to={s.path} className="astro-service-card">
+                <span className="astro-service-card__icon">
+                  <img src={s.img} alt="" />
+                </span>
+                <strong className="astro-service-card__title">{s.title}</strong>
+                <em className="astro-service-card__desc">{s.desc}</em>
+                <span className="astro-service-card__arrow" aria-hidden="true">
+                  <ArrowRight className="h-4 w-4" />
+                </span>
+              </Link>
+            ))}
+          </div>
+
+          <div className="astro-services-cta">
+            <Link to="/services" className="astro-services-cta__btn">
+              View All Services <ArrowRight className="h-4 w-4" />
             </Link>
-          ))}
+          </div>
         </div>
       </section>
 
-      {/* TOP ASTROLOGERS */}
+      {/* TOP EXPERTS */}
       <section className="astro-section">
         <SectionHeading
           eyebrow="Consult"
@@ -336,81 +477,76 @@ export default function AstroHomePage() {
         </div>
       </section>
 
-      {/* SERVICES */}
-      <section className="astro-section">
-        <SectionHeading
-          eyebrow="Our services"
-          title="Everything you need — charts to chakras"
-          action={
-            <Link to="/services" className="astro-link">
-              All services <ArrowRight className="h-4 w-4" />
-            </Link>
-          }
-        />
-        <div className="astro-service-row">
-          {SERVICE_TILES.map((s) => (
-            <Link key={s.title} to={s.path} className="astro-service-tile">
-              <img src={s.img} alt={s.title} />
-              <span>{s.title}</span>
-            </Link>
-          ))}
-        </div>
-      </section>
+      {/* DAILY HOROSCOPE — Figma carousel */}
+      <section id="daily-horoscope" className="astro-horoscope-section">
+        <div className="astro-section">
+          <div className="astro-horoscope-head">
+            <p>Daily Horoscope</p>
+            <h2>Your Cosmic Guidance for today</h2>
+          </div>
 
-      {/* DAILY HOROSCOPE */}
-      <section id="daily-horoscope" className="astro-section astro-section--soft">
-        <SectionHeading
-          eyebrow="Horoscope"
-          title="Your daily horoscope reading"
-          subtitle="Pick your raashi to see today’s pillars at a glance."
-        />
-        <div className="astro-zodiac-scroll scrollbar-hide">
-          {ZODIAC.map((z, idx) => (
+          <div className="astro-horoscope-carousel">
             <button
-              key={z.name}
               type="button"
-              className={`astro-zodiac ${idx === activeZodiac ? "is-active" : ""}`}
-              onClick={() => setActiveZodiac(idx)}
+              className="astro-horoscope-nav"
+              onClick={goPrevZodiac}
+              aria-label="Previous zodiac"
             >
-              <img src={z.img} alt={z.name} />
-              <strong>{z.name}</strong>
-              <span>{z.hindi}</span>
+              <ChevronLeft className="h-5 w-5" />
             </button>
-          ))}
-        </div>
 
-        <div className="astro-horoscope-panel">
-          <div className="astro-horoscope-panel__head">
-            <img src={sign.img} alt={sign.name} />
-            <div>
-              <h3>
-                {sign.name} · {sign.hindi}
-              </h3>
-              <p>{sign.dates}</p>
+            <div className="astro-horoscope-track">
+              {visibleZodiac.map((z) => (
+                <article
+                  key={`${z.name}-${z.offset}`}
+                  className={`astro-horoscope-card is-offset-${Math.abs(z.offset)} ${
+                    z.offset === 0 ? "is-active" : ""
+                  } ${z.offset < 0 ? "is-left" : ""} ${z.offset > 0 ? "is-right" : ""}`}
+                  onClick={() => setActiveZodiac(z.index)}
+                >
+                  <div className="astro-horoscope-card__logo">
+                    <img src={z.logo} alt="" />
+                  </div>
+                  <h3>{z.name}</h3>
+                  <p>{z.blurb}</p>
+                  <div className="astro-horoscope-scores">
+                    {SCORE_META.map(({ key, label, icon: Icon }) => (
+                      <div key={key} className="astro-horoscope-score">
+                        <span className="astro-horoscope-score__label">
+                          <Icon className="h-3.5 w-3.5" />
+                          {label}
+                        </span>
+                        <span className="astro-horoscope-score__bar">
+                          <i style={{ width: `${z.scores[key]}%` }} />
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </article>
+              ))}
             </div>
-          </div>
-          <p className="astro-horoscope-copy">{HOROSCOPE_COPY.default}</p>
-          <div className="astro-score-grid">
-            {[
-              ["Love", "Strong"],
-              ["Career", "Good"],
-              ["Health", "Strong"],
-              ["Money", "High"],
-            ].map(([label, value]) => (
-              <div key={label} className="astro-score">
-                <span>{label}</span>
-                <strong>{value}</strong>
-                <i style={{ width: value === "High" || value === "Strong" ? "86%" : "68%" }} />
-              </div>
-            ))}
-          </div>
-          <div className="astro-hero__actions">
-            <button type="button" className="astro-btn-primary" onClick={openModal}>
-              Talk to a specialist
+
+            <button
+              type="button"
+              className="astro-horoscope-nav"
+              onClick={goNextZodiac}
+              aria-label="Next zodiac"
+            >
+              <ChevronRight className="h-5 w-5" />
             </button>
-            <Link to="/blog" className="astro-btn-ghost">
-              Read more horoscope
-            </Link>
+          </div>
+
+          <div className="astro-horoscope-dots" role="tablist" aria-label="Zodiac signs">
+            {ZODIAC.map((z, idx) => (
+              <button
+                key={z.name}
+                type="button"
+                className={idx === activeZodiac ? "is-active" : ""}
+                aria-label={z.name}
+                aria-selected={idx === activeZodiac}
+                onClick={() => setActiveZodiac(idx)}
+              />
+            ))}
           </div>
         </div>
       </section>

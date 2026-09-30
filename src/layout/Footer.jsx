@@ -144,7 +144,7 @@ export default function Footer() {
             <button
               type="button"
               onClick={scrollToTop}
-              className="rounded-full bg-white px-7 py-3 text-sm font-extrabold text-[#064233] shadow-md hover:bg-white/90"
+              className="rounded-full bg-[#E74660] px-7 py-3 text-sm font-extrabold text-white shadow-md hover:bg-[#d13a52]"
             >
               Book Your Consultation
             </button>
