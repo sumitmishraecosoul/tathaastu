@@ -5,17 +5,21 @@ import {
   BadgeCheck,
   BookOpen,
   Briefcase,
+  Calendar,
   ChevronLeft,
   ChevronRight,
+  Clock,
   Gem,
   Heart,
   Lock,
+  MapPin,
   MessageCircle,
   Phone,
   ShieldCheck,
   Sparkles,
   Star,
   Truck,
+  User,
   Users,
   Wallet,
   ChevronDown,
@@ -27,24 +31,27 @@ import MeeraImg from "../../assets/MeeraImg.svg";
 import NeerajImg from "../../assets/NeerajImg.svg";
 import RishikaImg from "../../assets/Srinita_testimonial.jpg";
 import MainBanner from "../../assets/Main banner 1.svg";
+import NumerologyBanner from "../../assets/background_banner/Numerology.png";
+import MatchMakingBanner from "../../assets/background_banner/Match making.png";
+import BlueprintBanner from "../../assets/background_banner/Blueprint.png";
 import FreeKundliLogo from "../../assets/home_services/Free-kundli.png";
 import DailyHoroscopeLogo from "../../assets/home_services/Daily-Horoscope.png";
 import TarotReadingLogo from "../../assets/home_services/tarot-reading.png";
 import NumerologyLogo from "../../assets/home_services/Numerology.png";
 import VastuLogo from "../../assets/home_services/Vastu.png";
 import CrystalHealingLogo from "../../assets/home_services/crystal-healing.png";
-import AriesLogo from "../../assets/aries_logo.svg";
-import TaurusLogo from "../../assets/taurus.svg";
-import GeminiLogo from "../../assets/gemini.svg";
-import CancerLogo from "../../assets/cancer.svg";
-import LeoLogo from "../../assets/leo.svg";
-import VirgoLogo from "../../assets/virgo.svg";
-import LibraLogo from "../../assets/libra.svg";
-import ScorpioLogo from "../../assets/scorpio.svg";
-import SagittariusImg from "../../assets/sagittarius.jpg";
-import CapricornImg from "../../assets/capricorn.png";
-import AquariusImg from "../../assets/aquarius.jpg";
-import PiscesImg from "../../assets/pisces.jpg";
+import AriesLogo from "../../assets/logo/aries_logo.svg";
+import TaurusLogo from "../../assets/logo/taurus_logo.svg";
+import GeminiLogo from "../../assets/logo/gemini_logo.svg";
+import CancerLogo from "../../assets/logo/cancer_logo.svg";
+import LeoLogo from "../../assets/logo/leo_logo.svg";
+import VirgoLogo from "../../assets/logo/virgo_logo.svg";
+import LibraLogo from "../../assets/logo/libra_logo.svg";
+import ScorpioLogo from "../../assets/logo/scorpio_logo.svg";
+import SagittariusLogo from "../../assets/logo/sagittarius_logo.svg";
+import CapricornLogo from "../../assets/logo/capricorn_logo.svg";
+import AquariusLogo from "../../assets/logo/aquarius_logo.svg";
+import PiscesLogo from "../../assets/logo/pisces_logo.svg";
 import "./astro-home.css";
 
 const ASTROLOGERS = [
@@ -200,25 +207,25 @@ const ZODIAC = [
   },
   {
     name: "Sagittarius",
-    logo: SagittariusImg,
+    logo: SagittariusLogo,
     blurb: "Adventure calls. Expand your view, say yes to learning, and keep optimism as your compass.",
     scores: { love: 67, career: 79, marriage: 58, finance: 69 },
   },
   {
     name: "Capricorn",
-    logo: CapricornImg,
+    logo: CapricornLogo,
     blurb: "Discipline pays off. Climb steadily, honor commitments, and build toward a long-term win.",
     scores: { love: 55, career: 92, marriage: 72, finance: 88 },
   },
   {
     name: "Aquarius",
-    logo: AquariusImg,
+    logo: AquariusLogo,
     blurb: "Fresh ideas flow freely. Innovate with community in mind and welcome unexpected allies.",
     scores: { love: 61, career: 84, marriage: 57, finance: 73 },
   },
   {
     name: "Pisces",
-    logo: PiscesImg,
+    logo: PiscesLogo,
     blurb: "Dreams feel vivid. Soften into intuition, create space for rest, and let compassion lead.",
     scores: { love: 86, career: 52, marriage: 79, finance: 56 },
   },
@@ -276,6 +283,14 @@ export default function AstroHomePage() {
   const [activeZodiac, setActiveZodiac] = useState(0);
   const [openFaq, setOpenFaq] = useState(0);
   const [activityIdx, setActivityIdx] = useState(0);
+  const [numerologyForm, setNumerologyForm] = useState({ name: "", dob: "" });
+  const [matchMakingForm, setMatchMakingForm] = useState({ name: "", partnerName: "" });
+  const [kundliForm, setKundliForm] = useState({
+    name: "",
+    dob: "",
+    tob: "",
+    place: "",
+  });
   const blogs = useMemo(() => blogsData.slice(0, 3), []);
 
   const goPrevZodiac = () => {
@@ -407,76 +422,6 @@ export default function AstroHomePage() {
         </div>
       </section>
 
-      {/* TOP EXPERTS */}
-      <section className="astro-section">
-        <SectionHeading
-          eyebrow="Consult"
-          title="Talk to India’s top-rated experts"
-          subtitle="Every expert is verified for skill, clarity, and a caring consultation experience."
-          action={
-            <Link to="/consultation-booking" className="astro-link">
-              View all <ArrowRight className="h-4 w-4" />
-            </Link>
-          }
-        />
-        <div className="astro-astro-grid">
-          {ASTROLOGERS.map((a) => (
-            <article key={a.name} className="astro-card">
-              <div className="astro-card__top">
-                <img src={a.img} alt={a.name} />
-                <div>
-                  <div className="astro-card__name">
-                    {a.name}
-                    <BadgeCheck className="h-4 w-4 text-[#2D7351]" />
-                  </div>
-                  <span className="astro-badge">{a.badge}</span>
-                </div>
-              </div>
-              <div className="astro-tags">
-                {a.expertise.map((tag) => (
-                  <span key={tag}>{tag}</span>
-                ))}
-              </div>
-              <p className="astro-meta">{a.languages}</p>
-              <p className="astro-meta">{a.exp} exp · ★ {a.rating} · {a.reviews}</p>
-              <div className="astro-card__footer">
-                <strong>{a.price}</strong>
-                <div className="astro-card__btns">
-                  <button type="button" onClick={openModal}>
-                    <MessageCircle className="h-4 w-4" /> Chat
-                  </button>
-                  <button type="button" className="is-call" onClick={openModal}>
-                    <Phone className="h-4 w-4" /> Call
-                  </button>
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      {/* CATEGORIES */}
-      <section className="astro-section astro-section--soft">
-        <SectionHeading
-          eyebrow="Guidance"
-          title="Find the right expert for you"
-          subtitle="Browse by the life area you want clarity on."
-        />
-        <div className="astro-category-grid">
-          {CATEGORIES.map(({ title, count, icon: Icon }) => (
-            <button key={title} type="button" className="astro-category" onClick={openModal}>
-              <span className="astro-category__icon">
-                <Icon className="h-5 w-5" />
-              </span>
-              <span className="astro-category__text">
-                <strong>{title}</strong>
-                <em>{count}</em>
-              </span>
-            </button>
-          ))}
-        </div>
-      </section>
-
       {/* DAILY HOROSCOPE — Figma carousel */}
       <section id="daily-horoscope" className="astro-horoscope-section">
         <div className="astro-section">
@@ -548,6 +493,293 @@ export default function AstroHomePage() {
               />
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* FREE NUMEROLOGY REPORT — Figma banner */}
+      <section className="astro-promo-banner">
+        <img
+          className="astro-promo-banner__bg"
+          src={NumerologyBanner}
+          alt=""
+          aria-hidden="true"
+        />
+        <div className="astro-section astro-promo-banner__inner">
+          <div className="astro-promo-banner__copy">
+            <p className="astro-promo-banner__eyebrow">Free Numerology Report</p>
+            <h2>
+              Understand Your Personality
+              <br />
+              Through Numbers
+            </h2>
+            <p className="astro-promo-banner__sub">
+              Discover your life path, strengths, and opportunities with a personalized
+              numerology reading — absolutely free.
+            </p>
+
+            <form
+              className="astro-promo-banner__form"
+              onSubmit={(e) => {
+                e.preventDefault();
+                openModal();
+              }}
+            >
+              <label className="astro-promo-field">
+                <User className="h-4 w-4" aria-hidden="true" />
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Your Name"
+                  value={numerologyForm.name}
+                  onChange={(e) =>
+                    setNumerologyForm((prev) => ({ ...prev, name: e.target.value }))
+                  }
+                  required
+                />
+              </label>
+              <label className="astro-promo-field">
+                <Calendar className="h-4 w-4" aria-hidden="true" />
+                <input
+                  type="date"
+                  name="dob"
+                  placeholder="Date of Birth"
+                  value={numerologyForm.dob}
+                  onChange={(e) =>
+                    setNumerologyForm((prev) => ({ ...prev, dob: e.target.value }))
+                  }
+                  required
+                />
+              </label>
+              <button type="submit" className="astro-promo-banner__btn">
+                Generate Numerology
+                <ArrowRight className="h-4 w-4" />
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      {/* FREE MATCH MAKING — Figma banner */}
+      <section className="astro-promo-banner">
+        <img
+          className="astro-promo-banner__bg"
+          src={MatchMakingBanner}
+          alt=""
+          aria-hidden="true"
+        />
+        <div className="astro-section astro-promo-banner__inner">
+          <div className="astro-promo-banner__copy">
+            <p className="astro-promo-banner__eyebrow">Free Match Making</p>
+            <h2>
+              Find Your Life
+              <br />
+              Partner
+            </h2>
+            <p className="astro-promo-banner__sub">
+              Discover your compatibility through Vedic Astrology and find the perfect
+              life partner — absolutely free.
+            </p>
+
+            <form
+              className="astro-promo-banner__form"
+              onSubmit={(e) => {
+                e.preventDefault();
+                openModal();
+              }}
+            >
+              <label className="astro-promo-field">
+                <User className="h-4 w-4" aria-hidden="true" />
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Your Name"
+                  value={matchMakingForm.name}
+                  onChange={(e) =>
+                    setMatchMakingForm((prev) => ({ ...prev, name: e.target.value }))
+                  }
+                  required
+                />
+              </label>
+              <label className="astro-promo-field">
+                <Users className="h-4 w-4" aria-hidden="true" />
+                <input
+                  type="text"
+                  name="partnerName"
+                  placeholder="Partner Name"
+                  value={matchMakingForm.partnerName}
+                  onChange={(e) =>
+                    setMatchMakingForm((prev) => ({
+                      ...prev,
+                      partnerName: e.target.value,
+                    }))
+                  }
+                  required
+                />
+              </label>
+              <button type="submit" className="astro-promo-banner__btn">
+                Generate Match Making
+                <ArrowRight className="h-4 w-4" />
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      {/* GET FREE KUNDLI — Figma banner */}
+      <section className="astro-promo-banner">
+        <img
+          className="astro-promo-banner__bg"
+          src={BlueprintBanner}
+          alt=""
+          aria-hidden="true"
+        />
+        <div className="astro-section astro-promo-banner__inner">
+          <div className="astro-promo-banner__copy astro-promo-banner__copy--wide">
+            <p className="astro-promo-banner__eyebrow">Get Free Kundli</p>
+            <h2>
+              Your Cosmic
+              <br />
+              Blueprint
+            </h2>
+            <p className="astro-promo-banner__sub">
+              Enter your birth details to generate your personalized Vedic birth chart.
+            </p>
+
+            <form
+              className="astro-promo-banner__form astro-promo-banner__form--kundli"
+              onSubmit={(e) => {
+                e.preventDefault();
+                openModal();
+              }}
+            >
+              <label className="astro-promo-field">
+                <User className="h-4 w-4" aria-hidden="true" />
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Name"
+                  value={kundliForm.name}
+                  onChange={(e) =>
+                    setKundliForm((prev) => ({ ...prev, name: e.target.value }))
+                  }
+                  required
+                />
+              </label>
+              <label className="astro-promo-field">
+                <Calendar className="h-4 w-4" aria-hidden="true" />
+                <input
+                  type="date"
+                  name="dob"
+                  placeholder="Date of Birth"
+                  value={kundliForm.dob}
+                  onChange={(e) =>
+                    setKundliForm((prev) => ({ ...prev, dob: e.target.value }))
+                  }
+                  required
+                />
+              </label>
+              <label className="astro-promo-field">
+                <Clock className="h-4 w-4" aria-hidden="true" />
+                <input
+                  type="time"
+                  name="tob"
+                  placeholder="Time of Birth"
+                  value={kundliForm.tob}
+                  onChange={(e) =>
+                    setKundliForm((prev) => ({ ...prev, tob: e.target.value }))
+                  }
+                  required
+                />
+              </label>
+              <label className="astro-promo-field">
+                <MapPin className="h-4 w-4" aria-hidden="true" />
+                <input
+                  type="text"
+                  name="place"
+                  placeholder="Place of Birth"
+                  value={kundliForm.place}
+                  onChange={(e) =>
+                    setKundliForm((prev) => ({ ...prev, place: e.target.value }))
+                  }
+                  required
+                />
+              </label>
+              <button type="submit" className="astro-promo-banner__btn">
+                Generate My Kundli
+                <ArrowRight className="h-4 w-4" />
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      {/* TOP EXPERTS */}
+      <section className="astro-section">
+        <SectionHeading
+          eyebrow="Consult"
+          title="Talk to India’s top-rated experts"
+          subtitle="Every expert is verified for skill, clarity, and a caring consultation experience."
+          action={
+            <Link to="/consultation-booking" className="astro-link">
+              View all <ArrowRight className="h-4 w-4" />
+            </Link>
+          }
+        />
+        <div className="astro-astro-grid">
+          {ASTROLOGERS.map((a) => (
+            <article key={a.name} className="astro-card">
+              <div className="astro-card__top">
+                <img src={a.img} alt={a.name} />
+                <div>
+                  <div className="astro-card__name">
+                    {a.name}
+                    <BadgeCheck className="h-4 w-4 text-[#2D7351]" />
+                  </div>
+                  <span className="astro-badge">{a.badge}</span>
+                </div>
+              </div>
+              <div className="astro-tags">
+                {a.expertise.map((tag) => (
+                  <span key={tag}>{tag}</span>
+                ))}
+              </div>
+              <p className="astro-meta">{a.languages}</p>
+              <p className="astro-meta">{a.exp} exp · ★ {a.rating} · {a.reviews}</p>
+              <div className="astro-card__footer">
+                <strong>{a.price}</strong>
+                <div className="astro-card__btns">
+                  <button type="button" onClick={openModal}>
+                    <MessageCircle className="h-4 w-4" /> Chat
+                  </button>
+                  <button type="button" className="is-call" onClick={openModal}>
+                    <Phone className="h-4 w-4" /> Call
+                  </button>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* CATEGORIES */}
+      <section className="astro-section astro-section--soft">
+        <SectionHeading
+          eyebrow="Guidance"
+          title="Find the right expert for you"
+          subtitle="Browse by the life area you want clarity on."
+        />
+        <div className="astro-category-grid">
+          {CATEGORIES.map(({ title, count, icon: Icon }) => (
+            <button key={title} type="button" className="astro-category" onClick={openModal}>
+              <span className="astro-category__icon">
+                <Icon className="h-5 w-5" />
+              </span>
+              <span className="astro-category__text">
+                <strong>{title}</strong>
+                <em>{count}</em>
+              </span>
+            </button>
+          ))}
         </div>
       </section>
 

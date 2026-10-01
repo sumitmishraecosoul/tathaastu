@@ -812,7 +812,9 @@
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
-  gap: 0.75rem;
+  gap: 1.25rem;
+  width: min(1100px, 100%);
+  margin: 0 auto;
 }
 
 .astro-horoscope-nav {
@@ -987,6 +989,153 @@
 .astro-horoscope-dots button.is-active {
   background: #e74660;
   width: 1.15rem;
+}
+
+/* Free Numerology / promo banner */
+.astro-promo-banner {
+  position: relative;
+  overflow: hidden;
+  background: #f6f1e6;
+}
+
+.astro-promo-banner__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: right top;
+  pointer-events: none;
+}
+
+.astro-promo-banner__inner {
+  position: relative;
+  z-index: 1;
+  min-height: clamp(360px, 42vw, 520px);
+  display: flex;
+  align-items: center;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+
+.astro-promo-banner__copy {
+  max-width: min(36rem, 55%);
+}
+
+.astro-promo-banner__copy--wide {
+  max-width: min(52rem, 68%);
+}
+
+.astro-promo-banner__eyebrow {
+  margin: 0 0 0.65rem;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #e74660;
+}
+
+.astro-promo-banner__copy h2 {
+  margin: 0;
+  font-family: "Playfair Display SC", Georgia, serif;
+  font-size: clamp(1.55rem, 2.8vw, 2.35rem);
+  line-height: 1.2;
+  color: #064233;
+}
+
+.astro-promo-banner__sub {
+  margin: 0.85rem 0 0;
+  max-width: 34rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #5c6b72;
+}
+
+.astro-promo-banner__form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.astro-promo-banner__form--kundli .astro-promo-field {
+  flex: 1 1 140px;
+  max-width: 190px;
+}
+
+.astro-promo-field {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-width: 0;
+  flex: 1 1 180px;
+  max-width: 240px;
+  padding: 0.85rem 1rem;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid rgba(7, 51, 73, 0.08);
+  box-shadow: 0 8px 20px rgba(7, 51, 73, 0.05);
+  color: #e74660;
+}
+
+.astro-promo-field input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 0.9rem;
+  color: #073349;
+}
+
+.astro-promo-field input::placeholder {
+  color: #8a9aa3;
+}
+
+.astro-promo-banner__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  flex: 0 0 auto;
+  padding: 0.95rem 1.35rem;
+  border: none;
+  border-radius: 999px;
+  background: #e74660;
+  color: #fff;
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 10px 22px rgba(231, 70, 96, 0.28);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.astro-promo-banner__btn:hover {
+  background: #d13a52;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 900px) {
+  .astro-promo-banner__copy {
+    max-width: 100%;
+    background: linear-gradient(90deg, rgba(246, 241, 230, 0.92) 0%, rgba(246, 241, 230, 0.72) 70%, transparent);
+    padding: 0.5rem 0.75rem 0.5rem 0;
+    border-radius: 1rem;
+  }
+
+  .astro-promo-banner__bg {
+    object-position: 70% center;
+    opacity: 0.9;
+  }
+
+  .astro-promo-field {
+    max-width: none;
+    flex: 1 1 100%;
+  }
+
+  .astro-promo-banner__btn {
+    width: 100%;
+  }
 }
 
 /* Reviews */
