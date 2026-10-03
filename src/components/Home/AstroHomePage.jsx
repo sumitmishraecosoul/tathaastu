@@ -34,6 +34,9 @@ import MainBanner from "../../assets/Main banner 1.svg";
 import NumerologyBanner from "../../assets/background_banner/Numerology.png";
 import MatchMakingBanner from "../../assets/background_banner/Match making.png";
 import BlueprintBanner from "../../assets/background_banner/Blueprint.png";
+import ClientsBanner from "../../assets/background_banner/Clients.png";
+import BlogBanner from "../../assets/background_banner/Blog.png";
+import AppDownloadBanner from "../../assets/background_banner/app_download_banner.svg";
 import FreeKundliLogo from "../../assets/home_services/Free-kundli.png";
 import DailyHoroscopeLogo from "../../assets/home_services/Daily-Horoscope.png";
 import TarotReadingLogo from "../../assets/home_services/tarot-reading.png";
@@ -52,6 +55,8 @@ import SagittariusLogo from "../../assets/logo/sagittarius_logo.svg";
 import CapricornLogo from "../../assets/logo/capricorn_logo.svg";
 import AquariusLogo from "../../assets/logo/aquarius_logo.svg";
 import PiscesLogo from "../../assets/logo/pisces_logo.svg";
+import AppleLogoPng from "../../assets/logo/apple_logo.png";
+import PlayStoreLogoPng from "../../assets/logo/playstore_logo.png";
 import "./astro-home.css";
 
 const ASTROLOGERS = [
@@ -444,9 +449,8 @@ export default function AstroHomePage() {
               {visibleZodiac.map((z) => (
                 <article
                   key={`${z.name}-${z.offset}`}
-                  className={`astro-horoscope-card is-offset-${Math.abs(z.offset)} ${
-                    z.offset === 0 ? "is-active" : ""
-                  } ${z.offset < 0 ? "is-left" : ""} ${z.offset > 0 ? "is-right" : ""}`}
+                  className={`astro-horoscope-card is-offset-${Math.abs(z.offset)} ${z.offset === 0 ? "is-active" : ""
+                    } ${z.offset < 0 ? "is-left" : ""} ${z.offset > 0 ? "is-right" : ""}`}
                   onClick={() => setActiveZodiac(z.index)}
                 >
                   <div className="astro-horoscope-card__logo">
@@ -646,7 +650,7 @@ export default function AstroHomePage() {
             </p>
 
             <form
-              className="astro-promo-banner__form astro-promo-banner__form--kundli"
+              className="astro-promo-banner__form"
               onSubmit={(e) => {
                 e.preventDefault();
                 openModal();
@@ -709,6 +713,142 @@ export default function AstroHomePage() {
                 <ArrowRight className="h-4 w-4" />
               </button>
             </form>
+          </div>
+        </div>
+      </section>
+
+      {/* WHAT OUR CLIENTS SAY — Figma banner */}
+      <section className="astro-clients-banner">
+        <img
+          className="astro-clients-banner__bg"
+          src={ClientsBanner}
+          alt=""
+          aria-hidden="true"
+        />
+        <div className="astro-section astro-clients-banner__inner">
+          <div className="astro-clients-banner__header">
+            <p className="astro-promo-banner__eyebrow">Real Stories</p>
+            <h2>What Our Clients Say</h2>
+            <p>Real experiences from seekers who chose Tathaastu.</p>
+          </div>
+
+          <div className="astro-clients-grid">
+            <article className="astro-client-card">
+              <div className="astro-client-card__meta">
+                <span className="astro-client-card__avatar">A</span>
+                <div>
+                  <strong>Ankit, 34</strong>
+                  <small>Product Designer, Mumbai</small>
+                </div>
+              </div>
+              <p>
+                “The AI birth chart was scary-accurate. It explained things about my personality I
+                hadn’t put into words.”
+              </p>
+            </article>
+
+            <article className="astro-client-card">
+              <div className="astro-client-card__meta">
+                <span className="astro-client-card__avatar astro-client-card__avatar--green">M</span>
+                <div>
+                  <strong>Meera, 41</strong>
+                  <small>Homemaker, Jaipur</small>
+                </div>
+              </div>
+              <p>
+                “We consulted Tathaastu for Vastu when we were renovating our home. The expert’s
+                recommendations were simple yet powerful.”
+              </p>
+            </article>
+
+            <article className="astro-client-card">
+              <div className="astro-client-card__meta">
+                <span className="astro-client-card__avatar astro-client-card__avatar--gold">N</span>
+                <div>
+                  <strong>Neeraj, 55</strong>
+                  <small>Businessman, Udaipur</small>
+                </div>
+              </div>
+              <p>
+                “The expert’s guidance felt so personal and practical. Every suggestion had a clear
+                sense of timing and purpose.”
+              </p>
+            </article>
+
+            <article className="astro-client-card">
+              <div className="astro-client-card__meta">
+                <span className="astro-client-card__avatar astro-client-card__avatar--rose">R</span>
+                <div>
+                  <strong>Rishika, 29</strong>
+                  <small>Engineer, Bengaluru</small>
+                </div>
+              </div>
+              <p>
+                “I tried Tathaastu’s astrology consultation out of curiosity, and it turned into one of
+                the most grounded conversations I’ve had.”
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      {/* DOWNLOAD TATHAASTU APP — Figma promo banner */}
+      <section className="astro-app-download-banner">
+        <img
+          className="astro-app-download-banner__bg"
+          src={AppDownloadBanner}
+          alt=""
+          aria-hidden="true"
+        />
+        <div className="astro-section astro-app-download-banner__inner">
+          <div className="astro-app-download-banner__copy">
+            <p className="astro-promo-banner__eyebrow">Tathaastu, wherever you go</p>
+            <h2>
+              Your cosmic guidance,
+              <br />
+              just a tap away.
+            </h2>
+            <p>
+              Access your Kundli, daily horoscope, consultations, remedies and spiritual guidance
+              anytime, anywhere.
+            </p>
+
+            <div className="astro-app-download-banner__actions">
+              <button type="button" className="astro-app-download-banner__cta" onClick={openModal}>
+                Download the Tathaastu App
+                <ArrowRight className="h-4 w-4" />
+              </button>
+
+              <div className="astro-app-download-banner__stores">
+                <button type="button" className="astro-app-store-btn" onClick={openModal}>
+                  <img src={AppleLogoPng} alt="Apple logo" className="astro-app-store-btn__icon" />
+                  <span>
+                    <small>Download on the</small>
+                    <strong>App Store</strong>
+                  </span>
+                </button>
+                <button type="button" className="astro-app-store-btn" onClick={openModal}>
+                  <img src={PlayStoreLogoPng} alt="Google Play logo" className="astro-app-store-btn__icon" />
+                  <span>
+                    <small>Get it on</small>
+                    <strong>Google Play</strong>
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div className="astro-app-download-banner__device" aria-hidden="true">
+            <div className="astro-app-download-banner__phone">
+              <div className="astro-app-download-banner__screen">
+                <div className="astro-app-download-banner__screen-top" />
+                <div className="astro-app-download-banner__screen-card">
+                  <span className="astro-app-download-banner__screen-pill">Your chart</span>
+                  <strong>Daily Guidance</strong>
+                  <div className="astro-app-download-banner__mini-graph" />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -812,27 +952,31 @@ export default function AstroHomePage() {
       </section>
 
       {/* BLOG */}
-      <section className="astro-section astro-section--soft">
-        <SectionHeading
-          eyebrow="Learn"
-          title="Read from our blog"
-          action={
+      <section className="astro-blog-banner">
+        <img className="astro-blog-banner__bg" src={BlogBanner} alt="" aria-hidden="true" />
+        <div className="astro-section astro-blog-banner__inner">
+          <div className="astro-blog-banner__header">
+            <div>
+              <p className="astro-promo-banner__eyebrow">Learn</p>
+              <h2>Read From Our Blog</h2>
+            </div>
             <Link to="/blog" className="astro-link">
               View all blogs <ArrowRight className="h-4 w-4" />
             </Link>
-          }
-        />
-        <div className="astro-blog-grid">
-          {blogs.map((b) => (
-            <Link key={b.id} to={`/blog/${b.slug}`} className="astro-blog-card">
-              <img src={b.image} alt={b.title} />
-              <div>
-                <span>{b.category}</span>
-                <h3>{b.title}</h3>
-                <p>{b.date}</p>
-              </div>
-            </Link>
-          ))}
+          </div>
+
+          <div className="astro-blog-grid">
+            {blogs.map((b) => (
+              <Link key={b.id} to={`/blog/${b.slug}`} className="astro-blog-card">
+                <img src={b.image} alt={b.title} />
+                <div>
+                  <span>{b.category}</span>
+                  <h3>{b.title}</h3>
+                  <p>{b.date}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -855,16 +999,24 @@ export default function AstroHomePage() {
       </section>
 
       {/* FAQ */}
-      <section id="faq" className="astro-section astro-section--soft">
-        <SectionHeading eyebrow="Help" title="First time? Read these first." />
+      <section id="faq" className="astro-section astro-section--soft astro-faq-section">
+        <SectionHeading
+          title="Frequently Asked Questions"
+          subtitle="Everything you need to know about Tathaastu, in one place."
+        />
         <div className="astro-faq">
           {FAQS.map((item, idx) => {
             const open = openFaq === idx;
             return (
               <div key={item.q} className={`astro-faq__item ${open ? "is-open" : ""}`}>
                 <button type="button" onClick={() => setOpenFaq(open ? -1 : idx)}>
-                  <span>{item.q}</span>
-                  <ChevronDown className={`h-4 w-4 transition-transform ${open ? "rotate-180" : ""}`} />
+                  <span className="astro-faq__label">
+                    <span className="astro-faq__index">{String(idx + 1).padStart(2, "0")}</span>
+                    <span>{item.q}</span>
+                  </span>
+                  <span className={`astro-faq__toggle ${open ? "is-open" : ""}`} aria-hidden="true">
+                    {open ? "−" : "+"}
+                  </span>
                 </button>
                 {open ? <p>{item.a}</p> : null}
               </div>
