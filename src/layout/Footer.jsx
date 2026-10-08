@@ -1,6 +1,6 @@
 import React from 'react';
 import { ArrowUp, Facebook, Instagram, Youtube } from 'lucide-react';
-import tathaastuLogo from '../assets/tathaastu_logo.png';
+import tathaastuWhiteLogo from '../assets/logo/tathasstu_white_logo.png';
 
 export default function Footer() {
   const scrollToTop = () => {
@@ -10,17 +10,19 @@ export default function Footer() {
   return (
     <footer className="w-full">
       {/* CTA band (screenshot-style) */}
-      <section className="bg-[#064233] py-14">
+      <section className="bg-[#064233] py-10 sm:py-12 md:py-14">
         <div className="mx-auto max-w-[1680px] px-4 sm:px-6 md:px-8 lg:px-10 text-center text-white">
-          <div className="text-2xl md:text-3xl font-extrabold">Ready to Know Your Future?</div>
-          <div className="mt-2 text-sm md:text-base text-white/85">
+          <div className="text-xl sm:text-2xl md:text-3xl font-extrabold leading-snug">
+            Ready to Know Your Future?
+          </div>
+          <div className="mt-2 text-sm md:text-base text-white/85 max-w-2xl mx-auto">
             Talk to an expert and get guidance that feels personal and accurate.
           </div>
-          <div className="mt-6 flex justify-center">
+          <div className="mt-5 sm:mt-6 flex justify-center">
             <button
               type="button"
               onClick={scrollToTop}
-              className="rounded-full bg-[#E74660] px-7 py-3 text-sm font-extrabold text-white shadow-md hover:bg-[#d13a52]"
+              className="rounded-full bg-[#E74660] px-6 sm:px-7 py-3 text-sm font-extrabold text-white shadow-md hover:bg-[#d13a52] w-full sm:w-auto max-w-xs"
             >
               Book Your Consultation
             </button>
@@ -30,13 +32,15 @@ export default function Footer() {
 
       {/* Footer (screenshot-style UI; uses your existing content) */}
       <section className="bg-[#064233] text-white">
-        <div className="mx-auto max-w-[1680px] px-4 py-12 sm:px-6 md:px-8 lg:px-10">
-          <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
+        <div className="mx-auto max-w-[1680px] px-4 py-8 sm:py-10 md:py-12 sm:px-6 md:px-8 lg:px-10">
+          <div className="grid grid-cols-1 gap-8 sm:gap-10 md:grid-cols-2 lg:grid-cols-4">
             <div className="space-y-4">
-              {/* Use text brand like screenshot footer */}
-              <div className="flex items-center gap-3">
-                <img src={tathaastuLogo} alt="Tathaastu" className="h-10 w-auto" />
-                <div className="text-lg font-extrabold tracking-wide">Tathaastu</div>
+              <div className="flex items-center">
+                <img
+                  src={tathaastuWhiteLogo}
+                  alt="Tathaastu"
+                  className="h-14 w-auto max-w-full object-contain sm:h-20 md:h-24"
+                />
               </div>
               <p className="text-sm leading-relaxed text-white/85">
                 At Tathasstu, we help you align your life with the rhythm of the universe. From astrology and healing to spiritual courses and remedies, we're your trusted guide on the journey to self-awareness and divine balance.

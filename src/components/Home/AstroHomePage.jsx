@@ -107,55 +107,55 @@ const ASTROLOGERS = [
 ];
 
 const CATEGORIES = [
-  { title: "Love", count: "120+ experts", icon: Heart },
-  { title: "Marriage & Kundli", count: "95+ experts", icon: Users },
-  { title: "Career", count: "80+ experts", icon: Briefcase },
-  { title: "Finance & Health", count: "70+ experts", icon: Wallet },
-  { title: "Education", count: "45+ experts", icon: BookOpen },
-  { title: "Family Guidance", count: "60+ experts", icon: Users },
+  { title: "Love & Relationships", count: "120+ experts", icon: Heart },
+  { title: "Marriage & Compatibility", count: "95+ experts", icon: Users },
+  { title: "Career Decisions", count: "80+ experts", icon: Briefcase },
+  { title: "Money & Wellbeing", count: "70+ experts", icon: Wallet },
+  { title: "Education & Growth", count: "45+ experts", icon: BookOpen },
+  { title: "Family & Personal Life", count: "60+ experts", icon: Users },
 ];
 
 const TRUST_BADGES = [
-  { title: "Authentic & Pure", desc: "Sourced with care", icon: ShieldCheck },
-  { title: "Secure Payments", desc: "100% safe checkout", icon: Lock },
-  { title: "Fast & Reliable Delivery", desc: "Pan India shipping", icon: Truck },
-  { title: "Trusted by Thousands", desc: "4.8+ average rating", icon: Users },
+  { title: "Authentic & Pure", desc: "Chosen With Care", icon: ShieldCheck },
+  { title: "Secure Payments", desc: "100% Safe Checkout", icon: Lock },
+  { title: "Fast & Reliable Delivery", desc: "Delivered Across India", icon: Truck },
+  { title: "Trusted By Thousands", desc: "4.8+ Average Rating", icon: Users },
 ];
 
 const SERVICE_TILES = [
   {
     title: "Free Kundli",
-    desc: "Get your personalized birth chart.",
+    desc: "Understand Your Birth Chart And Get A Personalised View Of Your Life.",
     img: FreeKundliLogo,
     path: "/calculator",
   },
   {
     title: "Daily Horoscope",
-    desc: "Your cosmic guidance for today.",
+    desc: "Start Your Day With Simple Guidance For What May Lie Ahead.",
     img: DailyHoroscopeLogo,
     path: "/#daily-horoscope",
   },
   {
     title: "Tarot Reading",
-    desc: "Find clarity for your next step.",
+    desc: "Get A Fresh Perspective When You’re Looking For Clarity.",
     img: TarotReadingLogo,
     path: "/services",
   },
   {
     title: "Numerology",
-    desc: "Decode your numbers, discover your path.",
+    desc: "Discover What Your Numbers Can Tell You About Your Journey.",
     img: NumerologyLogo,
     path: "/services",
   },
   {
     title: "Vastu",
-    desc: "Harmonize your space, invite positivity.",
+    desc: "Create A Home That Feels Balanced, Comfortable, And Positive.",
     img: VastuLogo,
     path: "/services",
   },
   {
     title: "Crystal Healing",
-    desc: "Natural energy for a balanced you.",
+    desc: "Bring A Little More Calm And Balance Into Your Everyday Life.",
     img: CrystalHealingLogo,
     path: "/services",
   },
@@ -253,36 +253,28 @@ const ACTIVITY = [
 
 const FAQS = [
   {
-    q: "What is Tathaastu?",
-    a: "Tathaastu is a modern astrology and spiritual guidance platform that helps you align with your true self. We offer personalised Kundli insights, daily horoscopes, expert consultations, remedies, and Vastu guidance — all in one place.",
+    q: "What can I use Tathaastu for?",
+    a: "Tathaastu helps you find guidance for different areas of life. You can create your Kundli, check your horoscope, talk to an expert, or explore tarot, numerology, Vastu, and healing.",
   },
   {
-    q: "How do I get my Kundli?",
-    a: "Enter your name, date, time, and place of birth in our Free Kundli form. We generate a personalised Vedic birth chart with key insights you can explore instantly — or discuss further with a verified expert.",
+    q: "How can I talk to an expert?",
+    a: "Choose a service and browse the available experts. You can connect with an expert through chat, call, or video, depending on the consultation you choose.",
   },
   {
-    q: "Are the consultations with verified experts?",
-    a: "Yes. Every expert on Tathaastu is verified for skill, clarity, and a caring consultation experience across Vedic astrology, tarot, numerology, Vastu, and healing.",
+    q: "What details do I need to create my Kundli?",
+    a: "You’ll need your date of birth, exact birth time, and place of birth. These details help create your Vedic birth chart.",
   },
   {
-    q: "Can I use Tathaastu on both mobile and desktop?",
-    a: "Absolutely. Tathaastu works seamlessly on mobile and desktop, so you can check horoscopes, generate Kundli, or connect with an expert whenever it suits you.",
+    q: "How do I choose the right expert?",
+    a: "Start by choosing what you need help with, such as love, marriage, career, finance or family. You can then explore expert profiles and choose someone who feels right for you.",
   },
   {
-    q: "Is my personal information safe?",
-    a: "Your privacy matters. Birth details and conversations stay confidential, and we use secure practices so you can seek guidance with confidence.",
+    q: "Can I ask questions during a consultation?",
+    a: "Yes. You can ask the questions that are on your mind and discuss them directly with your expert during your consultation.",
   },
   {
-    q: "Do you offer remedies and Vastu solutions?",
-    a: "Yes. Alongside consultations, you can explore remedies, gemstones, and Vastu guidance tailored to your chart and living or work space.",
-  },
-  {
-    q: "What payment methods are accepted?",
-    a: "We support common digital payment methods for consultations and store purchases. You’ll see available options clearly at checkout before you confirm.",
-  },
-  {
-    q: "Still have a question?",
-    a: "We’re here to help. Use Chat with Expert or reach out through our connect options, and our team will guide you to the right next step.",
+    q: "Is Tathaastu available anytime?",
+    a: "You can access Tathaastu online whenever you need it. Expert availability may vary, so check the available consultation slots before booking.",
   },
 ];
 
@@ -354,21 +346,22 @@ export default function AstroHomePage() {
                 Live now · Experts online
               </p>
               <h1>
-                India’s most trusted
+                India’s Most Trusted
                 <br />
-                <span>astrology &amp; healing</span> platform
+                <span>Astrology &amp; Healing</span> Platform
               </h1>
               <ul className="astro-hero__bullets">
-                <li>Personalized Kundli &amp; life guidance</li>
-                <li>Chat, call, or video with verified experts</li>
-                <li>Remedies, Vastu, tarot &amp; healing in one place</li>
+                <li>Personalised Kundli &amp; Life Guidance</li>
+                <li>Trusted Guidance From Verified Astrologers</li>
+                <li>Astrology, Vastu, Tarot &amp; Healing</li>
+                <li>Connect With An Astrologer Via Chat, Call, Or Video</li>
               </ul>
               <div className="astro-hero__actions">
                 <button type="button" className="astro-btn-primary" onClick={openModal}>
-                  Chat with Expert
+                  Chat With An Astrologer
                 </button>
                 <Link to="/calculator" className="astro-btn-ghost astro-btn-ghost--on-banner">
-                  Get Free Kundli
+                  Get Your Free Kundli
                 </Link>
               </div>
               <div className="astro-activity" key={activityIdx}>
@@ -399,10 +392,10 @@ export default function AstroHomePage() {
 
           <div className="astro-services-head">
             <p className="astro-services-eyebrow">Our Services</p>
-            <h2>Everything You Need – From Charts to Chakras</h2>
+            <h2>Guidance For Every Part Of Your Journey</h2>
             <p className="astro-services-sub">
-              Ancient wisdom for a modern life. Explore personalised guidance, healing solutions
-              and spiritual tools — all in one place.
+              Personalised Guidance For Your Journey, From Kundli And Astrology To Tarot, Vastu,
+              And Healing.
             </p>
           </div>
 
@@ -434,7 +427,7 @@ export default function AstroHomePage() {
         <div className="astro-section">
           <div className="astro-horoscope-head">
             <p>Daily Horoscope</p>
-            <h2>Your Cosmic Guidance for today</h2>
+            <h2>Your Cosmic Guidance For Today</h2>
           </div>
 
           <div className="astro-horoscope-carousel">
@@ -515,13 +508,13 @@ export default function AstroHomePage() {
           <div className="astro-promo-banner__copy">
             <p className="astro-promo-banner__eyebrow">Free Numerology Report</p>
             <h2>
-              Understand Your Personality
+              Understand What Your
               <br />
-              Through Numbers
+              Numbers Say About You
             </h2>
             <p className="astro-promo-banner__sub">
-              Discover your life path, strengths, and opportunities with a personalized
-              numerology reading — absolutely free.
+              Get a personalised look at your personality, strengths and life path with a free
+              numerology report.
             </p>
 
             <form
@@ -558,7 +551,7 @@ export default function AstroHomePage() {
                 />
               </label>
               <button type="submit" className="astro-promo-banner__btn">
-                Generate Numerology
+                Get Your Free Report
                 <ArrowRight className="h-4 w-4" />
               </button>
             </form>
@@ -576,15 +569,15 @@ export default function AstroHomePage() {
         />
         <div className="astro-section astro-promo-banner__inner">
           <div className="astro-promo-banner__copy">
-            <p className="astro-promo-banner__eyebrow">Free Match Making</p>
+            <p className="astro-promo-banner__eyebrow">Free Matchmaking</p>
             <h2>
               Find Your Life
               <br />
               Partner
             </h2>
             <p className="astro-promo-banner__sub">
-              Discover your compatibility through Vedic Astrology and find the perfect
-              life partner — absolutely free.
+              Understand your compatibility through Vedic Astrology and explore the strengths of
+              your relationship — completely free.
             </p>
 
             <form
@@ -624,7 +617,7 @@ export default function AstroHomePage() {
                 />
               </label>
               <button type="submit" className="astro-promo-banner__btn">
-                Generate Match Making
+                Check Your Compatibility
                 <ArrowRight className="h-4 w-4" />
               </button>
             </form>
@@ -632,7 +625,7 @@ export default function AstroHomePage() {
         </div>
       </section>
 
-      {/* GET FREE KUNDLI — Figma banner */}
+      {/* FULL KUNDLI CONSULTATION — Figma banner */}
       <section className="astro-promo-banner">
         <img
           className="astro-promo-banner__bg"
@@ -642,14 +635,15 @@ export default function AstroHomePage() {
         />
         <div className="astro-section astro-promo-banner__inner">
           <div className="astro-promo-banner__copy astro-promo-banner__copy--wide">
-            <p className="astro-promo-banner__eyebrow">Get Free Kundli</p>
+            <p className="astro-promo-banner__eyebrow">Full Kundli Consultation</p>
             <h2>
-              Your Cosmic
+              Full Kundli Consultation
               <br />
-              Blueprint
+              at Just ₹499
             </h2>
             <p className="astro-promo-banner__sub">
-              Enter your birth details to generate your personalized Vedic birth chart.
+              Get your detailed Kundli PDF along with a 30-minute live Q&amp;A session with an expert
+              for personalised guidance and answers to your questions.
             </p>
 
             <form
@@ -712,7 +706,7 @@ export default function AstroHomePage() {
                 />
               </label>
               <button type="submit" className="astro-promo-banner__btn">
-                Generate My Kundli
+                Book Your Consultation Now
                 <ArrowRight className="h-4 w-4" />
               </button>
             </form>
@@ -732,7 +726,10 @@ export default function AstroHomePage() {
           <div className="astro-clients-banner__header">
             <p className="astro-promo-banner__eyebrow">Real Stories</p>
             <h2>What Our Clients Say</h2>
-            <p>Real experiences from seekers who chose Tathaastu.</p>
+            <p>
+              Hear from people who found the guidance, clarity, and support they were looking for
+              with Tathaastu.
+            </p>
           </div>
 
           <div className="astro-clients-grid">
@@ -805,20 +802,20 @@ export default function AstroHomePage() {
         />
         <div className="astro-section astro-app-download-banner__inner">
           <div className="astro-app-download-banner__copy">
-            <p className="astro-promo-banner__eyebrow">Tathaastu, wherever you go</p>
+            <p className="astro-promo-banner__eyebrow">Tathaastu, Wherever You Go</p>
             <h2>
-              Your cosmic guidance,
+              Guidance for Every Moment,
               <br />
-              just a tap away.
+              Right at Your Fingertips
             </h2>
             <p>
-              Access your Kundli, daily horoscope, consultations, remedies and spiritual guidance
-              anytime, anywhere.
+              Check your Kundli, explore your daily horoscope, connect with astrologers, and get the
+              guidance you need whenever you need it.
             </p>
 
             <div className="astro-app-download-banner__actions">
               <button type="button" className="astro-app-download-banner__cta" onClick={openModal}>
-                Download the Tathaastu App
+                Download The App Now
                 <ArrowRight className="h-4 w-4" />
               </button>
 
@@ -834,7 +831,7 @@ export default function AstroHomePage() {
                   <img src={PlayStoreLogoPng} alt="Google Play logo" className="astro-app-store-btn__icon" />
                   <span>
                     <small>Get it on</small>
-                    <strong>Google Play</strong>
+                    <strong>Play Store</strong>
                   </span>
                 </button>
               </div>
@@ -847,8 +844,8 @@ export default function AstroHomePage() {
       <section className="astro-section">
         <SectionHeading
           eyebrow="Consult"
-          title="Talk to India’s top-rated experts"
-          subtitle="Every expert is verified for skill, clarity, and a caring consultation experience."
+          title="Connect with India’s Trusted Astrologers"
+          subtitle="Get personalised guidance from verified Astrologers who bring experience, clarity, and a caring approach to every consultation."
           action={
             <Link to="/consultation-booking" className="astro-link">
               View all <ArrowRight className="h-4 w-4" />
@@ -895,7 +892,7 @@ export default function AstroHomePage() {
       <section className="astro-section astro-section--soft">
         <SectionHeading
           eyebrow="Guidance"
-          title="Find the right expert for you"
+          title="Consult The Right Astrologer For You"
           subtitle="Browse by the life area you want clarity on."
         />
         <div className="astro-category-grid">
@@ -917,7 +914,7 @@ export default function AstroHomePage() {
       <section className="astro-section astro-section--soft">
         <SectionHeading
           eyebrow="Learn"
-          title="Read from our blog"
+          title="Explore Our Latest Blogs"
           action={
             <Link to="/blog" className="astro-link">
               View all blogs <ArrowRight className="h-4 w-4" />

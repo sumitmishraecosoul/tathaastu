@@ -72,7 +72,7 @@ export default function SiteNavbar({ endSlot = null }) {
             <img
               src={tathaastuLogo}
               alt="Tathaastu"
-              className="h-11 w-auto md:h-14 lg:h-16"
+              className="h-9 w-auto sm:h-11 md:h-14 lg:h-16"
               width={160}
               height={64}
             />
@@ -159,9 +159,10 @@ export default function SiteNavbar({ endSlot = null }) {
               <button
                 type="button"
                 onClick={openModal}
-                className="rounded-xl bg-[#E74660] px-3 py-2 text-xs font-bold text-white shadow-sm transition hover:bg-[#d13a52] sm:px-4 sm:text-sm"
+                className="rounded-xl bg-[#E74660] px-2.5 py-2 text-[11px] font-bold text-white shadow-sm transition hover:bg-[#d13a52] sm:px-4 sm:text-sm whitespace-nowrap"
               >
-                Chat with Expert
+                <span className="sm:hidden">Chat</span>
+                <span className="hidden sm:inline">Chat with Expert</span>
               </button>
             </>
           )}

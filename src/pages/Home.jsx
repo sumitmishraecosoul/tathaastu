@@ -5,7 +5,7 @@ import AstroHomePage from "../components/Home/AstroHomePage";
 
 export default function Home() {
   return (
-    <div className="bg-white text-[#073349]">
+    <div className="min-h-screen w-full max-w-[100vw] overflow-x-hidden bg-white text-[#073349]">
       <SiteNavbar />
       <AstroHomePage />
       <Footer />
