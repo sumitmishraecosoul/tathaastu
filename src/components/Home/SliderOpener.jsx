@@ -41,7 +41,7 @@ export default function SliderOpener({ variant = "light" }) {
       )}
 
       <div
-        className={`fixed left-0 top-0 z-50 h-full w-[min(22rem,92vw)] transform bg-[#F8FFF6] shadow-2xl transition-transform duration-300 ease-in-out ${
+        className={`fixed left-0 top-0 z-50 h-full w-[min(22rem,92vw)] transform bg-white shadow-2xl transition-transform duration-300 ease-in-out ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -93,7 +93,7 @@ export default function SliderOpener({ variant = "light" }) {
                           <button
                             type="button"
                             onClick={() => handleNavigation(item.path)}
-                            className="w-full px-4 py-2.5 text-left text-sm font-medium text-[#073349] hover:bg-[#F8FFF6] hover:text-[#D44459]"
+                            className="w-full px-4 py-2.5 text-left text-sm font-medium text-[#073349] hover:bg-white hover:text-[#D44459]"
                           >
                             {item.name}
                           </button>

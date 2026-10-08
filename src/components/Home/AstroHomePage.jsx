@@ -14,10 +14,11 @@ import {
   Lock,
   MapPin,
   MessageCircle,
+  Minus,
   Phone,
+  Plus,
   ShieldCheck,
   Sparkles,
-  Star,
   Truck,
   User,
   Users,
@@ -35,9 +36,10 @@ import NumerologyBanner from "../../assets/background_banner/Numerology.png";
 import MatchMakingBanner from "../../assets/background_banner/Match making.png";
 import BlueprintBanner from "../../assets/background_banner/Blueprint.png";
 import ClientsBanner from "../../assets/background_banner/Clients.png";
-import BlogBanner from "../../assets/background_banner/Blog.png";
 import AppDownloadBanner from "../../assets/background_banner/app_download_banner.svg";
 import FreeKundliLogo from "../../assets/home_services/Free-kundli.png";
+import AppleLogoPng from "../../assets/logo/apple_logo.png";
+import PlayStoreLogoPng from "../../assets/logo/playstore_logo.png";
 import DailyHoroscopeLogo from "../../assets/home_services/Daily-Horoscope.png";
 import TarotReadingLogo from "../../assets/home_services/tarot-reading.png";
 import NumerologyLogo from "../../assets/home_services/Numerology.png";
@@ -55,8 +57,6 @@ import SagittariusLogo from "../../assets/logo/sagittarius_logo.svg";
 import CapricornLogo from "../../assets/logo/capricorn_logo.svg";
 import AquariusLogo from "../../assets/logo/aquarius_logo.svg";
 import PiscesLogo from "../../assets/logo/pisces_logo.svg";
-import AppleLogoPng from "../../assets/logo/apple_logo.png";
-import PlayStoreLogoPng from "../../assets/logo/playstore_logo.png";
 import "./astro-home.css";
 
 const ASTROLOGERS = [
@@ -253,20 +253,36 @@ const ACTIVITY = [
 
 const FAQS = [
   {
-    q: "Why is astrology so accurate?",
-    a: "Astrology draws on long observation of planetary patterns mapped to your unique birth chart. Personalized readings look at your chart—not generic sun-sign blurbs—so guidance feels specific and practical.",
+    q: "What is Tathaastu?",
+    a: "Tathaastu is a modern astrology and spiritual guidance platform that helps you align with your true self. We offer personalised Kundli insights, daily horoscopes, expert consultations, remedies, and Vastu guidance — all in one place.",
   },
   {
-    q: "Why choose Tathaastu?",
-    a: "Tathaastu connects you with verified experts across Vedic astrology, tarot, numerology, Vastu, and healing—with clear pricing, confidential sessions, and guidance you can apply in daily life.",
+    q: "How do I get my Kundli?",
+    a: "Enter your name, date, time, and place of birth in our Free Kundli form. We generate a personalised Vedic birth chart with key insights you can explore instantly — or discuss further with a verified expert.",
   },
   {
-    q: "Are online consultations reliable?",
-    a: "Yes. Online sessions use the same birth details and chart analysis as in-person work, with the added ease of chat, call, or video from home whenever you need support.",
+    q: "Are the consultations with verified experts?",
+    a: "Yes. Every expert on Tathaastu is verified for skill, clarity, and a caring consultation experience across Vedic astrology, tarot, numerology, Vastu, and healing.",
   },
   {
-    q: "How much does a consultation cost?",
-    a: "Pricing varies by expert experience and format. Many users begin with a short introductory chat, then continue with the guide who feels right for them.",
+    q: "Can I use Tathaastu on both mobile and desktop?",
+    a: "Absolutely. Tathaastu works seamlessly on mobile and desktop, so you can check horoscopes, generate Kundli, or connect with an expert whenever it suits you.",
+  },
+  {
+    q: "Is my personal information safe?",
+    a: "Your privacy matters. Birth details and conversations stay confidential, and we use secure practices so you can seek guidance with confidence.",
+  },
+  {
+    q: "Do you offer remedies and Vastu solutions?",
+    a: "Yes. Alongside consultations, you can explore remedies, gemstones, and Vastu guidance tailored to your chart and living or work space.",
+  },
+  {
+    q: "What payment methods are accepted?",
+    a: "We support common digital payment methods for consultations and store purchases. You’ll see available options clearly at checkout before you confirm.",
+  },
+  {
+    q: "Still have a question?",
+    a: "We’re here to help. Use Chat with Expert or reach out through our connect options, and our team will guide you to the right next step.",
   },
 ];
 
@@ -362,20 +378,6 @@ export default function AstroHomePage() {
             </div>
           </div>
         </div>
-
-        <div className="astro-stats">
-          {[
-            ["50M+", "Seekers guided"],
-            ["100+", "Verified experts"],
-            ["13+", "Languages"],
-            ["24×7", "Available support"],
-          ].map(([value, label]) => (
-            <div key={label} className="astro-stat">
-              <strong>{value}</strong>
-              <span>{label}</span>
-            </div>
-          ))}
-        </div>
       </section>
 
       {/* TRUST BAR + OUR SERVICES — Figma rounded cards */}
@@ -384,10 +386,10 @@ export default function AstroHomePage() {
           <div className="astro-trust-bar">
             {TRUST_BADGES.map(({ title, desc, icon: Icon }) => (
               <div key={title} className="astro-trust-item">
-                <span className="astro-trust-item__icon">
-                  <Icon className="h-5 w-5" />
+                <span className="astro-trust-item__icon" aria-hidden="true">
+                  <Icon strokeWidth={1.75} />
                 </span>
-                <div>
+                <div className="astro-trust-item__text">
                   <strong>{title}</strong>
                   <span>{desc}</span>
                 </div>
@@ -449,8 +451,9 @@ export default function AstroHomePage() {
               {visibleZodiac.map((z) => (
                 <article
                   key={`${z.name}-${z.offset}`}
-                  className={`astro-horoscope-card is-offset-${Math.abs(z.offset)} ${z.offset === 0 ? "is-active" : ""
-                    } ${z.offset < 0 ? "is-left" : ""} ${z.offset > 0 ? "is-right" : ""}`}
+                  className={`astro-horoscope-card is-offset-${Math.abs(z.offset)} ${
+                    z.offset === 0 ? "is-active" : ""
+                  } ${z.offset < 0 ? "is-left" : ""} ${z.offset > 0 ? "is-right" : ""}`}
                   onClick={() => setActiveZodiac(z.index)}
                 >
                   <div className="astro-horoscope-card__logo">
@@ -650,7 +653,7 @@ export default function AstroHomePage() {
             </p>
 
             <form
-              className="astro-promo-banner__form"
+              className="astro-promo-banner__form astro-promo-banner__form--kundli"
               onSubmit={(e) => {
                 e.preventDefault();
                 openModal();
@@ -837,19 +840,6 @@ export default function AstroHomePage() {
               </div>
             </div>
           </div>
-
-          <div className="astro-app-download-banner__device" aria-hidden="true">
-            <div className="astro-app-download-banner__phone">
-              <div className="astro-app-download-banner__screen">
-                <div className="astro-app-download-banner__screen-top" />
-                <div className="astro-app-download-banner__screen-card">
-                  <span className="astro-app-download-banner__screen-pill">Your chart</span>
-                  <strong>Daily Guidance</strong>
-                  <div className="astro-app-download-banner__mini-graph" />
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -923,102 +913,62 @@ export default function AstroHomePage() {
         </div>
       </section>
 
-      {/* TESTIMONIALS */}
-      <section className="astro-section">
-        <SectionHeading
-          eyebrow="Reviews"
-          title="Real people. Real reviews."
-          subtitle="Join seekers who trust Tathaastu for clear, caring guidance."
-        />
-        <div className="astro-review-layout">
-          <div className="astro-review-score">
-            <strong>4.8</strong>
-            <div className="astro-stars" aria-label="4.8 out of 5">
-              <Star /><Star /><Star /><Star /><Star />
-            </div>
-            <p>Based on thousands of consultations</p>
-          </div>
-          <div className="astro-review-card">
-            <p>
-              “I consulted Tathaastu during a confusing career phase. The guidance felt personal and practical—
-              within months I had clarity and a path I trusted. Grateful for the support.”
-            </p>
-            <div>
-              <strong>Rishika, 29</strong>
-              <span>Bengaluru · India</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* BLOG */}
-      <section className="astro-blog-banner">
-        <img className="astro-blog-banner__bg" src={BlogBanner} alt="" aria-hidden="true" />
-        <div className="astro-section astro-blog-banner__inner">
-          <div className="astro-blog-banner__header">
-            <div>
-              <p className="astro-promo-banner__eyebrow">Learn</p>
-              <h2>Read From Our Blog</h2>
-            </div>
+      <section className="astro-section astro-section--soft">
+        <SectionHeading
+          eyebrow="Learn"
+          title="Read from our blog"
+          action={
             <Link to="/blog" className="astro-link">
               View all blogs <ArrowRight className="h-4 w-4" />
             </Link>
-          </div>
-
-          <div className="astro-blog-grid">
-            {blogs.map((b) => (
-              <Link key={b.id} to={`/blog/${b.slug}`} className="astro-blog-card">
-                <img src={b.image} alt={b.title} />
-                <div>
-                  <span>{b.category}</span>
-                  <h3>{b.title}</h3>
-                  <p>{b.date}</p>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* SEO / INFO */}
-      <section className="astro-section">
-        <div className="astro-seo">
-          <h2>Why do you need astrology?</h2>
-          <p>
-            Astrology helps you understand timing, patterns, and purpose—so love, career, family, and spiritual
-            choices feel less random and more aligned. At Tathaastu, ancient wisdom meets modern convenience:
-            chat or call an expert, generate your Kundli, and explore remedies from one calm, trusted home.
-          </p>
-          <h3>How online consultation works</h3>
-          <ol>
-            <li>Share birth details or your question.</li>
-            <li>Connect with a verified expert via chat, call, or video.</li>
-            <li>Receive clear guidance and practical next steps.</li>
-          </ol>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section id="faq" className="astro-section astro-section--soft astro-faq-section">
-        <SectionHeading
-          title="Frequently Asked Questions"
-          subtitle="Everything you need to know about Tathaastu, in one place."
+          }
         />
+        <div className="astro-blog-grid">
+          {blogs.map((b) => (
+            <Link key={b.id} to={`/blog/${b.slug}`} className="astro-blog-card">
+              <img src={b.image} alt={b.title} />
+              <div>
+                <span>{b.category}</span>
+                <h3>{b.title}</h3>
+                <p>{b.date}</p>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* FAQ — Figma */}
+      <section id="faq" className="astro-section astro-faq-section">
+        <div className="astro-faq-head">
+          <Link to="/blog" className="astro-faq-blogs-btn">
+            View All Blogs
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+          <h2 className="astro-faq-title">
+            Frequently Asked <span>Questions</span>
+          </h2>
+          <p className="astro-faq-sub">
+            Everything you need to know about Tathaastu, in one place.
+          </p>
+        </div>
+
         <div className="astro-faq">
           {FAQS.map((item, idx) => {
             const open = openFaq === idx;
+            const num = String(idx + 1).padStart(2, "0");
             return (
               <div key={item.q} className={`astro-faq__item ${open ? "is-open" : ""}`}>
                 <button type="button" onClick={() => setOpenFaq(open ? -1 : idx)}>
-                  <span className="astro-faq__label">
-                    <span className="astro-faq__index">{String(idx + 1).padStart(2, "0")}</span>
-                    <span>{item.q}</span>
+                  <span className="astro-faq__num" aria-hidden="true">
+                    {num}
                   </span>
+                  <span className="astro-faq__q">{item.q}</span>
                   <span className={`astro-faq__toggle ${open ? "is-open" : ""}`} aria-hidden="true">
-                    {open ? "−" : "+"}
+                    {open ? <Minus className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
                   </span>
                 </button>
-                {open ? <p>{item.a}</p> : null}
+                {open ? <p className="astro-faq__a">{item.a}</p> : null}
               </div>
             );
           })}

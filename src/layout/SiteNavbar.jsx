@@ -56,7 +56,7 @@ export default function SiteNavbar({ endSlot = null }) {
   }, []);
 
   return (
-    <header className="sticky top-0 z-[100] border-b border-[#073349]/10 bg-[#F8FFF6]/95 shadow-sm backdrop-blur-md">
+    <header className="sticky top-0 z-[100] border-b border-[#073349]/10 bg-white/95 shadow-sm backdrop-blur-md">
       <div
         ref={navRef}
         className="relative mx-auto flex max-w-[1920px] items-center px-4 py-3 md:px-6 lg:px-10"
@@ -67,7 +67,7 @@ export default function SiteNavbar({ endSlot = null }) {
           </div>
           <Link
             to="/"
-            className="flex shrink-0 items-center gap-2 rounded-sm outline-none ring-offset-2 ring-offset-[#F8FFF6] focus-visible:ring-2 focus-visible:ring-[#073349]"
+            className="flex shrink-0 items-center gap-2 rounded-sm outline-none ring-offset-2 ring-offset-white focus-visible:ring-2 focus-visible:ring-[#073349]"
           >
             <img
               src={tathaastuLogo}
@@ -131,7 +131,7 @@ export default function SiteNavbar({ endSlot = null }) {
                           <li key={item.name}>
                             <Link
                               to={item.path}
-                              className="block px-4 py-2.5 text-sm font-medium text-[#073349] transition-colors hover:bg-[#F8FFF6] hover:text-[#D44459]"
+                              className="block px-4 py-2.5 text-sm font-medium text-[#073349] transition-colors hover:bg-white hover:text-[#D44459]"
                               onClick={() => setOpenMenuId(null)}
                             >
                               {item.name}
