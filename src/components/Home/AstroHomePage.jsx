@@ -37,6 +37,8 @@ import MatchMakingBanner from "../../assets/background_banner/Match making.png";
 import BlueprintBanner from "../../assets/background_banner/Blueprint.png";
 import ClientsBanner from "../../assets/background_banner/Clients.png";
 import AppDownloadBanner from "../../assets/background_banner/app_download_banner.svg";
+import LeftMandala from "../../assets/background_banner/Left mandala.png";
+import RightMandala from "../../assets/background_banner/Right mandala.png";
 import FreeKundliLogo from "../../assets/home_services/Free-kundli.png";
 import AppleLogoPng from "../../assets/logo/apple_logo.png";
 import PlayStoreLogoPng from "../../assets/logo/playstore_logo.png";
@@ -424,6 +426,18 @@ export default function AstroHomePage() {
 
       {/* DAILY HOROSCOPE — Figma carousel */}
       <section id="daily-horoscope" className="astro-horoscope-section">
+        <img
+          className="astro-horoscope-mandala astro-horoscope-mandala--left"
+          src={LeftMandala}
+          alt=""
+          aria-hidden="true"
+        />
+        <img
+          className="astro-horoscope-mandala astro-horoscope-mandala--right"
+          src={RightMandala}
+          alt=""
+          aria-hidden="true"
+        />
         <div className="astro-section">
           <div className="astro-horoscope-head">
             <p>Daily Horoscope</p>
