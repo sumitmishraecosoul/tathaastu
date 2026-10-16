@@ -14,9 +14,7 @@ import {
   Lock,
   MapPin,
   MessageCircle,
-  Minus,
   Phone,
-  Plus,
   ShieldCheck,
   Sparkles,
   Truck,
@@ -26,6 +24,7 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { useConnectModal } from "../../contexts/ConnectModalContext";
+import AstroFaqSection from "./AstroFaqSection";
 import blogsData from "../../data/blogsData";
 import AnkitImg from "../../assets/AnkitImg.svg";
 import MeeraImg from "../../assets/MeeraImg.svg";
@@ -59,7 +58,11 @@ import SagittariusLogo from "../../assets/logo/sagittarius_logo.svg";
 import CapricornLogo from "../../assets/logo/capricorn_logo.svg";
 import AquariusLogo from "../../assets/logo/aquarius_logo.svg";
 import PiscesLogo from "../../assets/logo/pisces_logo.svg";
+import CustomerVideosSection from "./CustomerVideosSection";
 import "./astro-home.css";
+
+const API_BASE =
+  import.meta.env.VITE_ADMIN_API_BASE_URL || "http://localhost:9001/api";
 
 const ASTROLOGERS = [
   {
@@ -253,33 +256,6 @@ const ACTIVITY = [
   "Sneha from Bangalore received a tarot reading",
 ];
 
-const FAQS = [
-  {
-    q: "What can I use Tathaastu for?",
-    a: "Tathaastu helps you find guidance for different areas of life. You can create your Kundli, check your horoscope, talk to an expert, or explore tarot, numerology, Vastu, and healing.",
-  },
-  {
-    q: "How can I talk to an expert?",
-    a: "Choose a service and browse the available experts. You can connect with an expert through chat, call, or video, depending on the consultation you choose.",
-  },
-  {
-    q: "What details do I need to create my Kundli?",
-    a: "You’ll need your date of birth, exact birth time, and place of birth. These details help create your Vedic birth chart.",
-  },
-  {
-    q: "How do I choose the right expert?",
-    a: "Start by choosing what you need help with, such as love, marriage, career, finance or family. You can then explore expert profiles and choose someone who feels right for you.",
-  },
-  {
-    q: "Can I ask questions during a consultation?",
-    a: "Yes. You can ask the questions that are on your mind and discuss them directly with your expert during your consultation.",
-  },
-  {
-    q: "Is Tathaastu available anytime?",
-    a: "You can access Tathaastu online whenever you need it. Expert availability may vary, so check the available consultation slots before booking.",
-  },
-];
-
 function SectionHeading({ eyebrow, title, subtitle, action }) {
   return (
     <div className="astro-section-head">
@@ -296,7 +272,7 @@ function SectionHeading({ eyebrow, title, subtitle, action }) {
 export default function AstroHomePage() {
   const { openModal } = useConnectModal();
   const [activeZodiac, setActiveZodiac] = useState(0);
-  const [openFaq, setOpenFaq] = useState(0);
+  const [zodiacCards, setZodiacCards] = useState(ZODIAC);
   const [activityIdx, setActivityIdx] = useState(0);
   const [numerologyForm, setNumerologyForm] = useState({ name: "", dob: "" });
   const [matchMakingForm, setMatchMakingForm] = useState({ name: "", partnerName: "" });
@@ -306,23 +282,32 @@ export default function AstroHomePage() {
     tob: "",
     place: "",
   });
-  const blogs = useMemo(() => blogsData.slice(0, 3), []);
+  const [numerologyLoading, setNumerologyLoading] = useState(false);
+  const [matchMakingLoading, setMatchMakingLoading] = useState(false);
+  const [kundliLoading, setKundliLoading] = useState(false);
+  const [numerologyResult, setNumerologyResult] = useState(null);
+  const [matchMakingResult, setMatchMakingResult] = useState(null);
+  const [kundliResult, setKundliResult] = useState(null);
+  const [numerologyError, setNumerologyError] = useState(null);
+  const [matchMakingError, setMatchMakingError] = useState(null);
+  const [kundliError, setKundliError] = useState(null);
+  const blogs = useMemo(() => blogsData.slice(0, 4), []);
 
   const goPrevZodiac = () => {
-    setActiveZodiac((i) => (i - 1 + ZODIAC.length) % ZODIAC.length);
+    setActiveZodiac((i) => (i - 1 + zodiacCards.length) % zodiacCards.length);
   };
 
   const goNextZodiac = () => {
-    setActiveZodiac((i) => (i + 1) % ZODIAC.length);
+    setActiveZodiac((i) => (i + 1) % zodiacCards.length);
   };
 
   const visibleZodiac = useMemo(() => {
-    const total = ZODIAC.length;
+    const total = zodiacCards.length;
     return [-2, -1, 0, 1, 2].map((offset) => {
       const index = (activeZodiac + offset + total) % total;
-      return { ...ZODIAC[index], index, offset };
+      return { ...zodiacCards[index], index, offset };
     });
-  }, [activeZodiac]);
+  }, [activeZodiac, zodiacCards]);
 
   useEffect(() => {
     const t = setInterval(() => {
@@ -330,6 +315,113 @@ export default function AstroHomePage() {
     }, 3200);
     return () => clearInterval(t);
   }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    const loadHoroscopes = async () => {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 20000);
+      try {
+        const response = await fetch(`${API_BASE}/ai/horoscope/daily`, {
+          signal: controller.signal,
+        });
+        if (!response.ok) return;
+        const payload = await response.json();
+        if (cancelled || !payload?.success || !Array.isArray(payload.data)) return;
+
+        setZodiacCards((prev) =>
+          prev.map((card) => {
+            const hit = payload.data.find((item) => item.name === card.name);
+            if (!hit) return card;
+            return {
+              ...card,
+              blurb: hit.blurb || card.blurb,
+              scores: hit.scores || card.scores,
+            };
+          })
+        );
+      } catch {
+        /* keep static ZODIAC fallback */
+      } finally {
+        clearTimeout(timer);
+      }
+    };
+
+    loadHoroscopes();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const submitNumerology = async (e) => {
+    e.preventDefault();
+    setNumerologyError(null);
+    setNumerologyResult(null);
+    setNumerologyLoading(true);
+    try {
+      const response = await fetch(`${API_BASE}/ai/numerology/report`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(numerologyForm),
+      });
+      const payload = await response.json().catch(() => null);
+      if (!response.ok) {
+        throw new Error(payload?.message || "Could not generate numerology report.");
+      }
+      setNumerologyResult(payload.data);
+    } catch (err) {
+      setNumerologyError(err.message || "Something went wrong. Please try again.");
+    } finally {
+      setNumerologyLoading(false);
+    }
+  };
+
+  const submitMatchMaking = async (e) => {
+    e.preventDefault();
+    setMatchMakingError(null);
+    setMatchMakingResult(null);
+    setMatchMakingLoading(true);
+    try {
+      const response = await fetch(`${API_BASE}/ai/matchmaking/report`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(matchMakingForm),
+      });
+      const payload = await response.json().catch(() => null);
+      if (!response.ok) {
+        throw new Error(payload?.message || "Could not generate compatibility report.");
+      }
+      setMatchMakingResult(payload.data);
+    } catch (err) {
+      setMatchMakingError(err.message || "Something went wrong. Please try again.");
+    } finally {
+      setMatchMakingLoading(false);
+    }
+  };
+
+  const submitKundli = async (e) => {
+    e.preventDefault();
+    setKundliError(null);
+    setKundliResult(null);
+    setKundliLoading(true);
+    try {
+      const response = await fetch(`${API_BASE}/ai/kundli/lead`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(kundliForm),
+      });
+      const payload = await response.json().catch(() => null);
+      if (!response.ok) {
+        throw new Error(payload?.message || "Could not submit Kundli consultation.");
+      }
+      setKundliResult(payload.data);
+    } catch (err) {
+      setKundliError(err.message || "Something went wrong. Please try again.");
+    } finally {
+      setKundliLoading(false);
+    }
+  };
 
   return (
     <div className="astro-home">
@@ -350,17 +442,21 @@ export default function AstroHomePage() {
               <h1>
                 India’s Most Trusted
                 <br />
-                <span>Astrology &amp; Healing</span> Platform
+                <span>
+                  Astrology &amp; Healin
+                  <span className="astro-hero__g">g</span>
+                </span>{" "}
+                Platform
               </h1>
               <ul className="astro-hero__bullets">
                 <li>Personalised Kundli &amp; Life Guidance</li>
                 <li>Trusted Guidance From Verified Astrologers</li>
                 <li>Astrology, Vastu, Tarot &amp; Healing</li>
-                <li>Connect With An Astrologer Via Chat, Call, Or Video</li>
+                <li>Connect With An Expert Via Chat, Call, Or Video</li>
               </ul>
               <div className="astro-hero__actions">
                 <button type="button" className="astro-btn-primary" onClick={openModal}>
-                  Chat With An Astrologer
+                  Chat With An Expert
                 </button>
                 <Link to="/calculator" className="astro-btn-ghost astro-btn-ghost--on-banner">
                   Get Your Free Kundli
@@ -390,6 +486,27 @@ export default function AstroHomePage() {
                 </div>
               </div>
             ))}
+          </div>
+
+          <div className="astro-guidance-block">
+            <SectionHeading
+              eyebrow="Guidance"
+              title="Consult The Right Astrologer For You"
+              subtitle="Browse by the life area you want clarity on."
+            />
+            <div className="astro-category-grid">
+              {CATEGORIES.map(({ title, count, icon: Icon }) => (
+                <button key={title} type="button" className="astro-category" onClick={openModal}>
+                  <span className="astro-category__icon">
+                    <Icon className="h-5 w-5" />
+                  </span>
+                  <span className="astro-category__text">
+                    <strong>{title}</strong>
+                    <em>{count}</em>
+                  </span>
+                </button>
+              ))}
+            </div>
           </div>
 
           <div className="astro-services-head">
@@ -496,7 +613,7 @@ export default function AstroHomePage() {
           </div>
 
           <div className="astro-horoscope-dots" role="tablist" aria-label="Zodiac signs">
-            {ZODIAC.map((z, idx) => (
+            {zodiacCards.map((z, idx) => (
               <button
                 key={z.name}
                 type="button"
@@ -531,13 +648,7 @@ export default function AstroHomePage() {
               numerology report.
             </p>
 
-            <form
-              className="astro-promo-banner__form"
-              onSubmit={(e) => {
-                e.preventDefault();
-                openModal();
-              }}
-            >
+            <form className="astro-promo-banner__form" onSubmit={submitNumerology}>
               <label className="astro-promo-field">
                 <User className="h-4 w-4" aria-hidden="true" />
                 <input
@@ -564,11 +675,97 @@ export default function AstroHomePage() {
                   required
                 />
               </label>
-              <button type="submit" className="astro-promo-banner__btn">
-                Get Your Free Report
+              <button
+                type="submit"
+                className="astro-promo-banner__btn"
+                disabled={numerologyLoading}
+              >
+                {numerologyLoading ? "Generating..." : "Get Your Free Report"}
                 <ArrowRight className="h-4 w-4" />
               </button>
             </form>
+            {numerologyError ? (
+              <p className="astro-promo-banner__status is-error">{numerologyError}</p>
+            ) : null}
+            {numerologyResult ? (
+              <div className="astro-promo-banner__status is-success astro-ai-brief">
+                <p className="astro-ai-brief__eyebrow">
+                  <strong>Life Path {numerologyResult.lifePathNumber}</strong>
+                  {numerologyResult.sunSign ? ` · ${numerologyResult.sunSign}` : ""}
+                  {numerologyResult.nameNumber
+                    ? ` · Name No. ${numerologyResult.nameNumber}`
+                    : ""}
+                </p>
+                {numerologyResult.summary ? <p>{numerologyResult.summary}</p> : null}
+                {numerologyResult.personality ? (
+                  <div className="astro-ai-brief__block">
+                    <h4>Personality</h4>
+                    <p>{numerologyResult.personality}</p>
+                  </div>
+                ) : null}
+                {numerologyResult.lifePathInsight ? (
+                  <div className="astro-ai-brief__block">
+                    <h4>Life Path insight</h4>
+                    <p>{numerologyResult.lifePathInsight}</p>
+                  </div>
+                ) : null}
+                {numerologyResult.nameNumberInsight ? (
+                  <div className="astro-ai-brief__block">
+                    <h4>Name number</h4>
+                    <p>{numerologyResult.nameNumberInsight}</p>
+                  </div>
+                ) : null}
+                {Array.isArray(numerologyResult.strengths) &&
+                numerologyResult.strengths.length ? (
+                  <div className="astro-ai-brief__block">
+                    <h4>Strengths</h4>
+                    <ul>
+                      {numerologyResult.strengths.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
+                {Array.isArray(numerologyResult.growthAreas) &&
+                numerologyResult.growthAreas.length ? (
+                  <div className="astro-ai-brief__block">
+                    <h4>Growth areas</h4>
+                    <ul>
+                      {numerologyResult.growthAreas.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
+                {numerologyResult.careerMoney ? (
+                  <div className="astro-ai-brief__block">
+                    <h4>Career &amp; money</h4>
+                    <p>{numerologyResult.careerMoney}</p>
+                  </div>
+                ) : null}
+                {numerologyResult.relationships ? (
+                  <div className="astro-ai-brief__block">
+                    <h4>Relationships</h4>
+                    <p>{numerologyResult.relationships}</p>
+                  </div>
+                ) : null}
+                {numerologyResult.focusToday ? (
+                  <div className="astro-ai-brief__block">
+                    <h4>Focus today</h4>
+                    <p>{numerologyResult.focusToday}</p>
+                  </div>
+                ) : null}
+                {numerologyResult.luckyTips ? (
+                  <div className="astro-ai-brief__block">
+                    <h4>Lucky tips</h4>
+                    <p>{numerologyResult.luckyTips}</p>
+                  </div>
+                ) : null}
+                <button type="button" className="astro-promo-banner__link" onClick={openModal}>
+                  Talk to an expert
+                </button>
+              </div>
+            ) : null}
           </div>
         </div>
       </section>
@@ -594,13 +791,7 @@ export default function AstroHomePage() {
               your relationship — completely free.
             </p>
 
-            <form
-              className="astro-promo-banner__form"
-              onSubmit={(e) => {
-                e.preventDefault();
-                openModal();
-              }}
-            >
+            <form className="astro-promo-banner__form" onSubmit={submitMatchMaking}>
               <label className="astro-promo-field">
                 <User className="h-4 w-4" aria-hidden="true" />
                 <input
@@ -630,11 +821,71 @@ export default function AstroHomePage() {
                   required
                 />
               </label>
-              <button type="submit" className="astro-promo-banner__btn">
-                Check Your Compatibility
+              <button
+                type="submit"
+                className="astro-promo-banner__btn"
+                disabled={matchMakingLoading}
+              >
+                {matchMakingLoading ? "Checking..." : "Check Your Compatibility"}
                 <ArrowRight className="h-4 w-4" />
               </button>
             </form>
+            {matchMakingError ? (
+              <p className="astro-promo-banner__status is-error">{matchMakingError}</p>
+            ) : null}
+            {matchMakingResult ? (
+              <div className="astro-promo-banner__status is-success astro-ai-brief">
+                <p className="astro-ai-brief__eyebrow">
+                  <strong>{matchMakingResult.score}% compatibility</strong> for{" "}
+                  {matchMakingResult.name} &amp; {matchMakingResult.partnerName}
+                </p>
+                {matchMakingResult.summary ? <p>{matchMakingResult.summary}</p> : null}
+                {matchMakingResult.emotionalBond ? (
+                  <div className="astro-ai-brief__block">
+                    <h4>Emotional bond</h4>
+                    <p>{matchMakingResult.emotionalBond}</p>
+                  </div>
+                ) : null}
+                {matchMakingResult.communication ? (
+                  <div className="astro-ai-brief__block">
+                    <h4>Communication</h4>
+                    <p>{matchMakingResult.communication}</p>
+                  </div>
+                ) : null}
+                {matchMakingResult.challenges ? (
+                  <div className="astro-ai-brief__block">
+                    <h4>Growth areas</h4>
+                    <p>{matchMakingResult.challenges}</p>
+                  </div>
+                ) : null}
+                {Array.isArray(matchMakingResult.strengths) &&
+                matchMakingResult.strengths.length ? (
+                  <div className="astro-ai-brief__block">
+                    <h4>Relationship strengths</h4>
+                    <ul>
+                      {matchMakingResult.strengths.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
+                {matchMakingResult.advice ? (
+                  <div className="astro-ai-brief__block">
+                    <h4>Advice</h4>
+                    <p>{matchMakingResult.advice}</p>
+                  </div>
+                ) : null}
+                {matchMakingResult.nextStep ? (
+                  <div className="astro-ai-brief__block">
+                    <h4>Next step</h4>
+                    <p>{matchMakingResult.nextStep}</p>
+                  </div>
+                ) : null}
+                <button type="button" className="astro-promo-banner__link" onClick={openModal}>
+                  Talk to an expert
+                </button>
+              </div>
+            ) : null}
           </div>
         </div>
       </section>
@@ -662,10 +913,7 @@ export default function AstroHomePage() {
 
             <form
               className="astro-promo-banner__form astro-promo-banner__form--kundli"
-              onSubmit={(e) => {
-                e.preventDefault();
-                openModal();
-              }}
+              onSubmit={submitKundli}
             >
               <label className="astro-promo-field">
                 <User className="h-4 w-4" aria-hidden="true" />
@@ -719,11 +967,54 @@ export default function AstroHomePage() {
                   required
                 />
               </label>
-              <button type="submit" className="astro-promo-banner__btn">
-                Book Your Consultation Now
+              <button
+                type="submit"
+                className="astro-promo-banner__btn"
+                disabled={kundliLoading}
+              >
+                {kundliLoading ? "Submitting..." : "Book Your Consultation Now"}
                 <ArrowRight className="h-4 w-4" />
               </button>
             </form>
+            {kundliError ? (
+              <p className="astro-promo-banner__status is-error">{kundliError}</p>
+            ) : null}
+            {kundliResult ? (
+              <div className="astro-promo-banner__status is-success astro-ai-brief">
+                <p className="astro-ai-brief__eyebrow">
+                  <strong>{kundliResult.sunSign}</strong>
+                  {kundliResult.lifePathNumber
+                    ? ` · Life Path ${kundliResult.lifePathNumber}`
+                    : ""}
+                </p>
+                {kundliResult.preview ? <p>{kundliResult.preview}</p> : null}
+                {kundliResult.sunSignInsight ? (
+                  <div className="astro-ai-brief__block">
+                    <h4>Sun sign insight</h4>
+                    <p>{kundliResult.sunSignInsight}</p>
+                  </div>
+                ) : null}
+                {Array.isArray(kundliResult.whatYouGet) && kundliResult.whatYouGet.length ? (
+                  <div className="astro-ai-brief__block">
+                    <h4>What you get</h4>
+                    <ul>
+                      {kundliResult.whatYouGet.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
+                {kundliResult.whyConsult ? (
+                  <div className="astro-ai-brief__block">
+                    <h4>Why this consult</h4>
+                    <p>{kundliResult.whyConsult}</p>
+                  </div>
+                ) : null}
+                <button type="button" className="astro-promo-banner__link" onClick={openModal}>
+                  Share contact details
+                </button>
+              </div>
+            ) : null}
           </div>
         </div>
       </section>
@@ -861,7 +1152,7 @@ export default function AstroHomePage() {
           title="Connect with India’s Trusted Astrologers"
           subtitle="Get personalised guidance from verified Astrologers who bring experience, clarity, and a caring approach to every consultation."
           action={
-            <Link to="/consultation-booking" className="astro-link">
+            <Link to="/talk-to-astrologers" className="astro-link">
               View all <ArrowRight className="h-4 w-4" />
             </Link>
           }
@@ -902,27 +1193,8 @@ export default function AstroHomePage() {
         </div>
       </section>
 
-      {/* CATEGORIES */}
-      <section className="astro-section astro-section--soft">
-        <SectionHeading
-          eyebrow="Guidance"
-          title="Consult The Right Astrologer For You"
-          subtitle="Browse by the life area you want clarity on."
-        />
-        <div className="astro-category-grid">
-          {CATEGORIES.map(({ title, count, icon: Icon }) => (
-            <button key={title} type="button" className="astro-category" onClick={openModal}>
-              <span className="astro-category__icon">
-                <Icon className="h-5 w-5" />
-              </span>
-              <span className="astro-category__text">
-                <strong>{title}</strong>
-                <em>{count}</em>
-              </span>
-            </button>
-          ))}
-        </div>
-      </section>
+      {/* CUSTOMER VIDEOS — horizontal strip above blogs */}
+      <CustomerVideosSection />
 
       {/* BLOG */}
       <section className="astro-section astro-section--soft">
@@ -949,42 +1221,7 @@ export default function AstroHomePage() {
         </div>
       </section>
 
-      {/* FAQ — Figma */}
-      <section id="faq" className="astro-section astro-faq-section">
-        <div className="astro-faq-head">
-          <Link to="/blog" className="astro-faq-blogs-btn">
-            View All Blogs
-            <ArrowRight className="h-4 w-4" />
-          </Link>
-          <h2 className="astro-faq-title">
-            Frequently Asked <span>Questions</span>
-          </h2>
-          <p className="astro-faq-sub">
-            Everything you need to know about Tathaastu, in one place.
-          </p>
-        </div>
-
-        <div className="astro-faq">
-          {FAQS.map((item, idx) => {
-            const open = openFaq === idx;
-            const num = String(idx + 1).padStart(2, "0");
-            return (
-              <div key={item.q} className={`astro-faq__item ${open ? "is-open" : ""}`}>
-                <button type="button" onClick={() => setOpenFaq(open ? -1 : idx)}>
-                  <span className="astro-faq__num" aria-hidden="true">
-                    {num}
-                  </span>
-                  <span className="astro-faq__q">{item.q}</span>
-                  <span className={`astro-faq__toggle ${open ? "is-open" : ""}`} aria-hidden="true">
-                    {open ? <Minus className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
-                  </span>
-                </button>
-                {open ? <p className="astro-faq__a">{item.a}</p> : null}
-              </div>
-            );
-          })}
-        </div>
-      </section>
+      <AstroFaqSection />
     </div>
   );
 }

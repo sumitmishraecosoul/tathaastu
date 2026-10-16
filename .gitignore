@@ -59,4 +59,10 @@ pids/
 # TypeScript (optional)
 *.tsbuildinfo
 
+# Separate backend repo (do not push with frontend)
+backend/
 
+# Project knowledge base (local only)
+brain/
+src/assets/videos/video1.mp4
+src/assets/videos/video3.mp4

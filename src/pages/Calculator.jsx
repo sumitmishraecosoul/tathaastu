@@ -1,31 +1,12 @@
-import React, { useMemo, useState } from "react";
-import {
-  Calendar,
-  Clock,
-  Download,
-  Mail,
-  MapIcon,
-  MapPin,
-  Phone,
-  User,
-} from "lucide-react";
+﻿import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { Lock } from "lucide-react";
 import SiteNavbar from "../layout/SiteNavbar";
 import Footer from "../layout/Footer";
-
-const MONTHS = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
+import AstroFaqSection from "../components/Home/AstroFaqSection";
+import { useAuth } from "../contexts/AuthContext";
+import lotusMandala from "../assets/lotus_mandala.svg";
+import "./calculator.css";
 
 function calculateSunSign(day, month) {
   const signs = [
@@ -100,13 +81,16 @@ function getLuckyDay(luckyNumber) {
   return days[luckyNumber] || "Sunday";
 }
 
+const API_BASE =
+  import.meta.env.VITE_ADMIN_API_BASE_URL || "http://localhost:9001/api";
+
 function getPersonalizedMessage(sunSign, lifePathNumber) {
   if (!sunSign) {
     return `Your Life Path Number is ${lifePathNumber}. Use this as a gentle compass to align your habits, relationships, and work with what truly energizes you.`;
   }
   const templates = {
     Aries:
-      "You’re naturally bold and action-oriented. Focus your energy on one clear goal, and momentum will follow.",
+      "Youâ€™re naturally bold and action-oriented. Focus your energy on one clear goal, and momentum will follow.",
     Taurus:
       "You thrive with stability and consistency. Steady progress and strong values will bring lasting results.",
     Gemini:
@@ -116,102 +100,127 @@ function getPersonalizedMessage(sunSign, lifePathNumber) {
     Leo:
       "You shine when you create and lead. Step forward confidently while staying grounded in humility.",
     Virgo:
-      "Your details create excellence. Balance perfection with progress and you’ll unlock sustainable success.",
+      "Your details create excellence. Balance perfection with progress and youâ€™ll unlock sustainable success.",
     Libra:
       "You bring harmony and fairness. Choose partnerships wisely and commit to balanced decision-making.",
     Scorpio:
-      "You’re built for transformation. Trust your resilience and don’t fear reinvention—it’s your gift.",
+      "Youâ€™re built for transformation. Trust your resilience and donâ€™t fear reinventionâ€”itâ€™s your gift.",
     Sagittarius:
-      "You’re a seeker of truth. Travel, learn, and share wisdom—optimism is your fuel.",
+      "Youâ€™re a seeker of truth. Travel, learn, and share wisdomâ€”optimism is your fuel.",
     Capricorn:
       "You build long-term success. Discipline and patience will turn your ambitions into reality.",
     Aquarius:
-      "You’re innovative and visionary. Follow your unique path and you’ll inspire meaningful change.",
+      "Youâ€™re innovative and visionary. Follow your unique path and youâ€™ll inspire meaningful change.",
     Pisces:
-      "You’re intuitive and compassionate. Creativity and spiritual alignment will open the right doors.",
+      "Youâ€™re intuitive and compassionate. Creativity and spiritual alignment will open the right doors.",
   };
   const core = templates[sunSign] || `You carry the essence of ${sunSign}.`;
-  return `${core} Your Life Path Number is ${lifePathNumber}—use it to guide your next best step with clarity and confidence.`;
+  return `${core} Your Life Path Number is ${lifePathNumber}â€”use it to guide your next best step with clarity and confidence.`;
 }
 
 export default function Calculator() {
-  const currentYear = new Date().getFullYear();
-  const years = useMemo(
-    () => Array.from({ length: 110 }, (_, i) => String(currentYear - i)),
-    [currentYear]
-  );
-
+  const { isAuthenticated } = useAuth();
   const [formData, setFormData] = useState({
     fullName: "",
-    dateOfBirth: { day: "", month: "", year: "" },
-    timeOfBirth: { hour: "12", minute: "00", ampm: "AM" },
-    dontKnowTime: false,
+    dob: "",
+    tob: "",
     placeOfBirth: "",
-    gender: "",
-    email: "",
-    mobileNumber: "",
-    currentAddress: "",
+    gender: "male",
   });
-
   const [results, setResults] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    if (type === "checkbox") {
-      setFormData((prev) => ({ ...prev, [name]: checked }));
-      return;
-    }
-    if (name.includes(".")) {
-      const [parent, child] = name.split(".");
-      setFormData((prev) => ({
-        ...prev,
-        [parent]: { ...prev[parent], [child]: value },
-      }));
-      return;
-    }
+    const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
+    if (!formData.fullName.trim() || !formData.dob || !formData.tob || !formData.placeOfBirth.trim()) {
+      setError("Please fill name, birth date, birth time, and birth place.");
+      return;
+    }
+
     setIsLoading(true);
 
-    window.setTimeout(() => {
-      const day = Number(formData.dateOfBirth.day);
-      const month = Number(formData.dateOfBirth.month);
-      const year = Number(formData.dateOfBirth.year);
+    const [year, month, day] = formData.dob.split("-").map(Number);
 
-      const sunSign = calculateSunSign(day, month);
-      const lifePathNumber = calculateLifePathNumber(day, month, year);
-      const luckyNumber = calculateLuckyNumber(formData.fullName, day);
+    const sunSign = calculateSunSign(day, month);
+    const lifePathNumber = calculateLifePathNumber(day, month, year);
+    const luckyNumber = calculateLuckyNumber(formData.fullName, day);
+    const luckyColor = getLuckyColor(luckyNumber);
+    const luckyDay = getLuckyDay(luckyNumber);
+    const dob = formData.dob;
+    const tob = formData.tob;
+
+    const localFallback = {
+      sunSign,
+      lifePathNumber,
+      luckyNumber,
+      luckyColor,
+      luckyDay,
+      message: getPersonalizedMessage(sunSign, lifePathNumber),
+    };
+
+    try {
+      const response = await fetch(`${API_BASE}/ai/birth-chart/report`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.fullName.trim(),
+          dob,
+          tob: tob || undefined,
+          place: formData.placeOfBirth.trim() || undefined,
+          gender: formData.gender || undefined,
+          luckyNumber,
+          luckyColor,
+          luckyDay,
+        }),
+      });
+      const payload = await response.json().catch(() => null);
+      if (!response.ok || !payload?.success || !payload?.data) {
+        throw new Error(payload?.message || "AI analysis unavailable");
+      }
 
       setResults({
-        sunSign,
-        lifePathNumber,
-        luckyNumber,
-        luckyColor: getLuckyColor(luckyNumber),
-        luckyDay: getLuckyDay(luckyNumber),
-        message: getPersonalizedMessage(sunSign, lifePathNumber),
+        sunSign: payload.data.sunSign || sunSign,
+        lifePathNumber: payload.data.lifePathNumber || lifePathNumber,
+        nameNumber: payload.data.nameNumber,
+        luckyNumber: payload.data.luckyNumber || luckyNumber,
+        luckyColor: payload.data.luckyColor || luckyColor,
+        luckyDay: payload.data.luckyDay || luckyDay,
+        message: payload.data.message || localFallback.message,
+        personality: payload.data.personality || "",
+        career: payload.data.career || "",
+        relationships: payload.data.relationships || "",
+        wealth: payload.data.wealth || "",
+        remedies: Array.isArray(payload.data.remedies) ? payload.data.remedies : [],
+        nextFocus: payload.data.nextFocus || "",
+        accuracyNote: payload.data.accuracyNote || "",
+        source: payload.source || "ollama",
+        model: payload.model || "",
       });
+    } catch {
+      setResults({ ...localFallback, source: "fallback" });
+    } finally {
       setIsLoading(false);
-    }, 900);
+    }
   };
 
   const handleDownload = () => {
     if (!results) return;
 
-    const content = `TATHAASTU — BIRTH CHART (BASIC) REPORT
+    const content = `TATHAASTU â€” BIRTH CHART (BASIC) REPORT
 =====================================
 
 Name: ${formData.fullName}
-Date of Birth: ${formData.dateOfBirth.day}/${formData.dateOfBirth.month}/${formData.dateOfBirth.year}
-Time of Birth: ${formData.dontKnowTime ? "Not provided" : `${formData.timeOfBirth.hour}:${formData.timeOfBirth.minute} ${formData.timeOfBirth.ampm}`}
+Date of Birth: ${formData.dob}
+Time of Birth: ${formData.tob}
 Place of Birth: ${formData.placeOfBirth}
 Gender: ${formData.gender}
-Email: ${formData.email}
-Mobile: ${formData.mobileNumber}
-Current Address/City: ${formData.currentAddress}
 
 --- RESULTS ---
 Sun Sign: ${results.sunSign}
@@ -220,8 +229,29 @@ Lucky Color: ${results.luckyColor}
 Lucky Day: ${results.luckyDay}
 Life Path Number: ${results.lifePathNumber}
 
---- MESSAGE ---
+--- DETAILED ANALYSIS ---
 ${results.message}
+
+Personality:
+${results.personality || "-"}
+
+Career:
+${results.career || "-"}
+
+Relationships:
+${results.relationships || "-"}
+
+Wealth:
+${results.wealth || "-"}
+
+Remedies / Tips:
+${(results.remedies || []).map((tip, i) => `${i + 1}. ${tip}`).join("\n") || "-"}
+
+Next Focus:
+${results.nextFocus || "-"}
+
+Accuracy:
+${results.accuracyNote || "-"}
 `;
 
     const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
@@ -236,306 +266,215 @@ ${results.message}
   };
 
   return (
-    <div className="min-h-screen bg-[#0B111B]">
+    <div className="kundli-page">
       <SiteNavbar />
 
-      <section className="bg-gradient-to-r from-[#4B0082] to-[#6B21A8] py-16 text-white sm:py-20">
-        <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
-          <h1 className="text-balance text-3xl font-extrabold tracking-tight sm:text-5xl">
+      <section className="kundli-hero">
+        <div className="kundli-hero__inner">
+          <h1>
             Vedic Astrology Birth
-            <br className="hidden sm:block" />
+            <br />
             Chart Calculator
           </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-sm text-white/90 sm:text-lg">
-            Discover your cosmic blueprint with detailed inputs and instant insights.
-          </p>
+          <p>Discover your cosmic blueprint with detailed inputs and instant insights.</p>
         </div>
       </section>
 
-      <section className="bg-gradient-to-b from-[#0B111B] via-[#0B111B] to-[#0B111B] py-12 sm:py-16">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-          {!results ? (
-            <div className="rounded-2xl border border-white/10 bg-[#111A2B] p-6 shadow-2xl sm:p-8">
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-[#FFD700]">
-                    <User className="h-4 w-4" />
-                    Full Name *
-                  </label>
-                  <input
-                    type="text"
-                    name="fullName"
-                    value={formData.fullName}
-                    onChange={handleChange}
-                    required
-                    placeholder="Enter your full name"
-                    className="w-full rounded-lg border border-white/10 bg-[#0B111B] px-4 py-3 text-white placeholder:text-white/40 outline-none ring-0 focus:border-[#FFD700]/60 focus:ring-2 focus:ring-[#FFD700]/20"
-                  />
-                </div>
+      <section className="kundli-body">
+        <img
+          src={lotusMandala}
+          alt=""
+          className="kundli-body__mandala kundli-body__mandala--left"
+          aria-hidden="true"
+        />
+        <img
+          src={lotusMandala}
+          alt=""
+          className="kundli-body__mandala kundli-body__mandala--right"
+          aria-hidden="true"
+        />
 
-                <div>
-                  <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-[#FFD700]">
-                    <Calendar className="h-4 w-4" />
-                    Date of Birth *
-                  </label>
-                  <div className="grid grid-cols-3 gap-3">
-                    <select
-                      name="dateOfBirth.day"
-                      value={formData.dateOfBirth.day}
-                      onChange={handleChange}
-                      required
-                      className="rounded-lg border border-white/10 bg-[#0B111B] px-4 py-3 text-white outline-none focus:border-[#FFD700]/60 focus:ring-2 focus:ring-[#FFD700]/20"
-                    >
-                      <option value="">Day</option>
-                      {Array.from({ length: 31 }, (_, i) => (
-                        <option key={i + 1} value={String(i + 1)}>
-                          {i + 1}
-                        </option>
-                      ))}
-                    </select>
-                    <select
-                      name="dateOfBirth.month"
-                      value={formData.dateOfBirth.month}
-                      onChange={handleChange}
-                      required
-                      className="rounded-lg border border-white/10 bg-[#0B111B] px-4 py-3 text-white outline-none focus:border-[#FFD700]/60 focus:ring-2 focus:ring-[#FFD700]/20"
-                    >
-                      <option value="">Month</option>
-                      {MONTHS.map((m, idx) => (
-                        <option key={m} value={String(idx + 1)}>
-                          {m}
-                        </option>
-                      ))}
-                    </select>
-                    <select
-                      name="dateOfBirth.year"
-                      value={formData.dateOfBirth.year}
-                      onChange={handleChange}
-                      required
-                      className="rounded-lg border border-white/10 bg-[#0B111B] px-4 py-3 text-white outline-none focus:border-[#FFD700]/60 focus:ring-2 focus:ring-[#FFD700]/20"
-                    >
-                      <option value="">Year</option>
-                      {years.map((y) => (
-                        <option key={y} value={y}>
-                          {y}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
+        <div className="kundli-grid">
+          <form className="kundli-card kundli-card--form" onSubmit={handleSubmit}>
+            <h2>New Kundli</h2>
 
-                <div>
-                  <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-[#FFD700]">
-                    <Clock className="h-4 w-4" />
-                    Time of Birth
-                  </label>
-                  <div className="grid grid-cols-3 gap-3">
-                    <input
-                      type="number"
-                      name="timeOfBirth.hour"
-                      min="0"
-                      max="23"
-                      value={formData.timeOfBirth.hour}
-                      onChange={handleChange}
-                      disabled={formData.dontKnowTime}
-                      className="rounded-lg border border-white/10 bg-[#0B111B] px-4 py-3 text-white outline-none disabled:opacity-60 focus:border-[#FFD700]/60 focus:ring-2 focus:ring-[#FFD700]/20"
-                    />
-                    <input
-                      type="number"
-                      name="timeOfBirth.minute"
-                      min="0"
-                      max="59"
-                      value={formData.timeOfBirth.minute}
-                      onChange={handleChange}
-                      disabled={formData.dontKnowTime}
-                      className="rounded-lg border border-white/10 bg-[#0B111B] px-4 py-3 text-white outline-none disabled:opacity-60 focus:border-[#FFD700]/60 focus:ring-2 focus:ring-[#FFD700]/20"
-                    />
-                    <select
-                      name="timeOfBirth.ampm"
-                      value={formData.timeOfBirth.ampm}
-                      onChange={handleChange}
-                      disabled={formData.dontKnowTime}
-                      className="rounded-lg border border-white/10 bg-[#0B111B] px-4 py-3 text-white outline-none disabled:opacity-60 focus:border-[#FFD700]/60 focus:ring-2 focus:ring-[#FFD700]/20"
-                    >
-                      <option value="AM">AM</option>
-                      <option value="PM">PM</option>
-                    </select>
-                  </div>
-                  <label className="mt-3 inline-flex items-center gap-2 text-sm text-white/80">
-                    <input
-                      type="checkbox"
-                      name="dontKnowTime"
-                      checked={formData.dontKnowTime}
-                      onChange={handleChange}
-                      className="h-4 w-4 rounded border-white/20 bg-[#0B111B]"
-                    />
-                    I don&apos;t know my exact birth time
-                  </label>
-                </div>
-
-                <div>
-                  <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-[#FFD700]">
-                    <MapPin className="h-4 w-4" />
-                    Place of Birth *
-                  </label>
-                  <input
-                    type="text"
-                    name="placeOfBirth"
-                    value={formData.placeOfBirth}
-                    onChange={handleChange}
-                    required
-                    placeholder="City/Town, State, Country"
-                    className="w-full rounded-lg border border-white/10 bg-[#0B111B] px-4 py-3 text-white placeholder:text-white/40 outline-none focus:border-[#FFD700]/60 focus:ring-2 focus:ring-[#FFD700]/20"
-                  />
-                </div>
-
-                <div>
-                  <label className="mb-3 block text-sm font-semibold text-[#FFD700]">Gender *</label>
-                  <div className="flex flex-wrap gap-5 text-sm text-white">
-                    {["male", "female", "other"].map((g) => (
-                      <label key={g} className="inline-flex items-center gap-2">
-                        <input
-                          type="radio"
-                          name="gender"
-                          value={g}
-                          checked={formData.gender === g}
-                          onChange={handleChange}
-                          required
-                          className="h-4 w-4"
-                        />
-                        <span className="capitalize">{g}</span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-[#FFD700]">
-                    <Mail className="h-4 w-4" />
-                    Email Address *
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    placeholder="your.email@example.com"
-                    className="w-full rounded-lg border border-white/10 bg-[#0B111B] px-4 py-3 text-white placeholder:text-white/40 outline-none focus:border-[#FFD700]/60 focus:ring-2 focus:ring-[#FFD700]/20"
-                  />
-                </div>
-
-                <div>
-                  <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-[#FFD700]">
-                    <Phone className="h-4 w-4" />
-                    Mobile Number *
-                  </label>
-                  <input
-                    type="tel"
-                    name="mobileNumber"
-                    value={formData.mobileNumber}
-                    onChange={handleChange}
-                    required
-                    placeholder="+91 XXXXX XXXXX"
-                    className="w-full rounded-lg border border-white/10 bg-[#0B111B] px-4 py-3 text-white placeholder:text-white/40 outline-none focus:border-[#FFD700]/60 focus:ring-2 focus:ring-[#FFD700]/20"
-                  />
-                </div>
-
-                <div>
-                  <label className="mb-2 flex items-center gap-2 text-sm font-semibold text-[#FFD700]">
-                    <MapIcon className="h-4 w-4" />
-                    Current Address / City *
-                  </label>
-                  <input
-                    type="text"
-                    name="currentAddress"
-                    value={formData.currentAddress}
-                    onChange={handleChange}
-                    required
-                    placeholder="City/Town, State"
-                    className="w-full rounded-lg border border-white/10 bg-[#0B111B] px-4 py-3 text-white placeholder:text-white/40 outline-none focus:border-[#FFD700]/60 focus:ring-2 focus:ring-[#FFD700]/20"
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={isLoading}
-                  className="flex w-full items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-[#FFD700] to-[#FFC700] py-4 font-bold text-[#0B111B] shadow-lg shadow-[#FFD700]/20 transition hover:shadow-[#FFD700]/35 disabled:opacity-60"
-                >
-                  {isLoading ? "Calculating..." : "Generate My Birth Chart"}
-                </button>
-
-                <div className="rounded-xl border border-[#6B21A8]/35 bg-[#6B21A8]/15 p-4">
-                  <p className="text-sm text-white/85">
-                    <span className="font-semibold text-[#FFD700]">Note:</span> Please provide accurate
-                    birth details for the best results. Exact time and place improve accuracy.
-                  </p>
-                </div>
-              </form>
-            </div>
-          ) : (
-            <div className="space-y-6">
-              <div className="rounded-2xl border border-white/10 bg-[#111A2B] p-6 shadow-2xl sm:p-8">
-                <h2 className="text-center text-2xl font-extrabold text-[#FFD700] sm:text-3xl">
-                  Your Birth Chart Analysis
-                </h2>
-
-                <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  <div className="rounded-xl border border-white/10 bg-[#0B111B] p-5">
-                    <div className="text-xs text-white/60">Sun Sign</div>
-                    <div className="mt-1 text-xl font-bold text-white">{results.sunSign}</div>
-                  </div>
-                  <div className="rounded-xl border border-white/10 bg-[#0B111B] p-5">
-                    <div className="text-xs text-white/60">Life Path Number</div>
-                    <div className="mt-1 text-xl font-bold text-white">{results.lifePathNumber}</div>
-                  </div>
-                  <div className="rounded-xl border border-white/10 bg-[#0B111B] p-5">
-                    <div className="text-xs text-white/60">Lucky Number</div>
-                    <div className="mt-1 text-xl font-bold text-white">{results.luckyNumber}</div>
-                  </div>
-                  <div className="rounded-xl border border-white/10 bg-[#0B111B] p-5">
-                    <div className="text-xs text-white/60">Lucky Day</div>
-                    <div className="mt-1 text-xl font-bold text-white">{results.luckyDay}</div>
-                  </div>
-                  <div className="rounded-xl border border-white/10 bg-[#0B111B] p-5 sm:col-span-2">
-                    <div className="text-xs text-white/60">Lucky Color</div>
-                    <div className="mt-1 text-xl font-bold text-white">{results.luckyColor}</div>
-                  </div>
-                </div>
-
-                <div className="mt-6 rounded-xl border border-[#6B21A8]/35 bg-gradient-to-r from-[#6B21A8]/20 to-[#4B0082]/15 p-5">
-                  <div className="font-semibold text-[#FFD700]">Your personalized message</div>
-                  <p className="mt-2 text-sm leading-relaxed text-white/90">{results.message}</p>
-                </div>
-
-                <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+            <div className="kundli-row">
+              <div className="kundli-field">
+                <label htmlFor="kundli-name">Name</label>
+                <input
+                  id="kundli-name"
+                  type="text"
+                  name="fullName"
+                  value={formData.fullName}
+                  onChange={handleChange}
+                  placeholder="Enter full name, e.g. Rahul Sharma"
+                  required
+                />
+              </div>
+              <div className="kundli-field">
+                <label>Gender</label>
+                <div className="kundli-gender" role="group" aria-label="Gender">
                   <button
                     type="button"
-                    onClick={handleDownload}
-                    className="inline-flex flex-1 items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-[#FFD700] to-[#FFC700] py-3 font-bold text-[#0B111B] shadow-lg shadow-[#FFD700]/20 transition hover:shadow-[#FFD700]/35"
+                    className={formData.gender === "male" ? "is-active" : ""}
+                    onClick={() => setFormData((prev) => ({ ...prev, gender: "male" }))}
                   >
-                    <Download className="h-5 w-5" />
-                    Download Report
+                    Male
                   </button>
                   <button
                     type="button"
-                    onClick={() => {
-                      setResults(null);
-                      setIsLoading(false);
-                    }}
-                    className="inline-flex flex-1 items-center justify-center rounded-lg border border-[#FFD700]/60 py-3 font-bold text-[#FFD700] transition hover:bg-[#FFD700]/10"
+                    className={formData.gender === "female" ? "is-active" : ""}
+                    onClick={() => setFormData((prev) => ({ ...prev, gender: "female" }))}
                   >
-                    Calculate Again
+                    Female
                   </button>
                 </div>
               </div>
             </div>
-          )}
+
+            <div className="kundli-pair">
+              <div className="kundli-field">
+                <label htmlFor="kundli-dob">Birth date</label>
+                <input
+                  id="kundli-dob"
+                  type="date"
+                  name="dob"
+                  value={formData.dob}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="kundli-field">
+                <label htmlFor="kundli-tob">Birth time</label>
+                <input
+                  id="kundli-tob"
+                  type="time"
+                  name="tob"
+                  value={formData.tob}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="kundli-field">
+              <label htmlFor="kundli-place">Birth place</label>
+              <input
+                id="kundli-place"
+                type="text"
+                name="placeOfBirth"
+                value={formData.placeOfBirth}
+                onChange={handleChange}
+                placeholder="Enter city, e.g. New Delhi, India"
+                required
+              />
+            </div>
+
+            {error ? <p className="kundli-error">{error}</p> : null}
+            {isLoading ? (
+              <p className="kundli-wait">
+                Your local AI is writing a detailed reading. This usually takes a minute.
+              </p>
+            ) : null}
+
+            <button type="submit" className="kundli-submit" disabled={isLoading}>
+              {isLoading ? "Writing reading..." : "Generate Kundli"}
+            </button>
+          </form>
+
+          <aside className="kundli-card kundli-card--saved" aria-label="Saved Kundli">
+            <h2>Saved Kundli</h2>
+            {isAuthenticated && results ? (
+              <div className="kundli-saved-list">
+                <div className="kundli-saved-item">
+                  <strong>{formData.fullName}</strong>
+                  <span>
+                    {results.sunSign} · {formData.dob} · {formData.tob}
+                  </span>
+                  <span>{formData.placeOfBirth}</span>
+                </div>
+              </div>
+            ) : (
+              <>
+                <span className="kundli-lock" aria-hidden="true">
+                  <Lock className="h-6 w-6" />
+                </span>
+                <p>Please log in to view your saved horoscopes</p>
+                <Link to="/login" className="kundli-login">
+                  Log In Now
+                </Link>
+              </>
+            )}
+          </aside>
         </div>
+
+        {results ? (
+          <div className="kundli-result">
+            <h3>Your Kundli reading</h3>
+            <p className="kundli-result__source">
+              {results.source === "ollama"
+                ? `Written by local AI${results.model ? ` (${results.model})` : ""}. Sun sign and numbers are calculated from your birth details.`
+                : "Local AI was unavailable, so this is a calculated reading from your birth details."}
+            </p>
+            <div className="kundli-result__grid">
+              <div>
+                <span>Sun sign</span>
+                <strong>{results.sunSign}</strong>
+              </div>
+              <div>
+                <span>Life path</span>
+                <strong>{results.lifePathNumber}</strong>
+              </div>
+              <div>
+                <span>Lucky number</span>
+                <strong>{results.luckyNumber}</strong>
+              </div>
+              <div>
+                <span>Lucky colour</span>
+                <strong>{results.luckyColor}</strong>
+              </div>
+              <div>
+                <span>Lucky day</span>
+                <strong>{results.luckyDay}</strong>
+              </div>
+            </div>
+            {[
+              ["Overview", results.message],
+              ["Personality", results.personality],
+              ["Career", results.career],
+              ["Relationships", results.relationships],
+              ["Wealth", results.wealth],
+              ["What to do next", results.nextFocus],
+            ]
+              .filter(([, text]) => text)
+              .map(([title, text]) => (
+                <section key={title} className="kundli-result__block">
+                  <h4>{title}</h4>
+                  <p>{text}</p>
+                </section>
+              ))}
+            {results.remedies?.length ? (
+              <section className="kundli-result__block">
+                <h4>Practical guidance</h4>
+                <ul>
+                  {results.remedies.map((tip) => (
+                    <li key={tip}>{tip}</li>
+                  ))}
+                </ul>
+              </section>
+            ) : null}
+            {results.accuracyNote ? (
+              <p className="kundli-result__note">{results.accuracyNote}</p>
+            ) : null}
+            <button type="button" className="kundli-submit" onClick={handleDownload}>
+              Download Report
+            </button>
+          </div>
+        ) : null}
       </section>
 
+      <AstroFaqSection id="kundli-faq" />
       <Footer />
     </div>
   );
 }
-

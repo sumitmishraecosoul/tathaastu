@@ -2,6 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ChevronDown } from "lucide-react";
 import { useConnectModal } from "../contexts/ConnectModalContext";
+import {
+  dashboardPathForRole,
+  useAuth,
+} from "../contexts/AuthContext";
 import SliderOpener from "../components/Home/SliderOpener";
 import tathaastuLogo from "../assets/tathaastu_logo.png";
 import { NAV_MEGA_MENUS } from "../data/navMegaMenu";
@@ -11,6 +15,7 @@ import { NAV_MEGA_MENUS } from "../data/navMegaMenu";
  */
 export default function SiteNavbar({ endSlot = null }) {
   const { openModal } = useConnectModal();
+  const { isAuthenticated, user, logout } = useAuth();
   const location = useLocation();
   const [openMenuId, setOpenMenuId] = useState(null);
   const closeTimer = useRef(null);
@@ -150,12 +155,30 @@ export default function SiteNavbar({ endSlot = null }) {
         <div className="flex flex-1 items-center justify-end gap-2 sm:gap-3">
           {endSlot ?? (
             <>
-              <Link
-                to="/login"
-                className="hidden rounded-lg px-3 py-2 text-sm font-semibold text-[#073349] transition-colors hover:text-[#D44459] sm:inline-flex"
-              >
-                Login
-              </Link>
+              {isAuthenticated ? (
+                <>
+                  <Link
+                    to={dashboardPathForRole(user?.role)}
+                    className="hidden rounded-lg px-3 py-2 text-sm font-semibold capitalize text-[#073349] transition-colors hover:text-[#D44459] sm:inline-flex"
+                  >
+                    {user?.role || "Account"}
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={logout}
+                    className="hidden rounded-lg px-3 py-2 text-sm font-semibold text-[#073349] transition-colors hover:text-[#D44459] sm:inline-flex"
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <Link
+                  to="/login"
+                  className="hidden rounded-lg px-3 py-2 text-sm font-semibold text-[#073349] transition-colors hover:text-[#D44459] sm:inline-flex"
+                >
+                  Login
+                </Link>
+              )}
               <button
                 type="button"
                 onClick={openModal}

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { ArrowUp, Facebook, Instagram, Youtube } from 'lucide-react';
 import tathaastuWhiteLogo from '../assets/logo/tathasstu_white_logo.png';
 
@@ -9,20 +10,20 @@ export default function Footer() {
 
   return (
     <footer className="w-full">
-      {/* CTA band (screenshot-style) */}
-      <section className="bg-[#064233] py-10 sm:py-12 md:py-14">
+      {/* CTA band */}
+      <section className="bg-[#064233] py-6 sm:py-7">
         <div className="mx-auto max-w-[1680px] px-4 sm:px-6 md:px-8 lg:px-10 text-center text-white">
-          <div className="text-xl sm:text-2xl md:text-3xl font-extrabold leading-snug">
+          <div className="text-lg sm:text-xl md:text-2xl font-extrabold leading-snug">
             Ready to Know Your Future?
           </div>
-          <div className="mt-2 text-sm md:text-base text-white/85 max-w-2xl mx-auto">
+          <div className="mt-1.5 text-xs sm:text-sm text-white/85 max-w-xl mx-auto">
             Talk to an expert and get guidance that feels personal and accurate.
           </div>
-          <div className="mt-5 sm:mt-6 flex justify-center">
+          <div className="mt-3.5 flex justify-center">
             <button
               type="button"
               onClick={scrollToTop}
-              className="rounded-full bg-[#E74660] px-6 sm:px-7 py-3 text-sm font-extrabold text-white shadow-md hover:bg-[#d13a52] w-full sm:w-auto max-w-xs"
+              className="rounded-full bg-[#E74660] px-5 sm:px-6 py-2.5 text-xs sm:text-sm font-extrabold text-white shadow-md hover:bg-[#d13a52] w-full sm:w-auto max-w-xs"
             >
               Book Your Consultation
             </button>
@@ -30,54 +31,54 @@ export default function Footer() {
         </div>
       </section>
 
-      {/* Footer (screenshot-style UI; uses your existing content) */}
-      <section className="bg-[#064233] text-white">
-        <div className="mx-auto max-w-[1680px] px-4 py-8 sm:py-10 md:py-12 sm:px-6 md:px-8 lg:px-10">
-          <div className="grid grid-cols-1 gap-8 sm:gap-10 md:grid-cols-2 lg:grid-cols-4">
-            <div className="space-y-4">
+      {/* Footer links */}
+      <section className="bg-[#064233] text-white border-t border-white/10">
+        <div className="mx-auto max-w-[1680px] px-4 py-5 sm:py-6 md:py-7 sm:px-6 md:px-8 lg:px-10">
+          <div className="grid grid-cols-1 gap-6 sm:gap-7 md:grid-cols-2 lg:grid-cols-4">
+            <div className="space-y-2.5">
               <div className="flex items-center">
                 <img
                   src={tathaastuWhiteLogo}
                   alt="Tathaastu"
-                  className="h-14 w-auto max-w-full object-contain sm:h-20 md:h-24"
+                  className="h-10 w-auto max-w-full object-contain sm:h-12 md:h-14"
                 />
               </div>
-              <p className="text-sm leading-relaxed text-white/85">
+              <p className="text-xs leading-relaxed text-white/80">
                 At Tathasstu, we help you align your life with the rhythm of the universe. From astrology and healing to spiritual courses and remedies, we're your trusted guide on the journey to self-awareness and divine balance.
               </p>
 
-              <div className="flex items-center gap-3 pt-2">
+              <div className="flex items-center gap-2 pt-1">
                 <a
                   href="#"
                   aria-label="Facebook"
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/10 transition hover:bg-white/15"
+                  className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/10 transition hover:bg-white/15"
                 >
-                  <Facebook className="h-5 w-5 text-white" />
+                  <Facebook className="h-4 w-4 text-white" />
                 </a>
                 <a
                   href="https://www.youtube.com/@Tathasstu_official"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="YouTube"
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/10 transition hover:bg-white/15"
+                  className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/10 transition hover:bg-white/15"
                 >
-                  <Youtube className="h-5 w-5 text-white" />
+                  <Youtube className="h-4 w-4 text-white" />
                 </a>
                 <a
                   href="https://www.instagram.com/tathasstu_official/"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Instagram"
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/10 transition hover:bg-white/15"
+                  className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/10 transition hover:bg-white/15"
                 >
-                  <Instagram className="h-5 w-5 text-white" />
+                  <Instagram className="h-4 w-4 text-white" />
                 </a>
               </div>
             </div>
 
-            <div className="space-y-4">
-              <div className="text-sm font-extrabold tracking-wide text-white/95">Quick Links</div>
-              <div className="grid grid-cols-2 gap-x-6 gap-y-2 text-sm text-white/85">
+            <div className="space-y-2.5">
+              <div className="text-xs font-extrabold tracking-wide text-white/95 uppercase">Quick Links</div>
+              <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-xs text-white/80">
                 <a href="#" className="hover:text-white">Home</a>
                 <a href="#" className="hover:text-white">Services</a>
                 <a href="#" className="hover:text-white">Courses</a>
@@ -87,9 +88,9 @@ export default function Footer() {
               </div>
             </div>
 
-            <div className="space-y-4">
-              <div className="text-sm font-extrabold tracking-wide text-white/95">Services</div>
-              <div className="grid grid-cols-2 gap-x-6 gap-y-2 text-sm text-white/85">
+            <div className="space-y-2.5">
+              <div className="text-xs font-extrabold tracking-wide text-white/95 uppercase">Services</div>
+              <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-xs text-white/80">
                 <a href="#" className="hover:text-white">Vaastu for Home</a>
                 <a href="#" className="hover:text-white">Vaastu for Offices</a>
                 <a href="#" className="hover:text-white">Vaastu for Factories</a>
@@ -106,10 +107,10 @@ export default function Footer() {
               </div>
             </div>
 
-            <div className="space-y-4">
-              <div className="text-sm font-extrabold tracking-wide text-white/95">Contact</div>
-              <div className="grid gap-2 text-sm text-white/85">
-                <a href="#" className="hover:text-white">About Us</a>
+            <div className="space-y-2.5">
+              <div className="text-xs font-extrabold tracking-wide text-white/95 uppercase">Contact</div>
+              <div className="grid gap-1.5 text-xs text-white/80">
+                <Link to="/about" className="hover:text-white">About Us</Link>
                 <a href="#" className="hover:text-white">Contact Us</a>
                 <a href="#" className="hover:text-white">Classes</a>
                 <a href="#" className="hover:text-white">FAQs</a>
@@ -119,15 +120,15 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="mt-10 border-t border-white/15 pt-6 flex flex-col items-center justify-between gap-4 md:flex-row">
-            <div className="text-xs text-white/70">© {new Date().getFullYear()} Tathaastu. All rights reserved.</div>
+          <div className="mt-5 border-t border-white/15 pt-3.5 flex flex-col items-center justify-between gap-3 md:flex-row">
+            <div className="text-[11px] text-white/65">© {new Date().getFullYear()} Tathaastu. All rights reserved.</div>
             <button
               type="button"
               onClick={scrollToTop}
-              className="flex items-center gap-2 rounded-full bg-white px-5 py-2 text-xs font-extrabold text-[#4E1B6E] shadow-sm hover:bg-white/90"
+              className="flex items-center gap-1.5 rounded-full bg-white px-4 py-1.5 text-[11px] font-extrabold text-[#4E1B6E] shadow-sm hover:bg-white/90"
               aria-label="Back to top"
             >
-              <ArrowUp size={16} />
+              <ArrowUp size={14} />
               Back to Top
             </button>
           </div>
