@@ -1,62 +1,57 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import {
-  Clock,
-  Compass,
-  Flame,
-  Hash,
-  Home,
-  Moon,
-  Phone,
-  ShieldCheck,
-  Sparkles,
-  Star,
-  Sun,
-  Users,
-} from "lucide-react";
+import { Clock, Phone, ShieldCheck, Star, Users } from "lucide-react";
 import SiteNavbar from "../layout/SiteNavbar";
 import Footer from "../layout/Footer";
 import AstroFaqSection from "../components/Home/AstroFaqSection";
 import lotusMandala from "../assets/lotus_mandala.svg";
-import whoImage from "../assets/Srinita_testimonial.jpg";
+import whoImage from "../assets/about/whoweare.svg";
 import whatImage from "../assets/numerologist.png";
+import vedicIcon from "../assets/about/vedic.svg";
+import numerologyIcon from "../assets/about/numerology.svg";
+import homeIcon from "../assets/about/home.svg";
+import tarotIcon from "../assets/about/tarot.svg";
+import poojaIcon from "../assets/about/pooja.svg";
+import healingIcon from "../assets/about/healing.svg";
+import missionBg from "../assets/about/our_mission_bg.svg";
+import visionBg from "../assets/about/our_vission_bg.svg";
 import "./about.css";
 
 const SERVICES = [
   {
-    icon: Compass,
+    icon: vedicIcon,
     title: "Vedic Astrology & Kundli",
-    text: "Personalised kundli insights for life, career, relationships, and the road ahead.",
+    text: "Detailed insights into your life, career, relationships and beyond.",
     to: "/services/vedic-astrology",
   },
   {
-    icon: Hash,
+    icon: numerologyIcon,
     title: "Numerology & Horoscope Matching",
-    text: "Discover the power of numbers and compatibility in relationships.",
+    text: "Discover the power of numbers and find compatibility in relationships.",
     to: "/services/numerologists",
   },
   {
-    icon: Home,
+    icon: homeIcon,
     title: "Home & Office Vastu",
-    text: "Create positive energy and harmony in your space.",
+    text: "Create positive energy and harmony in your spaces.",
     to: "/services/vastu-shastra",
   },
   {
-    icon: Sparkles,
+    icon: tarotIcon,
     title: "Tarot & Spiritual Guidance",
-    text: "Clarity through tarot readings and spiritual sessions.",
+    text: "Get clarity with tarot readings and spiritual solutions.",
     to: "/services/tarot-reading",
   },
   {
-    icon: Flame,
+    icon: poojaIcon,
     title: "Pooja Services",
-    text: "Personalised pujas and rituals for peace, prosperity, and well-being.",
+    text: "Personalised poojas and rituals for peace, prosperity and wellbeing.",
     to: "/services/pooja-services",
   },
   {
-    icon: Sun,
+    icon: healingIcon,
     title: "Healing & Aura Scanning",
-    text: "Energy balancing, aura scanning, and crystal healing.",
+    text: "Healing and aura scanning to restore balance and positivity.",
     to: "/services/aura-healing-scanning",
   },
 ];
@@ -160,8 +155,8 @@ export default function About() {
               right for you.
             </p>
           </div>
-          <div className="about-photo">
-            <img src={whoImage} alt="Astrology guidance at Tathaastu" />
+          <div className="about-photo about-photo--who">
+            <img src={whoImage} alt="Who we are at Tathaastu" />
           </div>
         </div>
       </section>
@@ -219,36 +214,40 @@ export default function About() {
           </div>
 
           <div className="about-services">
-            {SERVICES.map((item) => {
-              const Icon = item.icon;
-              return (
-                <Link key={item.title} to={item.to} className="about-service">
-                  <span className="about-service__icon" aria-hidden="true">
-                    <Icon className="h-5 w-5" />
-                  </span>
+            {SERVICES.map((item) => (
+              <Link key={item.title} to={item.to} className="about-service">
+                <span className="about-service__icon">
+                  <img src={item.icon} alt="" />
+                </span>
+                <span className="about-service__copy">
                   <strong>{item.title}</strong>
                   <p>{item.text}</p>
-                </Link>
-              );
-            })}
+                </span>
+              </Link>
+            ))}
           </div>
 
           <div className="about-purpose">
-            <article className="about-purpose__card">
-              <Sun className="about-purpose__art" aria-hidden="true" />
+            <article
+              className="about-purpose__card"
+              style={{ backgroundImage: `url(${missionBg})` }}
+            >
               <p>Our Mission</p>
               <span>
-                To make authentic, trusted spiritual services and healing more
-                accessible, connecting people with clear, personalised guidance.
+                To make astrology, Vastu, spiritual services and healing more
+                accessible, connecting people with trusted experts and
+                personalised guidance.
               </span>
             </article>
-            <article className="about-purpose__card">
-              <Moon className="about-purpose__art" aria-hidden="true" />
+            <article
+              className="about-purpose__card"
+              style={{ backgroundImage: `url(${visionBg})` }}
+            >
               <p>Our Vision</p>
               <span>
-                To become a trusted sanctuary for astrology, spiritual guidance,
-                and healing, where people find trusted advisors and modern
-                experiences together.
+                To become a trusted destination for astrology, spiritual
+                guidance and holistic wellbeing, bringing traditional wisdom
+                and modern convenience together.
               </span>
             </article>
           </div>

@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import {
   ArrowRight,
   BadgeCheck,
-  BookOpen,
   Briefcase,
   Calendar,
   ChevronLeft,
@@ -46,6 +45,12 @@ import TarotReadingLogo from "../../assets/home_services/tarot-reading.png";
 import NumerologyLogo from "../../assets/home_services/Numerology.png";
 import VastuLogo from "../../assets/home_services/Vastu.png";
 import CrystalHealingLogo from "../../assets/home_services/crystal-healing.png";
+import LoveCategoryIcon from "../../assets/home/Love 2.svg";
+import MarriageCategoryIcon from "../../assets/home/Marriage 2.svg";
+import CareerCategoryIcon from "../../assets/home/career 2.svg";
+import MoneyCategoryIcon from "../../assets/home/Money 2.svg";
+import EducationCategoryIcon from "../../assets/home/education 2.svg";
+import FamilyCategoryIcon from "../../assets/home/family 2.svg";
 import AriesLogo from "../../assets/logo/aries_logo.svg";
 import TaurusLogo from "../../assets/logo/taurus_logo.svg";
 import GeminiLogo from "../../assets/logo/gemini_logo.svg";
@@ -112,12 +117,12 @@ const ASTROLOGERS = [
 ];
 
 const CATEGORIES = [
-  { title: "Love & Relationships", count: "120+ experts", icon: Heart },
-  { title: "Marriage & Compatibility", count: "95+ experts", icon: Users },
-  { title: "Career Decisions", count: "80+ experts", icon: Briefcase },
-  { title: "Money & Wellbeing", count: "70+ experts", icon: Wallet },
-  { title: "Education & Growth", count: "45+ experts", icon: BookOpen },
-  { title: "Family & Personal Life", count: "60+ experts", icon: Users },
+  { title: "Love & Relationships", count: "120+ experts", img: LoveCategoryIcon },
+  { title: "Marriage & Compatibility", count: "95+ experts", img: MarriageCategoryIcon },
+  { title: "Career Decisions", count: "80+ experts", img: CareerCategoryIcon },
+  { title: "Money & Wellbeing", count: "70+ experts", img: MoneyCategoryIcon },
+  { title: "Education & Growth", count: "45+ experts", img: EducationCategoryIcon },
+  { title: "Family & Personal Life", count: "60+ experts", img: FamilyCategoryIcon },
 ];
 
 const TRUST_BADGES = [
@@ -495,15 +500,16 @@ export default function AstroHomePage() {
               subtitle="Browse by the life area you want clarity on."
             />
             <div className="astro-category-grid">
-              {CATEGORIES.map(({ title, count, icon: Icon }) => (
+              {CATEGORIES.map(({ title, count, img }) => (
                 <button key={title} type="button" className="astro-category" onClick={openModal}>
                   <span className="astro-category__icon">
-                    <Icon className="h-5 w-5" />
+                    <img src={img} alt="" />
                   </span>
                   <span className="astro-category__text">
                     <strong>{title}</strong>
                     <em>{count}</em>
                   </span>
+                  <ChevronRight className="astro-category__chevron" aria-hidden="true" />
                 </button>
               ))}
             </div>

@@ -89,35 +89,43 @@ export default function SiteNavbar({ endSlot = null }) {
           aria-label="Main navigation"
         >
           {NAV_MEGA_MENUS.map((menu) => {
-            const isOpen = openMenuId === menu.id;
+            const hasDropdown = menu.items.length > 0;
+            const isOpen = hasDropdown && openMenuId === menu.id;
+            const itemClass = [
+              "inline-flex items-center gap-1 rounded-lg px-2.5 py-2 text-[13px] font-semibold tracking-wide transition-colors xl:px-3 xl:text-sm",
+              isOpen
+                ? "bg-white/70 text-[#D44459]"
+                : "text-[#073349] hover:bg-white/50 hover:text-[#D44459]",
+            ].join(" ");
             return (
               <div
                 key={menu.id}
                 className="relative"
-                onMouseEnter={() => openMenu(menu.id)}
+                onMouseEnter={() => hasDropdown && openMenu(menu.id)}
                 onMouseLeave={scheduleClose}
               >
-                <button
-                  type="button"
-                  className={[
-                    "inline-flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-semibold tracking-wide transition-colors",
-                    isOpen
-                      ? "bg-white/70 text-[#D44459]"
-                      : "text-[#073349] hover:bg-white/50 hover:text-[#D44459]",
-                  ].join(" ")}
-                  aria-expanded={isOpen}
-                  aria-haspopup="true"
-                  onClick={() => setOpenMenuId(isOpen ? null : menu.id)}
-                >
-                  {menu.label}
-                  <ChevronDown
-                    className={`h-3.5 w-3.5 transition-transform ${isOpen ? "rotate-180" : ""}`}
-                  />
-                </button>
+                {hasDropdown ? (
+                  <button
+                    type="button"
+                    className={itemClass}
+                    aria-expanded={isOpen}
+                    aria-haspopup="true"
+                    onClick={() => setOpenMenuId(isOpen ? null : menu.id)}
+                  >
+                    {menu.label}
+                    <ChevronDown
+                      className={`h-3.5 w-3.5 transition-transform ${isOpen ? "rotate-180" : ""}`}
+                    />
+                  </button>
+                ) : (
+                  <Link to={menu.path} className={itemClass}>
+                    {menu.label}
+                  </Link>
+                )}
 
                 {isOpen && (
                   <div
-                    className="absolute left-1/2 top-full z-50 w-64 -translate-x-1/2 pt-3"
+                    className="absolute left-1/2 top-full z-50 w-72 -translate-x-1/2 pt-3"
                     onMouseEnter={() => openMenu(menu.id)}
                     onMouseLeave={scheduleClose}
                   >

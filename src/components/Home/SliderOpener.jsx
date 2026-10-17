@@ -8,7 +8,7 @@ import { NAV_MEGA_MENUS } from "../../data/navMegaMenu";
  */
 export default function SliderOpener({ variant = "light" }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [expandedId, setExpandedId] = useState("consult");
+  const [expandedId, setExpandedId] = useState("services");
   const navigate = useNavigate();
 
   const closeSlider = () => setIsOpen(false);
@@ -57,17 +57,24 @@ export default function SliderOpener({ variant = "light" }) {
         </div>
 
         <nav className="h-[calc(100%-4.5rem)] overflow-y-auto p-4">
-          <button
-            type="button"
-            onClick={() => handleNavigation("/")}
-            className="mb-3 w-full rounded-xl bg-[#073349] px-4 py-3 text-left text-sm font-bold text-white"
-          >
-            Home
-          </button>
-
           <ul className="space-y-2">
             {NAV_MEGA_MENUS.map((menu) => {
-              const expanded = expandedId === menu.id;
+              const hasDropdown = menu.items.length > 0;
+              const expanded = hasDropdown && expandedId === menu.id;
+              if (!hasDropdown) {
+                return (
+                  <li key={menu.id}>
+                    <button
+                      type="button"
+                      onClick={() => handleNavigation(menu.path)}
+                      className="w-full rounded-xl px-4 py-3 text-left text-sm font-bold uppercase tracking-wide"
+                      style={{ background: menu.tint, color: menu.accent }}
+                    >
+                      {menu.label}
+                    </button>
+                  </li>
+                );
+              }
               return (
                 <li
                   key={menu.id}
